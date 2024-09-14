@@ -5,24 +5,25 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.example</groupId>
-  <artifactId>CAB302-SimpleStock</artifactId>
+  <artifactId>simplestock</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>CAB302-SimpleStock</name>
+  <name>simplestock</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<junit.version>5.10.0</junit.version>  </properties>
+    <junit.version>5.10.0</junit.version>
+  </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>21</version>
+      <version>17.0.6</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>21</version>
+      <version>17.0.6</version>
     </dependency>
 
     <dependency>
@@ -37,7 +38,6 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -47,8 +47,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
         <configuration>
-          <source>21</source>
-          <target>21</target>
+          <source>17</source>
+          <target>17</target>
         </configuration>
       </plugin>
       <plugin>
@@ -60,7 +60,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.example.cab302simplestock/com.example.cab302simplestock.SimpleStockApplication</mainClass>
+              <mainClass>com.example.cab302simplestock/com.example.cab302simplestock.HelloApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
