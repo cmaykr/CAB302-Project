@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302simplestock.controller.ViewCategoryController">
+   <children>
+      <Text layoutX="34.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Viewing Category {CATEGORY}" />
+      <Button layoutX="317.0" layoutY="29.0" mnemonicParsing="false" text="Add item" />
+      <Button layoutX="420.0" layoutY="30.0" mnemonicParsing="false" text="Log Out" />
+      <TextField layoutX="156.0" layoutY="115.0" text="Search" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="70.0" layoutX="114.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="70.0" layoutX="210.0" layoutY="198.0" stroke="BLACK" strokeType="INSIDE" width="69.0" />
+   </children>
+</AnchorPane>

@@ -10,6 +10,20 @@ unit testing: git commits run through unit testing
 
 
 build & test script
+
+
+Home Page:
+    - List all the user's inventories
+        ^ create mock list of inventories for testing
+    - Create functionality for adding a category
+    - Improve UI, add images, colour, show the username instead of {USER}
+
+View Category:
+    - List all items
+        ^ use a list of mock items
+    - Implement search to filter items
+
+
  */
 
 
