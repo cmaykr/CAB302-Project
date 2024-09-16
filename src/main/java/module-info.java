@@ -6,4 +6,5 @@ module com.example.cab302simplestock {
 
     opens com.example.cab302simplestock.controller to javafx.fxml;
     exports com.example.cab302simplestock;
+    exports com.example.cab302simplestock.model;
 }

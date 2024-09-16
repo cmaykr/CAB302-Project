@@ -1,6 +1,6 @@
 package com.example.cab302simplestock.model;
 
-public class Category {
+public class List {
     /*
     name
     items
