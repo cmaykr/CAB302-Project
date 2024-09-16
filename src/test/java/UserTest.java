@@ -1,4 +1,3 @@
-
 import com.example.cab302simplestock.model.User;
 import org.junit.jupiter.api.*;
 
@@ -17,7 +16,7 @@ public class UserTest {
     }
 
     @Test
-    void testCreateUser() {
+    void testConstructor() {
         String firstName = "John";
         String lastName = "Smith";
         String email = "J.Smith@mail.com";
