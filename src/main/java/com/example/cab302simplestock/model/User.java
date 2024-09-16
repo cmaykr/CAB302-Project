@@ -1,14 +1,17 @@
 package com.example.cab302simplestock.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class User {
+    String uID; // FIXME should be set by the database
     String firstName;
     String lastName;
     String email;
     String password; // Only stores the hashed password, security?
 
     public User(String firstName, String lastName, String email, String password) {
+        this.uID = UUID.randomUUID().toString();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -46,6 +49,11 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getID()
+    {
+        return uID;
     }
     /*
     username

@@ -2,6 +2,9 @@ import com.example.cab302simplestock.model.User;
 import org.junit.jupiter.api.*;
 
 import java.util.Objects;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class UserTest {
     User user;
@@ -56,5 +59,11 @@ public class UserTest {
         String newPassword = "54321";
         user.setPassword(newPassword);
         assert(user.checkPassword(newPassword));
+    }
+
+    @Test
+    void testUserID()
+    {
+        assertDoesNotThrow(() -> UUID.fromString(user.getID()));
     }
 }

@@ -1,7 +1,11 @@
 import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.example.cab302simplestock.model.Item;
+
+import java.util.UUID;
 
 public class ItemTest {
     Item item;
@@ -83,5 +87,22 @@ public class ItemTest {
     void testSetTypeName() {
         item.setTypeName("Boot");
         assertEquals("Boot", item.getTypeName());
+    }
+
+    @Test
+    void testGetValue() {
+        assertEquals(30, item.getValue());
+    }
+
+    @Test
+    void testSetValue() {
+        item.setValue(24);
+        assertEquals(24, item.getValue());
+    }
+
+    @Test
+    void testItemID()
+    {
+        assertDoesNotThrow(() -> UUID.fromString(item.getID()));
     }
 }
