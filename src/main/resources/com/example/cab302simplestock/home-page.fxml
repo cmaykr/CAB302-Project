@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302simplestock.controller.HomePageController">
+   <children>
+      <Text fx:id="welcomeText" layoutX="41.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Text>
+
+      <VBox fx:id="groupButtonBox" layoutX="73.0" layoutY="100.0" spacing="10.0" />
+
+      <Button fx:id="addGroup" onAction="#onAddGroupClick" layoutX="307.0" layoutY="150.0" mnemonicParsing="false" text="Add Group" />
+   </children>
+</AnchorPane>
