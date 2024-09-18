@@ -3,6 +3,7 @@ module org.example.simplestock {
     requires javafx.fxml;
     requires java.sql;
     requires jdk.compiler;
+    requires java.desktop;
 
 
     opens org.example.simplestock to javafx.fxml;

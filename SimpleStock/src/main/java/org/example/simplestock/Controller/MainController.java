@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import org.example.simplestock.Model.IProductDAO;
 import org.example.simplestock.Model.Product;
 
+import javax.swing.*;
+
 public class MainController {
     @FXML
     private TextField prodcutNameTextField;
@@ -84,6 +86,7 @@ public class MainController {
     @FXML
     private void onEditConfirm(){
         //Get the selected product from the list view
+        JColorChooser ProductsListView;
         Product selectedProduct = ProductsListView.getSelectionModel().getSelectedItem();
         if(selectProduct !=null){
             selectedProduct.setProductName(prodcutNameTextField.getText());

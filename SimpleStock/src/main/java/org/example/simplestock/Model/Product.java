@@ -31,5 +31,42 @@ public class Product {
     public String getProductName(){
         return productName;
     }
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+    public String getProductType(){
+    return productType;
+    }
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+    public String getProductDescription(){
+        return Description;
+    }
+    public void setProductDescription(String Description) {
+        this.Description = Description;
+    }
 
+    public void setProductLocation(String location) {
+        this.Location = location;
+    }
+    public String getProductLocation(){
+        return Location;
+    }
+    public int productQuantity(){
+        return Quantity;
+    }
+    public void setProductQuantity(int Quantity) {
+    this.Quantity = Quantity;
+    }
+    public void setProductInsured(String insured) {
+        this.insured = insured;
+    }
+    public String getProductInsured(){
+        return insured;
+    }
+
+    public void setProductPrice(int price) {
+        this.Price = price;
+    }
 }
