@@ -2,7 +2,7 @@ package com.example.cab302simplestock.model;
 
 public class Group {
     String groupName;
-    String ownerID;
+    int ownerID;
 
     public Group(String groupName, User groupOwner)
     {
@@ -18,7 +18,7 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public String getOwnerID() {
+    public int getOwnerID() {
         return ownerID;
     }
 

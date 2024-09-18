@@ -1,4 +1,4 @@
-import com.example.cab302simplestock.model.User;
+import com.example.cab302simplestock.model.Item;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,12 +6,12 @@ import com.example.cab302simplestock.model.Photo;
 
 public class PhotoTest {
     Photo photo;
-    User user;
+    Item item;
 
     @BeforeEach
     void setUp() {
-        user = new User("John", "Smith", "Smith@mail.com", "12345");
-        photo = new Photo("shoe.png", user);
+        item = new Item("Nike Shoe", "2022-09-16", 50, 30, "Test descript", "Home inventory", "shoe");
+        photo = new Photo("shoe.png", item);
     }
 
     @Test
@@ -27,12 +27,12 @@ public class PhotoTest {
 
     @Test
     void testGetItemID() {
-        assertEquals(user.getID(), photo.getItemID());
+        assertEquals(item.getID(), photo.getItemID());
     }
 
     @Test
     void testSetItemID() {
-        User newUser = new User("Erik", "John", "john@mail.com", "54321");
+        Item newUser = new Item("Adidas Shoe", "2022-09-16", 50, 30, "Test descript", "Home inventory", "shoe");
         photo.setItemID(newUser);
         assertEquals(newUser.getID(), photo.getItemID());
     }

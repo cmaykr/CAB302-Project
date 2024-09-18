@@ -99,10 +99,4 @@ public class ItemTest {
         item.setValue(24);
         assertEquals(24, item.getValue());
     }
-
-    @Test
-    void testItemID()
-    {
-        assertDoesNotThrow(() -> UUID.fromString(item.getID()));
-    }
 }

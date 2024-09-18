@@ -60,10 +60,4 @@ public class UserTest {
         user.setPassword(newPassword);
         assert(user.checkPassword(newPassword));
     }
-
-    @Test
-    void testUserID()
-    {
-        assertDoesNotThrow(() -> UUID.fromString(user.getID()));
-    }
 }

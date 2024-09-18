@@ -2,11 +2,11 @@ package com.example.cab302simplestock.model;
 
 public class Photo {
     String imageName;
-    String itemID;
+    int itemID;
 
-    public Photo(String imageName, User user) {
+    public Photo(String imageName, Item item) {
         this.imageName = imageName;
-        this.itemID = user.getID();
+        this.itemID = item.getID();
     }
 
     public String getImageName() {
@@ -17,11 +17,11 @@ public class Photo {
         this.imageName = imageName;
     }
 
-    public String getItemID() {
+    public int getItemID() {
         return itemID;
     }
 
-    public void setItemID(User newUser) {
-        this.itemID = newUser.getID();
+    public void setItemID(Item newItem) {
+        this.itemID = newItem.getID();
     }
 }

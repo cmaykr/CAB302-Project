@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class Item {
-    String itemID;
+    int itemID;
     String itemName;
     LocalDate purchaseDate;
     double purchasePrice;
@@ -15,7 +15,6 @@ public class Item {
     String typeName;
 
     public Item(String itemName, String purchaseDate, double purchasePrice, double value, String description, String listName, String typeName) {
-        this.itemID = UUID.randomUUID().toString();
         this.itemName = itemName;
         this.purchaseDate = LocalDate.parse(purchaseDate);
         this.purchasePrice = purchasePrice;
@@ -81,7 +80,7 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public String getID() {
+    public int getID() {
         return itemID;
     }
 
