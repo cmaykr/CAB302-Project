@@ -36,12 +36,11 @@ public class SqliteUserDAO implements IUserDAO{
     @Override
     public void addUser(User user) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (firstName, lastName, email, hashedPassword, id) VALUES (?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO users (firstName, lastName, email, hashedPassword) VALUES (?, ?, ?, ?)");
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getHashedPassword());
-            statement.setInt(5, user.getID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

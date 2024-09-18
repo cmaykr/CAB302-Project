@@ -37,12 +37,12 @@ public class LoginController {
         mockLogin();
     }
 
-    public void onCreateAccount() {
+    public void onCreateAccount() throws IOException {
         // TODO: Go to create an account page.
-        //Stage stage = (Stage) createAccountButton.getScene().getWindow();
-        //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("createAccountPage.fxml"));
-        //Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
-        //stage.setScene(scene);
+        Stage stage = (Stage) createAccountButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("registration-page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        stage.setScene(scene);
     }
 
     // mock login, get rid of later
