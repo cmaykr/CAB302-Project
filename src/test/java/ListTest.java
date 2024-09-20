@@ -13,13 +13,13 @@ public class ListTest {
 
     @Test
     void testGetListName() {
-        assertEquals("To buy", list.getListName());
+        assertEquals("To buy", list.getCategoryName());
     }
 
     @Test
     void testSetListName() {
-        list.setListName("Bought items");
-        assertEquals("Bought items", list.getListName());
+        list.setCategoryName("Bought items");
+        assertEquals("Bought items", list.getCategoryName());
     }
 
     @Test
