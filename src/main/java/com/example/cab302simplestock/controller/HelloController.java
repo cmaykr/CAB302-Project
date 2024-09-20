@@ -61,7 +61,8 @@ public class HelloController {
     @FXML
     protected void onNextButtonClick() throws IOException {
         Stage stage = (Stage)nextButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loginPage.fxml"));
+        // once accepting terms and conditions, it should take you to the login page. After logging in, then go to the home page. after clicking on a group, go to the search view.
         Scene scene = new Scene(fxmlLoader.load(),HelloApplication.WIDTH,HelloApplication.HEIGHT);
         stage.setScene(scene);
     }

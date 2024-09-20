@@ -38,7 +38,8 @@ public class HomePageController {
             Button groupButton = new Button(group);
             groupButton.setOnAction(event -> {
                 try {
-                    handleGroupClick(group);
+                    System.out.println(group);
+                    handleGroupClick();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -49,16 +50,16 @@ public class HomePageController {
     }
 
     // Handle click on group buttons
-    private void handleGroupClick(String groupName) throws IOException {
-        System.out.println("Clicked on: " + groupName);
+    private void handleGroupClick() throws IOException {
+        System.out.println("Clicked on group");
 
         // Load the new view
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("view-group.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         // Get the controller of the new view
-        ViewGroupController controller = fxmlLoader.getController();
+        // ViewGroupController controller = fxmlLoader.getController();
         // Pass the group name to the new view
-        controller.setGroupName(groupName);
+        // controller.setGroupName(groupName);
         // Set the new scene
         Stage stage = (Stage) addGroup.getScene().getWindow();
         stage.setScene(scene);
@@ -67,7 +68,7 @@ public class HomePageController {
     @FXML
     protected void onAddGroupClick() throws IOException {
         Stage stage = (Stage) addGroup.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("view-group.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
