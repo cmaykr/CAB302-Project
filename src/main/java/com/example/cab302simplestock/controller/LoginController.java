@@ -1,6 +1,6 @@
 package com.example.cab302simplestock.controller;
 
-import com.example.cab302simplestock.HelloApplication;
+import com.example.cab302simplestock.SimpleStock;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -51,8 +51,8 @@ public class LoginController {
 
         try {
             Stage stage = (Stage) username.getScene().getWindow(); // Get current stage
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("home-page.fxml")); // Load the FXML for the home page
-            Scene homeScene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+            FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("home-page.fxml")); // Load the FXML for the home page
+            Scene homeScene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
 
             // Show home page
             stage.setScene(homeScene);

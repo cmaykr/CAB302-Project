@@ -5,11 +5,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-/*
-things i will do tonight
-- interact with DB
- */
-
 public class SimpleStock extends Application {
     // Constants defining the window title and size
     public static final String TITLE = "Simple Stock";
@@ -18,7 +13,7 @@ public class SimpleStock extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loginPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("loginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
         stage.setTitle(TITLE);
         stage.setScene(scene);
