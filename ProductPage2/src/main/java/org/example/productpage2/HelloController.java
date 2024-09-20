@@ -53,10 +53,6 @@ public class HelloController {
     }
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to the Address Book Application!");
-    }
-    @FXML
     protected void onAgreeCheckBoxClick(){
         boolean accepted = agreeCheckBox.isSelected();
         nextButton.setDisable(!accepted);
@@ -64,7 +60,7 @@ public class HelloController {
     @FXML
     protected void onNextButtonClick() throws IOException {
         Stage stage = (Stage)nextButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),HelloApplication.WIDTH,HelloApplication.HEIGHT);
         stage.setScene(scene);
     }

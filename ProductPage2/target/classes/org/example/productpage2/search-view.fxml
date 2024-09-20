@@ -8,21 +8,37 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Insets?>
-<?xml version="1.0" encoding="UTF-8"?>
-
-<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.productpage2.SearchController" hgap="10" vgap="10">
-    <!-- Remove incorrect padding declaration -->
-    <!-- Correct padding for GridPane -->
+<?import javafx.scene.shape.Rectangle?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.productpage2.SearchController">
     <padding>
         <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
     </padding>
 
-    <!-- Search Bar at the top -->
-    <TextField fx:id="searchBar" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1" promptText="Search..." prefWidth="400" />
 
-    <!-- Buttons in the top right corner -->
-    <HBox alignment="TOP_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="10">
-        <Button text="Logout" fx:id="logoutButton" />
-        <Button text="Add Items" fx:id="addItemsButton" />
-    </HBox>
-</GridPane>
+    <!-- Search Bar at the top -->
+    <top>
+        <HBox spacing="10" alignment="CENTER">
+            <!-- Back button on the left -->
+            <Button text="Back" fx:id="backButton" onAction="#backButtonClick" />
+
+            <!-- Spacer to push the right-side buttons to the far right -->
+            <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
+
+            <!-- Buttons on the right -->
+            <Button text="Add Items" fx:id="addItemsButton" onAction="#addItemsButton" />
+            <Button text="View List Items" fx:id="viewItemsButton" onAction="#viewItem"/>
+            <Button text="Logout" fx:id="logoutButton" />
+        </HBox>
+    </top>
+
+    <!-- Body (Center Section) with the Search Bar -->
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <TextField fx:id="searchBar" promptText="Search..." prefWidth="400" />
+            <ListView fx:id = "recentItemsListView" prefHeight = "200"/>
+        </VBox>
+    </center>
+
+
+
+</BorderPane>
