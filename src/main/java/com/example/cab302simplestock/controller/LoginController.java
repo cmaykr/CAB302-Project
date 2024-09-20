@@ -1,6 +1,6 @@
 package com.example.cab302simplestock.controller;
 
-import com.example.cab302simplestock.HelloApplication;
+import com.example.cab302simplestock.SimpleStock;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginController {
 
@@ -26,11 +28,13 @@ public class LoginController {
         // TODO: Implement method to reset password.
     }
 
+    @FXML
     public void onSubmit() {
         System.out.println(username.getText());
         System.out.println(password.getText());
 
         // TODO: Implement method to login when submit button is pressed and get to homepage.
+        mockLogin();
     }
 
     public void onCreateAccount() {
@@ -39,5 +43,22 @@ public class LoginController {
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("createAccountPage.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
         //stage.setScene(scene);
+    }
+
+    // mock login, get rid of later
+    public void mockLogin() {
+        // Load home page
+
+        try {
+            Stage stage = (Stage) username.getScene().getWindow(); // Get current stage
+            FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("home-page.fxml")); // Load the FXML for the home page
+            Scene homeScene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
+
+            // Show home page
+            stage.setScene(homeScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
