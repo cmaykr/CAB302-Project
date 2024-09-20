@@ -10,7 +10,5 @@ public interface IUserDAO {
 
     public void deleteUser(User user);
 
-    public User getUser(String firstName, String lastName);
-
     public List<User> getAllUsers();
 }

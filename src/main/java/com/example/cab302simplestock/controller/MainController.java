@@ -1,159 +1,161 @@
-package com.example.cab302simplestock.controller;
-import com.example.cab302simplestock.model.SqliteContactDAO;
-import com.example.cab302simplestock.model.Contact;
-import com.example.cab302simplestock.model.IContactDAO;
+package org.example.productpage.controller;
+
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.DatePicker;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import org.example.productpage.model.IProductDAO;
+import org.example.productpage.model.Product;
+import org.example.productpage.model.SqliteProductDAO;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-//import com.example.cab302simplestock.model.MockContactDAO;
+
+import java.util.Date;
 import java.util.List;
 
 public class MainController {
-
     @FXML
-    private ListView<Contact> contactsListView;
-    private IContactDAO contactDAO;
+    private ListView<Product> productsListView;
+    private IProductDAO productDAO;
     @FXML
-    private TextField firstNameTextField;
+    private TextField productNameTextField;
     @FXML
-    private TextField lastNameTextField;
+    private TextField productTypeTextField;
     @FXML
-    private TextField emailTextField;
+    private TextField productDescriptionTextField;
     @FXML
-    private TextField phoneTextField;
+    private TextField productLocationTextField;
     @FXML
-    private VBox contactContainer;
+    private TextField quantityTextField;
+    @FXML
+    private TextField insuredField;
+    @FXML
+    private TextField priceTextField;
+    @FXML
+    private DatePicker dateField;
 
     public MainController() {
-        contactDAO = new SqliteContactDAO();
-    }
-
-    /**
-     * Programmatically selects a contact in the list view and
-     * updates the text fields with the contact's information.
-     * @param contact The contact to select.
-     */
-    private void selectContact(Contact contact) {
-        contactsListView.getSelectionModel().select(contact);
-        firstNameTextField.setText(contact.getFirstName());
-        lastNameTextField.setText(contact.getLastName());
-        emailTextField.setText(contact.getEmail());
-        phoneTextField.setText(contact.getPhone());
-    }
-
-    /**
-     * Renders a cell in the contacts list view by setting the text to the contact's full name.
-     * @param contactListView The list view to render the cell for.
-     * @return The rendered cell.
-     */
-    private ListCell<Contact> renderCell(ListView<Contact> contactListView) {
-        return new ListCell<>() {
-            /**
-             * Handles the event when a contact is selected in the list view.
-             * @param mouseEvent The event to handle.
-             */
-            private void onContactSelected(MouseEvent mouseEvent) {
-                ListCell<Contact> clickedCell = (ListCell<Contact>) mouseEvent.getSource();
-                // Get the selected contact from the list view
-                Contact selectedContact = clickedCell.getItem();
-                if (selectedContact != null) selectContact(selectedContact);
-            }
-
-            /**
-             * Updates the item in the cell by setting the text to the contact's full name.
-             * @param contact The contact to update the cell with.
-             * @param empty Whether the cell is empty.
-             */
-            @Override
-            protected void updateItem(Contact contact, boolean empty) {
-                super.updateItem(contact, empty);
-                // If the cell is empty, set the text to null, otherwise set it to the contact's full name
-                if (empty || contact == null || contact.getFullName() == null) {
-                    setText(null);
-                    super.setOnMouseClicked(this::onContactSelected);
-                } else {
-                    setText(contact.getFullName());
-                }
-            }
-        };
-    }
-
-    /**
-     * Synchronizes the contacts list view with the contacts in the database.
-     */
-    private void syncContacts() {
-        contactsListView.getItems().clear();
-        List<Contact> contacts = contactDAO.getAllContacts();
-        boolean hasContact = !contacts.isEmpty();
-        if (hasContact) {
-            contactsListView.getItems().addAll(contacts);
-        }
-        // Show / hide based on whether there are contacts
-        contactContainer.setVisible(hasContact);
-    }
-
-    @FXML
-    public void initialize() {
-        contactsListView.setCellFactory(this::renderCell);
-        syncContacts();
-        // Select the first contact and display its information
-        contactsListView.getSelectionModel().selectFirst();
-        Contact firstContact = contactsListView.getSelectionModel().getSelectedItem();
-        if (firstContact != null) {
-            selectContact(firstContact);
-        }
+        productDAO = new SqliteProductDAO();
     }
 
     @FXML
     private void onEditConfirm() {
-        // Get the selected contact from the list view
-        Contact selectedContact = contactsListView.getSelectionModel().getSelectedItem();
-        if (selectedContact != null) {
-            selectedContact.setFirstName(firstNameTextField.getText());
-            selectedContact.setLastName(lastNameTextField.getText());
-            selectedContact.setEmail(emailTextField.getText());
-            selectedContact.setPhone(phoneTextField.getText());
-            contactDAO.updateContact(selectedContact);
-            syncContacts();
+        Product selectedProduct = productsListView.getSelectionModel().getSelectedItem();
+        if (selectedProduct != null) {
+            selectedProduct.setProductName(productNameTextField.getText());
+            selectedProduct.setProductType(productTypeTextField.getText());
+            selectedProduct.setProductDescription(productDescriptionTextField.getText());
+            selectedProduct.setProductLocation(productLocationTextField.getText());
+
+            try {
+                selectedProduct.setQuantity(Integer.parseInt(quantityTextField.getText()));
+                selectedProduct.setPrice(Integer.parseInt(priceTextField.getText()));
+            } catch (NumberFormatException e) {
+                // Handle invalid input for quantity or price
+                System.out.println("Invalid input for quantity or price");
+                return;
+            }
+
+            selectedProduct.setInsured(insuredField.getText());
+            productDAO.updateProduct(selectedProduct);
+            syncProducts();
+        }
+    }
+
+    private void selectedProduct(Product product) {
+        productsListView.getSelectionModel().select(product);
+        productNameTextField.setText(product.getProductName());
+        productTypeTextField.setText(product.getProductType());
+        productDescriptionTextField.setText(product.getProductDescription());
+        productLocationTextField.setText(product.getProductLocation());
+        quantityTextField.setText(String.valueOf(product.getQuantity()));
+        insuredField.setText(product.getInsured());
+        priceTextField.setText(String.valueOf(product.getPrice()));
+    }
+
+    private ListCell<Product> renderCell(ListView<Product> productListView) {
+        return new ListCell<>() {
+            @Override
+            protected void updateItem(Product product, boolean empty) {
+                super.updateItem(product, empty);
+                if (empty || product == null || product.getProductName() == null) {
+                    setText(null);
+                    setOnMouseClicked(null);
+                } else {
+                    setText(product.getProductName());
+                    setOnMouseClicked(this::onProductSelected);
+                }
+            }
+
+            private void onProductSelected(MouseEvent mouseEvent) {
+                Product selectedProduct = getItem();
+                if (selectedProduct != null) selectedProduct(selectedProduct);
+            }
+        };
+    }
+
+    @FXML
+    private void syncProducts() {
+        productsListView.getItems().clear();
+        List<Product> products = productDAO.getAllProducts();
+        if (!products.isEmpty()) {
+            productsListView.getItems().addAll(products);
+        }
+    }
+
+    @FXML
+    public void initialize() {
+        productsListView.setCellFactory(this::renderCell);
+        syncProducts();
+        productsListView.getSelectionModel().selectFirst();
+        Product firstProduct = productsListView.getSelectionModel().getSelectedItem();
+        if (firstProduct != null) {
+            selectedProduct(firstProduct);
         }
     }
 
     @FXML
     private void onDelete() {
-        // Get the selected contact from the list view
-        Contact selectedContact = contactsListView.getSelectionModel().getSelectedItem();
-        if (selectedContact != null) {
-            contactDAO.deleteContact(selectedContact);
-            syncContacts();
+        Product selectedProduct = productsListView.getSelectionModel().getSelectedItem();
+        if (selectedProduct != null) {
+            productDAO.deleteProduct(selectedProduct);
+            syncProducts();
         }
     }
 
     @FXML
     private void onAdd() {
-        // Default values for a new contact
-        final String DEFAULT_FIRST_NAME = "New";
-        final String DEFAULT_LAST_NAME = "Contact";
-        final String DEFAULT_EMAIL = "";
-        final String DEFAULT_PHONE = "";
-        Contact newContact = new Contact(DEFAULT_FIRST_NAME, DEFAULT_LAST_NAME, DEFAULT_EMAIL, DEFAULT_PHONE);
-        // Add the new contact to the database
-        contactDAO.addContact(newContact);
-        syncContacts();
-        // Select the new contact in the list view
-        // and focus the first name text field
-        selectContact(newContact);
-        firstNameTextField.requestFocus();
+        final String DEFAULT_PRODUCT_NAME = "NEW";
+        final String DEFAULT_PRODUCT_TYPE = "SHOES";
+        final String DEFAULT_PRODUCT_DESCRIPTION = "BEST SHOES";
+        final String DEFAULT_PRODUCT_LOCATION = "";
+        final Integer DEFAULT_PRODUCT_QUANTITY = 0;
+        final String DEFAULT_PRODUCT_INSURED = "";
+        final Integer DEFAULT_PRODUCT_PRICE = 0;
+        final Date DEFAULT_PRODUCT_DATE = new Date();  // Using current date as default
+
+        Product newProduct = new Product(
+                DEFAULT_PRODUCT_NAME,
+                DEFAULT_PRODUCT_TYPE,
+                DEFAULT_PRODUCT_DESCRIPTION,
+                DEFAULT_PRODUCT_LOCATION,
+                DEFAULT_PRODUCT_QUANTITY,
+                DEFAULT_PRODUCT_DATE,
+                DEFAULT_PRODUCT_INSURED,
+                DEFAULT_PRODUCT_PRICE
+        );
+
+        productDAO.addProduct(newProduct);
+        syncProducts();
+        selectedProduct(newProduct);
+        productNameTextField.requestFocus();
     }
 
     @FXML
     private void onCancel() {
-        // Find the selected contact
-        Contact selectedContact = contactsListView.getSelectionModel().getSelectedItem();
-        if (selectedContact != null) {
-            // Since the contact hasn't been modified,
-            // we can just re-select it to refresh the text fields
-            selectContact(selectedContact);
+        Product selectedProduct = productsListView.getSelectionModel().getSelectedItem();
+        if (selectedProduct != null) {
+            selectedProduct(selectedProduct);
         }
     }
 }

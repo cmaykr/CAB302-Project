@@ -10,7 +10,5 @@ public interface ITypeDAO {
 
     public void deleteType(Type type);
 
-    public Type getType(String typeName);
-
     public List<Type> getAllTypes();
 }
