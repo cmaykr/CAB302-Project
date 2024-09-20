@@ -1,6 +1,5 @@
-package com.example.cab302simplestock.controller;
+package org.example.productpage2;
 
-import com.example.cab302simplestock.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,7 +17,7 @@ public class MainController {
     protected void addItemsButton() throws IOException {
         Stage stage = (Stage)addItemsButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH,HelloApplication.HEIGHT);
+        Scene scene = new Scene(fxmlLoader.load(),HelloApplication.WIDTH,HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
     @FXML
