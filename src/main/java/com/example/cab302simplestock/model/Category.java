@@ -1,10 +1,10 @@
 package com.example.cab302simplestock.model;
 
-public class List {
+public class Category {
     String listName;
     String groupName;
 
-    public List(String listName, String groupName) {
+    public Category(String listName, String groupName) {
         this.listName = listName;
         this.groupName = groupName;
     }
