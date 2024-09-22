@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Rectangle?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.productpage2.MainController">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+
+    <!-- Header section -->
+    <top>
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Back" fx:id="backButton" onAction="#backButtonClick" />
+            <Region HBox.hgrow="ALWAYS" /> <!-- Spacer -->
+            <Button text="Add Items" fx:id="addItemsButton" onAction="#addItemsButton" />
+            <Button text="View List Items" fx:id="ViewItemsButton" />
+            <Button text="Logout" fx:id="logoutButton" />
+        </HBox>
+    </top>
+
+    <!-- Center section for the form -->
+    <center>
+        <GridPane hgap="10" vgap="10">
+            <Label text="Product Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="productNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="300" promptText="e.g. Seats, chairs"/>
+
+            <Label text="Product Type:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="productTypeTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="300" promptText="e.g. Furniture"/>
+
+            <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="productDescriptionTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="300" promptText="Expensive Item"/>
+
+            <Label text="Location:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="productLocationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="300" promptText="e.g. Garage"/>
+
+            <Label text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextField fx:id="productQuantityTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="300" promptText="e.g. 2"/>
+
+            <Label text="Purchase Date:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <TextField fx:id="productPurchaseDateTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="300" promptText="YYYY-MM-DD"/>
+
+            <Label text="Insured:" GridPane.columnIndex="0" GridPane.rowIndex="6" style="-fx-padding: 0; -fx-margin: 0;" />
+            <HBox GridPane.columnIndex="1" GridPane.rowIndex="6" spacing="10">
+                <RadioButton fx:id="insuredRadioButton" text="YES" />
+                <RadioButton fx:id="notInsuredRadioButton" text="NO" />
+            </HBox>
+
+            <Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+            <TextField fx:id="productPriceTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" prefWidth="300" promptText="e.g. $"/>
+        </GridPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="10.0" alignment="CENTER">
+            <Button text="Add to List" />
+            <Button text="View Your List" />
+        </HBox>
+    </bottom>
+</BorderPane>
+
+

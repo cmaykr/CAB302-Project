@@ -3,9 +3,11 @@ module com.example.cab302simplestock {
     requires javafx.fxml;
     requires java.sql;
     requires java.smartcardio;
+    requires org.xerial.sqlitejdbc;
 
 
     opens com.example.cab302simplestock.controller to javafx.fxml;
     exports com.example.cab302simplestock;
     exports com.example.cab302simplestock.model;
+    exports com.example.cab302simplestock.controller;
 }
