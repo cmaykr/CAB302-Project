@@ -13,8 +13,10 @@ public class Item {
     String description;
     String listName;
     String typeName;
+    String location;
+    boolean insured;
 
-    public Item(String itemName, String purchaseDate, double purchasePrice, double value, String description, String listName, String typeName) {
+    public Item(String itemName, String purchaseDate, double purchasePrice, double value, String description, String listName, String typeName, String location, boolean insured) {
         this.itemName = itemName;
         this.purchaseDate = LocalDate.parse(purchaseDate);
         this.purchasePrice = purchasePrice;
@@ -22,6 +24,8 @@ public class Item {
         this.description = description;
         this.listName = listName;
         this.typeName = typeName;
+        this.location = location;
+        this.insured = insured;
     }
 
     public String getTypeName() {
@@ -82,6 +86,22 @@ public class Item {
 
     public int getID() {
         return itemID;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String newLoc) {
+        location = newLoc;
+    }
+
+    public boolean getInsured() {
+        return insured;
+    }
+
+    public void setInsured(boolean newInsured) {
+        insured = newInsured;
     }
 
     /*

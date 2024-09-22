@@ -1,11 +1,10 @@
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.example.cab302simplestock.model.Item;
 
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ItemTest {
     Item item;
@@ -19,8 +18,10 @@ public class ItemTest {
         String description = "A white shoe with the Nike logo on it, worn a little";
         String listName = "Owned items";
         String typeName = "Shoe"; // TODO: Enum?
+        String location = "Garage";
+        boolean insured = true;
 
-        item = new Item(itemName, purchaseDate, purchasePrice, value, description, listName, typeName);
+        item = new Item(itemName, purchaseDate, purchasePrice, value, description, listName, typeName, location, insured);
     }
 
     @Test
@@ -98,5 +99,27 @@ public class ItemTest {
     void testSetValue() {
         item.setValue(24);
         assertEquals(24, item.getValue());
+    }
+
+    @Test
+    void testGetLocation() {
+        assertEquals("Garage", item.getLocation());
+    }
+
+    @Test
+    void testSetLocation() {
+        item.setLocation("Living room");
+        assertEquals("Living room", item.getLocation());
+    }
+
+    @Test
+    void testGetInsured() {
+        assertTrue(item.getInsured());
+    }
+
+    @Test
+    void testSetInsured() {
+        item.setInsured(false);
+        assertFalse(item.getInsured());
     }
 }
