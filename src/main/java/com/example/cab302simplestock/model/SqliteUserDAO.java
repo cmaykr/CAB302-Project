@@ -74,27 +74,6 @@ public class SqliteUserDAO implements IUserDAO{
         }
     }
 
-    @Override
-    public User getUser(String firstName, String lastName) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE firstName = ? AND lastName = ?");
-            statement.setString(1, firstName);
-            statement.setString(2, lastName);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                String firstFoundName = resultSet.getString("firstName");
-                String lastFoundName = resultSet.getString("lastName");
-                String email = resultSet.getString("email");
-                String password = resultSet.getString("hashedPassword");
-                User user = new User(firstFoundName, lastFoundName, email, password);
-                user.setID(resultSet.getInt("id"));
-                return user;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     @Override
     public List<User> getAllUsers() {

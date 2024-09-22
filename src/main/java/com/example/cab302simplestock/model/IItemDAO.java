@@ -11,6 +11,4 @@ public interface IItemDAO {
     public void deleteItem(Item item);
 
     public List<Item> getAllItems();
-
-    public Item getItem(); // FIXME Is this method needed?
 }
