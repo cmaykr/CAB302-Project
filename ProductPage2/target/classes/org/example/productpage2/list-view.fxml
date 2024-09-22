@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.RadioButton?>
 <VBox alignment="TOP_LEFT" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.productpage2.listViewController"
 >
@@ -23,20 +24,28 @@
             <Button text="New" maxWidth="Infinity"/>
         </VBox>
         <VBox spacing="10.0" prefWidth="400" >
-            <Label text="Enter the contact's details below." />
+            <Label text="Enter the product's details below." />
             <GridPane hgap="5.0" vgap="5.0" >
                 <columnConstraints>
                     <ColumnConstraints minWidth="70" />
                     <ColumnConstraints hgrow="ALWAYS"/>
                 </columnConstraints>
-                <Label text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <Label text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <Label text="Phone:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <TextField fx:id="firstNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity"/>
-                <TextField fx:id="lastNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="phoneTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="Product Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label text="Product Type:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Label text="Location:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <Label text="Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <Label text="Purchase Date:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <Label text="Insured:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <TextField fx:id="productNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity"/>
+                <TextField fx:id="productTypeTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="descriptionTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="locationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="quantityTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="purchaseDateTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <RadioButton fx:id="insuredTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <TextField fx:id="priceTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             </GridPane>
             <HBox spacing="10.0" alignment="CENTER">
                 <Button text="Confirm" />
