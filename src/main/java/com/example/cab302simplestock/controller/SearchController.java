@@ -20,6 +20,8 @@ public class SearchController {
     @FXML
     private Button viewItemsButton;
     @FXML
+    private Button goBack;
+    @FXML
     protected void addItemsButton() throws IOException{
         Stage stage = (Stage)addItemsButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("main-view.fxml"));
@@ -40,6 +42,14 @@ public class SearchController {
         Scene scene = new Scene(fxmlLoader.load(),SimpleStock.WIDTH,SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
+    @FXML
+    protected void goBack() throws IOException {
+        Stage stage = (Stage)goBack.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("search-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),HelloApplication.WIDTH,HelloApplication.HEIGHT);
+        stage.setScene(scene);
+    }
+
 
 
 

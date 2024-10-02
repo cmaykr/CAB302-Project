@@ -17,7 +17,10 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <Label text="Select a contact to view or edit." />
+    <HBox>
+        <Button text = "Back" fx:id ="goBack" onAction = "#goBack"/>
+    </HBox>
+    <Label text="Select a Product to view or edit." />
     <HBox VBox.vgrow="ALWAYS" spacing="20.0">
         <VBox spacing="10.0">
             <ListView fx:id="contactsListView"  />
