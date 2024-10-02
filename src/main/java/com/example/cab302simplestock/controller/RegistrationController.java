@@ -1,6 +1,6 @@
 package com.example.cab302simplestock.controller;
 
-import com.example.cab302simplestock.HelloApplication;
+import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,8 +44,8 @@ public class RegistrationController {
         System.out.println(users.get(users.size()-1).getFirstName());
 
         Stage stage = (Stage) SignUpButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
 }
