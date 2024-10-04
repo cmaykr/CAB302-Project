@@ -2,8 +2,10 @@ package com.example.cab302simplestock.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 public class Item {
+    int itemID;
     String itemName;
     LocalDate purchaseDate;
     double purchasePrice;
@@ -76,6 +78,10 @@ public class Item {
 
     public void setName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public int getID() {
+        return itemID;
     }
 
     /*

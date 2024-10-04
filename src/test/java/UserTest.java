@@ -2,6 +2,9 @@ import com.example.cab302simplestock.model.User;
 import org.junit.jupiter.api.*;
 
 import java.util.Objects;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class UserTest {
     User user;
