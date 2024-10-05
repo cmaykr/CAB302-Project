@@ -1,4 +1,5 @@
 package com.example.cab302simplestock;
+import com.example.cab302simplestock.model.SqliteViewUserDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ public class SimpleStock extends Application {
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {
