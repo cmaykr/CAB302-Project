@@ -23,7 +23,7 @@ public class SqliteViewUserDAO implements IViewUserDAO{
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "groupName VARCHAR NOT NULL,"
                     + "userID INTEGER NOT NULL,"
-                    + "FOREIGN KEY (groupName) REFERENCES group(groupName),"
+                    + "FOREIGN KEY (groupName) REFERENCES groupDB(groupName),"
                     + "FOREIGN KEY (userID) REFERENCES user(userID),"
                     + "UNIQUE(groupName, userID)"
                     + ")";
@@ -42,6 +42,8 @@ public class SqliteViewUserDAO implements IViewUserDAO{
             statement.setInt(2, viewUser.getUserID());
             statement.executeUpdate();
         } catch (Exception e) {
+            System.out.println("Add view user failed");
+            System.out.println(viewUser.getID());
             e.printStackTrace();
         }
     }

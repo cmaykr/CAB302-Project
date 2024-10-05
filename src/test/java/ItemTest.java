@@ -120,4 +120,11 @@ public class ItemTest {
         item.setInsured(false);
         assertFalse(item.getInsured());
     }
+
+    @Test
+    void testGetID()
+    {
+        item.setID(1);
+        assertEquals(1, item.getID());
+    }
 }
