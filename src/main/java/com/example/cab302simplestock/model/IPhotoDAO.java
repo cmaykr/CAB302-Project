@@ -10,5 +10,5 @@ public interface IPhotoDAO {
 
     public void deletePhoto(Photo photo);
 
-    public List<Photo> getAllPhotos(Photo photo);
+    public List<Photo> getAllPhotos();
 }

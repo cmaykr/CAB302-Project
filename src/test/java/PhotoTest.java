@@ -36,4 +36,10 @@ public class PhotoTest {
         photo.setItemID(newUser);
         assertEquals(newUser.getID(), photo.getItemID());
     }
+
+    @Test
+    void testGetPhotoID() {
+        photo.setPhotoID(1);
+        assertEquals(1, photo.getPhotoID());
+    }
 }

@@ -16,7 +16,7 @@ public class SqliteItemDAO implements IItemDAO{
     {
         try {
             Statement statement = connection.createStatement();
-            String query = "CREATE TABLE IF NOT EXISTS items ("
+            String query = "CREATE TABLE IF NOT EXISTS item ("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "name VARCHAR NOT NULL,"
                     + "purchaseDate DATE NOT NULL,"
@@ -26,7 +26,7 @@ public class SqliteItemDAO implements IItemDAO{
                     + "categoryName VARCHAR NOT NULL,"
                     + "typeName VARCHAR NOT NULL,"
                     + "location VARCHAR NOT NULL,"
-                    + "insured INTEGER NOT NULL,"
+                    + "insured INTEGER NOT NULL"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -38,8 +38,8 @@ public class SqliteItemDAO implements IItemDAO{
     @Override
     public void addItem(Item item) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO items (name, purchaseDate, purchasePrice, value, " +
-                    "description, categoryName, typeName, location, insured VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO item (name, purchaseDate, purchasePrice, value, "
+                    + "description, categoryName, typeName, location, insured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             statement.setString(1, item.getName());
             statement.setDate(2, Date.valueOf(item.getPurchaseDate()));
@@ -59,7 +59,7 @@ public class SqliteItemDAO implements IItemDAO{
     @Override
     public void updateItem(Item item) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE items SET name = ?, purchasePrice = ?, purchaseDate = ?, " +
+            PreparedStatement statement = connection.prepareStatement("UPDATE item SET name = ?, purchasePrice = ?, purchaseDate = ?, " +
                     "value = ?, description = ?, categoryName = ?, typeName = ?, location = ?, insured = ? WHERE id = ?");
             statement.setString(1, item.getName());
             statement.setDate(2, Date.valueOf(item.getPurchaseDate()));
@@ -80,7 +80,7 @@ public class SqliteItemDAO implements IItemDAO{
     @Override
     public void deleteItem(Item item) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM items WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM item WHERE id = ?");
             statement.setInt(1, item.getID());
             statement.executeUpdate();
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class SqliteItemDAO implements IItemDAO{
         List<Item> items = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM items";
+            String query = "SELECT * FROM item";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
