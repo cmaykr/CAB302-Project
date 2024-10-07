@@ -1,4 +1,8 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.SqliteDAOs;
+
+import com.example.cab302simplestock.model.InterfaceDAOs.ITypeDAO;
+import com.example.cab302simplestock.model.SqliteConnection;
+import com.example.cab302simplestock.model.Type;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

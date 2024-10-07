@@ -1,4 +1,4 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.InterfaceDAOs;
 
 import com.example.cab302simplestock.model.Photo;
 import java.util.List;

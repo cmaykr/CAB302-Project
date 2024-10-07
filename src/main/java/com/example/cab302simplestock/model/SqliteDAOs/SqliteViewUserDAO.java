@@ -1,4 +1,8 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.SqliteDAOs;
+
+import com.example.cab302simplestock.model.InterfaceDAOs.IViewUserDAO;
+import com.example.cab302simplestock.model.SqliteConnection;
+import com.example.cab302simplestock.model.ViewUser;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqliteViewUserDAO implements IViewUserDAO{
+public class SqliteViewUserDAO implements IViewUserDAO {
     private Connection connection;
 
     public SqliteViewUserDAO() {

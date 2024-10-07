@@ -1,10 +1,14 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.SqliteDAOs;
+
+import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
+import com.example.cab302simplestock.model.Item;
+import com.example.cab302simplestock.model.SqliteConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqliteItemDAO implements IItemDAO{
+public class SqliteItemDAO implements IItemDAO {
     private Connection connection;
 
     public SqliteItemDAO() {

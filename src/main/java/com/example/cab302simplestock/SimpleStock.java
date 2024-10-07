@@ -1,5 +1,5 @@
 package com.example.cab302simplestock;
-import com.example.cab302simplestock.model.SqliteViewUserDAO;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -1,10 +1,14 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.SqliteDAOs;
+
+import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
+import com.example.cab302simplestock.model.SqliteConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqliteGroupDAO implements IGroupDAO{
+public class SqliteGroupDAO implements IGroupDAO {
     private Connection connection;
 
     public SqliteGroupDAO() {
