@@ -1,20 +1,20 @@
 package com.example.cab302simplestock.model;
 
 public class Category {
-    String listName;
+    String categoryName;
     String groupName;
 
-    public Category(String listName, String groupName) {
-        this.listName = listName;
+    public Category(String categoryName, String groupName) {
+        this.categoryName = categoryName;
         this.groupName = groupName;
     }
 
     public String getCategoryName() {
-        return listName;
+        return categoryName;
     }
 
-    public void setCategoryName(String listName) {
-        this.listName = listName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getGroupName() {

@@ -38,7 +38,7 @@ public class SearchController {
     @FXML
     protected void viewItem() throws IOException{
         Stage stage = (Stage)viewItemsButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("list-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("category-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),SimpleStock.WIDTH,SimpleStock.HEIGHT);
         stage.setScene(scene);
     }

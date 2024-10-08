@@ -2,7 +2,6 @@ package com.example.cab302simplestock.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 public class Item {
     int itemID;
@@ -11,16 +10,16 @@ public class Item {
     double purchasePrice;
     double value;
     String description;
-    String listName;
+    String categoryName;
     String typeName;
 
-    public Item(String itemName, String purchaseDate, double purchasePrice, double value, String description, String listName, String typeName) {
+    public Item(String itemName, String purchaseDate, double purchasePrice, double value, String description, String categoryName, String typeName) {
         this.itemName = itemName;
         this.purchaseDate = LocalDate.parse(purchaseDate);
         this.purchasePrice = purchasePrice;
         this.value = value;
         this.description = description;
-        this.listName = listName;
+        this.categoryName = categoryName;
         this.typeName = typeName;
     }
 
@@ -32,12 +31,12 @@ public class Item {
         this.typeName = typeName;
     }
 
-    public String getListName() {
-        return listName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setListName(String listName) {
-        this.listName = listName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getDescription() {
@@ -84,13 +83,6 @@ public class Item {
         return itemID;
     }
 
-    /*
-    name
-    category
-    description
-    purchasePrice
-    purchaseDate
-    value
-    photos
-     */
+
+
 }

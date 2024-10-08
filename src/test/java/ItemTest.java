@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.example.cab302simplestock.model.Item;
 
-import java.util.UUID;
-
 public class ItemTest {
     Item item;
 
@@ -69,13 +67,13 @@ public class ItemTest {
 
     @Test
     void testGetListName() {
-        assertEquals("Owned items", item.getListName());
+        assertEquals("Owned items", item.getCategoryName());
     }
 
     @Test
     void testSetListName() {
-        item.setListName("To buy");
-        assertEquals("To buy", item.getListName());
+        item.setCategoryName("To buy");
+        assertEquals("To buy", item.getCategoryName());
     }
 
     @Test
