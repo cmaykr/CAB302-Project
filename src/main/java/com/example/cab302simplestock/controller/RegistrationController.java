@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-import com.example.cab302simplestock.model.SqliteUserDAO;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
 import javafx.stage.Stage;
 
 public class RegistrationController {
@@ -35,6 +35,7 @@ public class RegistrationController {
         SqliteUserDAO userDAO = new SqliteUserDAO();
         if (!Objects.equals(password.getText(), confirmPassword.getText()))
         {
+            System.out.println("Password field and confirm password field not identical.");
             return;
         }
         User newUser = new User(firstName.getText(), lastName.getText(), email.getText(), password.getText());

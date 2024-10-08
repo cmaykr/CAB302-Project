@@ -1,12 +1,26 @@
 package com.example.cab302simplestock.model;
 
 public class Photo {
+    int photoID;
     String imageName;
     int itemID;
 
     public Photo(String imageName, Item item) {
         this.imageName = imageName;
         this.itemID = item.getID();
+    }
+
+    public Photo(String imageName, int itemID) {
+        this.imageName = imageName;
+        this.itemID = itemID;
+    }
+
+    public int getPhotoID() {
+        return photoID;
+    }
+
+    public void setPhotoID(int id) {
+        photoID = id;
     }
 
     public String getImageName() {
