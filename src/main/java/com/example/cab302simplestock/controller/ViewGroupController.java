@@ -25,9 +25,9 @@ public class ViewGroupController {
 
     // Mock data for items, replace with dynamic data fetching logic
     private List<Item> itemList = List.of(
-            new Item("Laptop", "2023-03-01", 1000.0, 800.0, "Work laptop", "Electronics", "Work"),
-            new Item("Table", "2022-11-15", 150.0, 120.0, "Dining table", "Furniture", "Home"),
-            new Item("Smartphone", "2023-07-22", 700.0, 650.0, "Personal phone", "Electronics", "Personal")
+            new Item("Laptop", "2023-03-01", 1000.0, 800.0, "Work laptop", "Electronics", "Work", "Bedroom", true),
+            new Item("Table", "2022-11-15", 150.0, 120.0, "Dining table", "Furniture", "Home", "Living room", false),
+            new Item("Smartphone", "2023-07-22", 700.0, 650.0, "Personal phone", "Electronics", "Personal", "Bedroom", true)
     );
 
     @FXML

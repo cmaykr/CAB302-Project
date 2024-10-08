@@ -10,7 +10,7 @@ public class PhotoTest {
 
     @BeforeEach
     void setUp() {
-        item = new Item("Nike Shoe", "2022-09-16", 50, 30, "Test descript", "Home inventory", "shoe");
+        item = new Item("Nike Shoe", "2022-09-16", 50, 30, "Test descript", "Home inventory", "shoe", "Garage", false);
         photo = new Photo("shoe.png", item);
     }
 
@@ -32,8 +32,14 @@ public class PhotoTest {
 
     @Test
     void testSetItemID() {
-        Item newUser = new Item("Adidas Shoe", "2022-09-16", 50, 30, "Test descript", "Home inventory", "shoe");
+        Item newUser = new Item("Adidas Shoe", "2022-09-16", 50, 30, "Test descript", "Home inventory", "shoe", "Garage", false);
         photo.setItemID(newUser);
         assertEquals(newUser.getID(), photo.getItemID());
+    }
+
+    @Test
+    void testGetPhotoID() {
+        photo.setPhotoID(1);
+        assertEquals(1, photo.getPhotoID());
     }
 }

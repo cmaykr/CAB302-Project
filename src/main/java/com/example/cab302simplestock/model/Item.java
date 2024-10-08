@@ -2,7 +2,6 @@ package com.example.cab302simplestock.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 public class Item {
     int itemID;
@@ -11,17 +10,21 @@ public class Item {
     double purchasePrice;
     double value;
     String description;
-    String listName;
+    String categoryName;
     String typeName;
+    String location;
+    boolean insured;
 
-    public Item(String itemName, String purchaseDate, double purchasePrice, double value, String description, String listName, String typeName) {
+    public Item(String itemName, String purchaseDate, double purchasePrice, double value, String description, String categoryName, String typeName, String location, boolean insured) {
         this.itemName = itemName;
         this.purchaseDate = LocalDate.parse(purchaseDate);
         this.purchasePrice = purchasePrice;
         this.value = value;
         this.description = description;
-        this.listName = listName;
+        this.categoryName = categoryName;
         this.typeName = typeName;
+        this.location = location;
+        this.insured = insured;
     }
 
     public String getTypeName() {
@@ -32,12 +35,12 @@ public class Item {
         this.typeName = typeName;
     }
 
-    public String getListName() {
-        return listName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setListName(String listName) {
-        this.listName = listName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getDescription() {
@@ -83,6 +86,27 @@ public class Item {
     public int getID() {
         return itemID;
     }
+
+    public void setID(int ID) {
+        itemID = ID;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String newLoc) {
+        location = newLoc;
+    }
+
+    public boolean getInsured() {
+        return insured;
+    }
+
+    public void setInsured(boolean newInsured) {
+        insured = newInsured;
+    }
+
 
     /*
     name
