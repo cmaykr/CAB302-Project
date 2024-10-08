@@ -67,7 +67,7 @@ public class HelloController {
     protected void onNextButtonClick() throws IOException {
         if (agreeCheckBox.isSelected()) {
             // Load the FXML file for the main view
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-item-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), HelloApplication.WIDTH, HelloApplication.HEIGHT);
 
             // Get the current stage and set the new scene

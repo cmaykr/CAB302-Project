@@ -1,25 +1,25 @@
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.example.cab302simplestock.model.List;
+import com.example.cab302simplestock.model.Category;
 
 public class ListTest {
-    List list;
+    Category list;
 
     @BeforeEach
     void setUp() {
-        list = new List("To buy", "Home inventory");
+        list = new Category("To buy", "Home inventory");
     }
 
     @Test
     void testGetListName() {
-        assertEquals("To buy", list.getListName());
+        assertEquals("To buy", list.getCategoryName());
     }
 
     @Test
     void testSetListName() {
-        list.setListName("Bought items");
-        assertEquals("Bought items", list.getListName());
+        list.setCategoryName("Bought items");
+        assertEquals("Bought items", list.getCategoryName());
     }
 
     @Test

@@ -1,8 +1,10 @@
 package com.example.cab302simplestock.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class User {
+    int uID; // FIXME should be set by the database
     String firstName;
     String lastName;
     String email;
@@ -44,8 +46,20 @@ public class User {
         return Objects.equals(this.password, password); // FIXME Temporary solution
     }
 
+    public String getHashedPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setID(int id) {
+        this.uID = id;
+    }
+    public int getID()
+    {
+        return uID;
     }
     /*
     username

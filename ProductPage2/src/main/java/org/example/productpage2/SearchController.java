@@ -21,7 +21,7 @@ public class SearchController {
     @FXML
     protected void addItemsButton() throws IOException{
         Stage stage = (Stage)addItemsButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-item-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),HelloApplication.WIDTH,HelloApplication.HEIGHT);
         stage.setScene(scene);
     }
