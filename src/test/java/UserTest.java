@@ -1,10 +1,15 @@
 import com.example.cab302simplestock.model.User;
 import org.junit.jupiter.api.*;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Objects;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserTest {
     User user;
@@ -55,9 +60,33 @@ public class UserTest {
     }
 
     @Test
+    void testGetPassword() {
+        try {
+            MessageDigest hashFunc = MessageDigest.getInstance("sha256");
+
+            byte[] encodedhash = hashFunc.digest("12345".getBytes());
+            System.out.println(Base64.getEncoder().encodeToString(encodedhash));
+            assertEquals(Base64.getEncoder().encodeToString(encodedhash), user.getHashedPassword());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
     void testChangePassword() {
         String newPassword = "54321";
         user.setPassword(newPassword);
         assert(user.checkPassword(newPassword));
+    }
+
+    @Test
+    void testCheckPassword() {
+        user.checkPassword("12345");
+    }
+
+    @Test
+    void testSetId() {
+        user.setID(1);
+        assertEquals(user.getID(), 1);
     }
 }
