@@ -9,7 +9,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.shape.Rectangle?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.SearchController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.AddItemController">
     <padding>
         <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
     </padding>
@@ -59,7 +59,7 @@
 
     <bottom>
         <HBox spacing="10.0" alignment="CENTER">
-            <Button text="Add to List" />
+            <Button text="Add to List" onAction="#addItemToList" />
             <Button text="View Your List" />
         </HBox>
     </bottom>
