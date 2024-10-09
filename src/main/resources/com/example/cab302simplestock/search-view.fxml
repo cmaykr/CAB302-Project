@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.SearchController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.example.cab302simplestock.controller.SearchController">
     <padding>
-        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
     <!-- Search Bar at the top -->
     <top>
-        <HBox spacing="10" alignment="CENTER">
-            <Button text="Back" fx:id="backButton" onAction="#backButtonClick" />
+        <HBox alignment="CENTER" spacing="10">
+            <Button fx:id="backButton" onAction="#backButtonClick" text="Back" />
             <Label fx:id="groupLabel" text="Selected Group: " />
             <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
-            <Button text="Add Items" fx:id="addItemsButton" onAction="#addItemsButton" />
-            <Button text="View List Items" fx:id="viewItemsButton" />
-            <Button text="Logout" fx:id="logoutButton" />
+            <Button fx:id="addItemsButton" onAction="#addItemsButton" text="Add Items" />
+            <Button fx:id="logoutButton" text="Logout" onAction="#logoutClicked"/>
         </HBox>
 
     </top>
@@ -28,8 +24,8 @@
     <!-- Center section with ListView -->
     <center>
         <VBox alignment="CENTER" spacing="20">
-            <TextField fx:id="searchBar" promptText="Search..." prefWidth="400" />
-            <ListView fx:id="itemsListView" prefHeight="200"/>  <!-- This ListView displays item names -->
+            <TextField fx:id="searchBar" prefWidth="400" promptText="Search..." />
+            <ListView fx:id="itemsListView" prefHeight="200" />  <!-- This ListView displays item names -->
         </VBox>
     </center>
 </BorderPane>
