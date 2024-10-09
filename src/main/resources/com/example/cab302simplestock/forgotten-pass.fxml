@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.ForgottenpassController">
+    <Label fx:id="securityQuestionLabel" text="Security Question" />
+    <TextField fx:id="securityAnswer" promptText="Enter your answer" />
+    <Button text="Submit" onAction="#onSubmitAnswer" />
+</VBox>

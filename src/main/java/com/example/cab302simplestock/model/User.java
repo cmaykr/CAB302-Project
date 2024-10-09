@@ -1,20 +1,31 @@
 package com.example.cab302simplestock.model;
 
-import java.util.Objects;
-import java.util.UUID;
-
 public class User {
-    int uID; // FIXME should be set by the database
-    String firstName;
-    String lastName;
-    String email;
-    String password; // Only stores the hashed password, security?
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String hashedPassword;
+    private String securityQuestion;
+    private String securityAnswer;
 
-    public User(String firstName, String lastName, String email, String password) {
+    // Constructor
+    public User(String firstName, String lastName, String email, String hashedPassword, String securityQuestion, String securityAnswer) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password; // TODO: Create a hashed value for the password for better security.
+        this.hashedPassword = hashedPassword;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
+    }
+
+    // Getters and setters
+    public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -41,30 +52,27 @@ public class User {
         this.email = email;
     }
 
-    public boolean checkPassword(String password) {
-        // TODO: Add code to check if the hash from the inputted password is identical to the stored hashed password.
-        return Objects.equals(this.password, password); // FIXME Temporary solution
-    }
-
     public String getHashedPassword() {
-        return password;
+        return hashedPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 
-    public void setID(int id) {
-        this.uID = id;
+    public String getSecurityQuestion() {
+        return securityQuestion;
     }
-    public int getID()
-    {
-        return uID;
+
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion = securityQuestion;
     }
-    /*
-    username
-    password(hashed)
-    groups
-    adminLevel
-     */
+
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
+    public void setSecurityAnswer(String securityAnswer) {
+        this.securityAnswer = securityAnswer;
+    }
 }
