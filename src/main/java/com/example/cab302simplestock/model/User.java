@@ -6,15 +6,20 @@ public class User {
     private String lastName;
     private String email;
     private String hashedPassword;
+    private String securityQuestion;
+    private String securityAnswer;
 
-    // Constructor, getters, and setters
-    public User(String firstName, String lastName, String email, String hashedPassword) {
+    // Constructor
+    public User(String firstName, String lastName, String email, String hashedPassword, String securityQuestion, String securityAnswer) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.hashedPassword = hashedPassword;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
     }
 
+    // Getters and setters
     public int getID() {
         return id;
     }
@@ -53,5 +58,21 @@ public class User {
 
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
+    }
+
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
+
+    public void setSecurityAnswer(String securityAnswer) {
+        this.securityAnswer = securityAnswer;
     }
 }

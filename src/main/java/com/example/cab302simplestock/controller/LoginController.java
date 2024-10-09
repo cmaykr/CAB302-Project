@@ -1,6 +1,5 @@
 package com.example.cab302simplestock.controller;
 
-import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.SqliteUserDAO;
 import com.example.cab302simplestock.model.User;
 import javafx.fxml.FXML;
@@ -33,43 +32,79 @@ public class LoginController {
     }
 
     @FXML
-    private void onSubmit() throws IOException {
+    private void onSubmit() {
         String email = username.getText();
         String pwd = password.getText();
 
-        if (email.equals(ADMIN_EMAIL) && pwd.equals(ADMIN_PASSWORD)) {
-            showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, Admin!");
-            loadHomePage();
-        } else {
-            User user = userDao.getUserByEmail(email);
-            if (user != null && user.getHashedPassword().equals(pwd)) {
-                showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + user.getFirstName() + "!");
+        try {
+            if (email.equals(ADMIN_EMAIL) && pwd.equals(ADMIN_PASSWORD)) {
+                showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, Admin!");
                 loadHomePage();
             } else {
-                showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid email or password.");
+                User user = userDao.getUserByEmail(email);
+                if (user != null && user.getHashedPassword().equals(pwd)) {
+                    showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + user.getFirstName() + "!");
+                    loadHomePage();
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid email or password.");
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "An unexpected error occurred.");
         }
     }
 
     @FXML
     private void onForgottenPassword() {
-        showAlert(Alert.AlertType.INFORMATION, "Forgotten Password", "Please contact support to reset your password.");
+        String email = username.getText();
+        try {
+            User user = userDao.getUserByEmail(email);
+            if (user != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/forgotten-pass.fxml"));
+                Parent root = loader.load();
+
+                com.example.cab302simplestock.controller.ForgottenpassController controller = loader.getController();
+                controller.initialize(user);
+
+                Stage stage = (Stage) username.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "No user found with this email.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the security question page.");
+        }
     }
+
+
 
     @FXML
     private void onCreateAccount() {
-        showAlert(Alert.AlertType.INFORMATION, "Create Account", "Account creation is not implemented yet.");
-    }
-
-    private void loadHomePage() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/view/home-page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/registration-page.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) username.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the registration page.");
+        }
+    }
+
+    private void loadHomePage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/home-page.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) username.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the home page.");
         }
     }
 

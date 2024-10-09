@@ -5,8 +5,8 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
+
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.LoginController">
     <center>
         <VBox alignment="CENTER" spacing="20">
