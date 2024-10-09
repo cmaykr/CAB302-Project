@@ -46,8 +46,8 @@ public class SqliteItemDAO implements IItemDAO {
                     + "description, categoryName, typeName, location, insured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             statement.setString(1, item.getName());
-            statement.setDate(2, Date.valueOf(item.getPurchaseDate()));
-            statement.setDouble(3, item.getPurchasePrice());
+            statement.setDouble(2, item.getPurchasePrice());
+            statement.setDate(3, Date.valueOf(item.getPurchaseDate()));
             statement.setDouble(4, item.getValue());
             statement.setString(5, item.getDescription());
             statement.setString(6, item.getCategoryName());
@@ -66,8 +66,8 @@ public class SqliteItemDAO implements IItemDAO {
             PreparedStatement statement = connection.prepareStatement("UPDATE item SET name = ?, purchasePrice = ?, purchaseDate = ?, " +
                     "value = ?, description = ?, categoryName = ?, typeName = ?, location = ?, insured = ? WHERE id = ?");
             statement.setString(1, item.getName());
-            statement.setDate(2, Date.valueOf(item.getPurchaseDate()));
-            statement.setDouble(3, item.getPurchasePrice());
+            statement.setDouble(2, item.getPurchasePrice());
+            statement.setDate(3, Date.valueOf(item.getPurchaseDate()));
             statement.setDouble(4, item.getValue());
             statement.setString(5, item.getDescription());
             statement.setString(6, item.getCategoryName());
