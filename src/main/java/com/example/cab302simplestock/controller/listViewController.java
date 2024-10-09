@@ -76,6 +76,7 @@ public class listViewController {
         for (Item item : items) {
             if (item.getID() == itemId) {  // Check if the item's ID matches the one we want
                 currentItem = item; // Store the current item
+                System.out.println(currentItem.getID());
                 populateFields(item);  // Populate the fields with the item's details
                 break;  // Exit the loop once we find the item
             }
@@ -83,6 +84,7 @@ public class listViewController {
     }
 
     private void populateFields(Item item) {
+
         productNameTextField.setText(item.getName());
         productTypeTextField.setText(item.getTypeName());
         descriptionTextField.setText(item.getDescription());
@@ -91,24 +93,28 @@ public class listViewController {
         purchaseDateTextField.setText(item.getPurchaseDate());
         insuredTextField.setSelected(item.getInsured());
         priceTextField.setText(String.valueOf(item.getPurchasePrice()));
+
     }
 
     @FXML
     protected void updateItem() throws IOException {
+        //System.out.println(currentItem.getPurchaseDate());
         // Create a new item object with the updated values from the fields
         if (currentItem != null) {
             currentItem.setName(productNameTextField.getText());
             currentItem.setTypeName(productTypeTextField.getText());
             currentItem.setDescription(descriptionTextField.getText());
             currentItem.setLocation(locationTextField.getText());
-            currentItem.setValue(Double.parseDouble(quantityTextField.getText())); // Assuming you want to set value as quantity
+            currentItem.setValue(Double.parseDouble(quantityTextField.getText()));
             currentItem.setPurchaseDate(purchaseDateTextField.getText());
             currentItem.setInsured(insuredTextField.isSelected());
             currentItem.setPurchasePrice(Double.parseDouble(priceTextField.getText()));
 
             // Update the item in the database
             itemDAO.updateItem(currentItem);
+            //System.out.println(currentItem.getPurchaseDate());
             goBack();
+
         }
     }
 
