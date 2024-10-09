@@ -13,9 +13,9 @@ public class Item {
     String categoryName;
     String typeName;
 
-    public Item(String itemName, String purchaseDate, double purchasePrice, double value, String description, String categoryName, String typeName) {
+    public Item(String itemName, LocalDate purchaseDate, double purchasePrice, double value, String description, String categoryName, String typeName) {
         this.itemName = itemName;
-        this.purchaseDate = LocalDate.parse(purchaseDate);
+        this.purchaseDate = purchaseDate;
         this.purchasePrice = purchasePrice;
         this.value = value;
         this.description = description;

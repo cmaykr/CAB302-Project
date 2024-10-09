@@ -1,17 +1,17 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.Item;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
 public class SearchController {
     @FXML
     private Button addItemsButton;
@@ -21,6 +21,26 @@ public class SearchController {
     private Button viewItemsButton;
     @FXML
     private Button goBack;
+
+    @FXML
+    private TextField productNameTextField;
+    @FXML
+    private TextField productTypeTextField;
+    @FXML
+    private TextField productDescriptionTextField;
+    @FXML
+    private TextField productLocationTextField;
+    @FXML
+    private TextField productQuantityTextField;
+    @FXML
+    private TextField productPurchaseDateTextField;
+    @FXML
+    private RadioButton insuredRadioButton;
+    @FXML
+    private TextField productPriceTextField;
+
+
+
     @FXML
     protected void addItemsButton() throws IOException{
         Stage stage = (Stage)addItemsButton.getScene().getWindow();
@@ -49,8 +69,23 @@ public class SearchController {
         Scene scene = new Scene(fxmlLoader.load(),SimpleStock.WIDTH,SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
+    @FXML
+    public void handleReadText() {
+        String productName = productNameTextField.getText();
+        String productType = productTypeTextField.getText();
+        String productDescription = productDescriptionTextField.getText();
+        String productLocation = productLocationTextField.getText();
+        double productQuantity = Double.parseDouble(productQuantityTextField.getText());
+        String readDate = productPurchaseDateTextField.getText();
+        LocalDate purchaseDate = LocalDate.parse(readDate);
+        String readPrice = productPriceTextField.getText();
+        double productPrice = Double.parseDouble(readPrice);
+        boolean productInsured;
+        productInsured = insuredRadioButton.isSelected();
 
+        Item item = new Item(productName, purchaseDate, productPrice, productQuantity, productDescription,  productType,productType);
 
+    }
 
 
 

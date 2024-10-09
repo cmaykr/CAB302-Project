@@ -4,13 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.example.cab302simplestock.model.Photo;
 
+import java.time.LocalDate;
+
 public class PhotoTest {
     Photo photo;
     Item item;
 
     @BeforeEach
     void setUp() {
-        item = new Item("Nike Shoe", "2022-09-16", 50, 30, "Test descript", "Home inventory", "shoe");
+        item = new Item("Nike Shoe", LocalDate.of(2022, 9, 16), 50, 30, "Test descript", "Home inventory", "shoe");
         photo = new Photo("shoe.png", item);
     }
 
@@ -32,7 +34,7 @@ public class PhotoTest {
 
     @Test
     void testSetItemID() {
-        Item newUser = new Item("Adidas Shoe", "2022-09-16", 50, 30, "Test descript", "Home inventory", "shoe");
+        Item newUser = new Item("Adidas Shoe", LocalDate.of(2022, 9, 16), 50, 30, "Test descript", "Home inventory", "shoe");
         photo.setItemID(newUser);
         assertEquals(newUser.getID(), photo.getItemID());
     }

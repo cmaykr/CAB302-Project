@@ -48,8 +48,8 @@
 
             <Label text="Insured:" GridPane.columnIndex="0" GridPane.rowIndex="6" style="-fx-padding: 0; -fx-margin: 0;" />
             <HBox GridPane.columnIndex="1" GridPane.rowIndex="6" spacing="10">
-                <RadioButton fx:id="insuredRadioButton" text="YES" />
-                <RadioButton fx:id="notInsuredRadioButton" text="NO" />
+                <RadioButton fx:id="insuredRadioButton" text="YES"/>
+                <RadioButton fx:id="notInsuredRadioButton" text="NO"/>
             </HBox>
 
             <Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
@@ -59,8 +59,8 @@
 
     <bottom>
         <HBox spacing="10.0" alignment="CENTER">
-            <Button text="Add to List" />
-            <Button text="View Your List" />
+            <Button fx:id="addToCategoryButton" text="Add to Category" onAction="#handleReadText"/>
+            <Button fx:id="viewCategoriesButton" text="View Your Categories" />
         </HBox>
     </bottom>
 </BorderPane>

@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class ViewGroupController {
@@ -25,9 +26,9 @@ public class ViewGroupController {
 
     // Mock data for items, replace with dynamic data fetching logic
     private List<Item> itemList = List.of(
-            new Item("Laptop", "2023-03-01", 1000.0, 800.0, "Work laptop", "Electronics", "Work"),
-            new Item("Table", "2022-11-15", 150.0, 120.0, "Dining table", "Furniture", "Home"),
-            new Item("Smartphone", "2023-07-22", 700.0, 650.0, "Personal phone", "Electronics", "Personal")
+            new Item("Laptop", LocalDate.of(2023, 3, 1), 1000.0, 800.0, "Work laptop", "Electronics", "Work"),
+            new Item("Table", LocalDate.of(2022, 1, 15), 150.0, 120.0, "Dining table", "Furniture", "Home"),
+            new Item("Smartphone", LocalDate.of(2023, 7, 22), 700.0, 650.0, "Personal phone", "Electronics", "Personal")
     );
 
     @FXML

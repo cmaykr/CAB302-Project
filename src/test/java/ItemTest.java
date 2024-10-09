@@ -5,13 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.example.cab302simplestock.model.Item;
 
+import java.time.LocalDate;
+
 public class ItemTest {
     Item item;
 
     @BeforeEach
     void setUp() {
         String itemName = "Nike Shoe";
-        String purchaseDate = "2022-09-16";
+        LocalDate purchaseDate = LocalDate.parse("2022-09-16");
         double purchasePrice = 42;
         double value = 30;
         String description = "A white shoe with the Nike logo on it, worn a little";
