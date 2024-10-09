@@ -1,18 +1,23 @@
 import com.example.cab302simplestock.model.User;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.example.cab302simplestock.model.Group;
 
 public class GroupTest {
     Group group;
-    User user;
 
     @BeforeEach
     void setUp()
     {
-        user = new User("John", "Smith", "j.Smith@mail.com", "12345");
-        group = new Group("HomeGroup", user);
+        group = new Group("HomeGroup", 1);
+    }
+
+    @Test
+    void testSetGroupID() {
+        group.setGroupID(1);
+        assertEquals(1, group.getGroupID());
     }
 
     @Test
@@ -31,14 +36,34 @@ public class GroupTest {
     @Test
     void testGetOwner()
     {
-        assertEquals(user.getID(), group.getOwnerID());
+        assertEquals(1, group.getOwnerID());
     }
 
     @Test
     void testSetOwner()
     {
-        User newUser = new User("Erik", "Smith", "j.Smith@mail.com", "54321");
-        group.setOwner(newUser);
-        assertEquals(newUser.getID(), group.getOwnerID());
+        group.setOwner(2);
+        assertEquals(2, group.getOwnerID());
+    }
+
+    @Test
+    void testSetGroupNameEmptyThrowsException() {
+        Exception exception = assertThrows(Exception.class, () -> group.setGroupName(""));
+
+        assertEquals("Group name cannot be empty.", exception.getMessage());
+    }
+
+    @Test
+    void testSetOwnerEmptyThrowsException() {
+        Exception exception = assertThrows(Exception.class, () -> group.setOwner(0));
+
+        assertEquals("New owner ID must be positive, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetNegativeGroupIDThrowsException() {
+        Exception exception = assertThrows(Exception.class, () -> group.setGroupID(-2));
+
+        assertEquals("Group ID must be positive, >0.", exception.getMessage());
     }
 }

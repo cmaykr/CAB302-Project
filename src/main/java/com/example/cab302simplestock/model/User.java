@@ -1,14 +1,13 @@
 package com.example.cab302simplestock.model;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class User {
-    int uID; // FIXME should be set by the database
+    int uID;
     String firstName;
     String lastName;
     String email;
-    String password; // Only stores the hashed password, security?
+    String password;
 
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
@@ -61,10 +60,4 @@ public class User {
     {
         return uID;
     }
-    /*
-    username
-    password(hashed)
-    groups
-    adminLevel
-     */
 }

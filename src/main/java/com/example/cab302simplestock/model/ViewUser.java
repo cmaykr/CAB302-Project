@@ -1,7 +1,7 @@
 package com.example.cab302simplestock.model;
 
 public class ViewUser {
-    int id;
+    int viewUserID;
     String groupName;
     int userID;
 
@@ -16,11 +16,11 @@ public class ViewUser {
     }
 
     public int getID() {
-        return id;
+        return viewUserID;
     }
 
     public void setID(int newID) {
-        this.id = newID;
+        this.viewUserID = newID;
     }
 
     public String getGroupName() {

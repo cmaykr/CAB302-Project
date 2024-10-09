@@ -1,18 +1,14 @@
 package com.example.cab302simplestock.model;
 
 public class Group {
+    int groupID;
     String groupName;
     int ownerID;
 
-    public Group(String groupName, User groupOwner)
+    public Group(String groupName, int groupOwnerID)
     {
         this.groupName = groupName;
-        this.ownerID = groupOwner.getID();
-    }
-
-    public Group(String groupName, int ownerID) {
-        this.groupName = groupName;
-        this.ownerID = ownerID;
+        this.ownerID = groupOwnerID;
     }
 
     public String getGroupName() {
@@ -20,6 +16,10 @@ public class Group {
     }
 
     public void setGroupName(String groupName) {
+        if (groupName.isEmpty())
+        {
+            throw new IllegalArgumentException("Group name cannot be empty.");
+        }
         this.groupName = groupName;
     }
 
@@ -27,7 +27,23 @@ public class Group {
         return ownerID;
     }
 
-    public void setOwner(User newOwner) {
-        this.ownerID = newOwner.getID();
+    public void setOwner(int newOwnerID) {
+        if (newOwnerID <= 0)
+        {
+            throw new IllegalArgumentException("New owner ID must be positive, >0.");
+        }
+        this.ownerID = newOwnerID;
+    }
+
+    public void setGroupID(int groupID) {
+        if (groupID <= 0)
+        {
+            throw new IllegalArgumentException("Group ID must be positive, >0.");
+        }
+        this.groupID = groupID;
+    }
+
+    public int getGroupID() {
+        return groupID;
     }
 }

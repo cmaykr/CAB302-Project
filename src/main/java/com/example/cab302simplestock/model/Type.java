@@ -1,6 +1,7 @@
 package com.example.cab302simplestock.model;
 
 public class Type {
+    int typeID;
     String name;
 
     public Type(String name) {
