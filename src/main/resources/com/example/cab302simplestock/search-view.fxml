@@ -5,40 +5,31 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.shape.Rectangle?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.SearchController">
     <padding>
         <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
     </padding>
 
-
     <!-- Search Bar at the top -->
     <top>
         <HBox spacing="10" alignment="CENTER">
-            <!-- Back button on the left -->
             <Button text="Back" fx:id="backButton" onAction="#backButtonClick" />
-
-            <!-- Spacer to push the right-side buttons to the far right -->
+            <Label fx:id="groupLabel" text="Selected Group: " />
             <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
-
-            <!-- Buttons on the right -->
             <Button text="Add Items" fx:id="addItemsButton" onAction="#addItemsButton" />
-            <Button text="View List Items" fx:id="viewItemsButton" onAction="#viewItem"/>
+            <Button text="View List Items" fx:id="viewItemsButton" />
             <Button text="Logout" fx:id="logoutButton" />
         </HBox>
+
     </top>
 
-    <!-- Body (Center Section) with the Search Bar -->
+    <!-- Center section with ListView -->
     <center>
         <VBox alignment="CENTER" spacing="20">
             <TextField fx:id="searchBar" promptText="Search..." prefWidth="400" />
-            <ListView fx:id = "recentItemsListView" prefHeight = "200"/>
+            <ListView fx:id="itemsListView" prefHeight="200"/>  <!-- This ListView displays item names -->
         </VBox>
     </center>
-
-
-
 </BorderPane>

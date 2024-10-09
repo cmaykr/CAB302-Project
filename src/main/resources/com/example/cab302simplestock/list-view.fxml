@@ -51,9 +51,9 @@
                 <TextField fx:id="priceTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             </GridPane>
             <HBox spacing="10.0" alignment="CENTER">
-                <Button text="Confirm" />
+                <Button fx:id="confirmButton" text="Confirm" onAction="#updateItem" />
+                <Button fx:id="deleteButton" text="Delete" onAction="#deleteItem" />
                 <Button text="Cancel" />
-                <Button text="Delete" />
             </HBox>
         </VBox>
     </HBox>
