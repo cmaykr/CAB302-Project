@@ -1,6 +1,9 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,13 +19,18 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
 
 public class SearchController {
     private IItemDAO itemDao;
+    private IGroupDAO groupDao;
     private Map<String, Integer> itemDisplayMap; // Map to store display text and item IDs
 
     public SearchController() {
         itemDao = new SqliteItemDAO();
+        groupDao = new SqliteGroupDAO();
         itemDisplayMap = new HashMap<>();
     }
 
@@ -34,6 +42,8 @@ public class SearchController {
     private Button backButton;
     @FXML
     private ListView<String> itemsListView;
+    @FXML
+    private Button leaveGroupButton;
 
     @FXML
     protected void addItemsButton() throws IOException {
@@ -58,6 +68,37 @@ public class SearchController {
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
+
+
+    @FXML
+    protected void leaveGroupButton() throws IOException {
+        String groupName = groupLabel.getText();  // Get the group name from the label
+
+        if (groupName != null && !groupName.isEmpty()) {
+            // Create a confirmation dialog
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Leave Group");
+            alert.setHeaderText("Are you sure you want to leave the group?");
+            alert.setContentText("Group: " + groupName);
+
+            // Wait for the user to click OK or Cancel
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // User clicked OK, delete the group
+                Group group = new Group(groupName, 0);  // Assuming ownerID is not required here
+                groupDao.deleteGroup(group);
+
+                // Navigate back to the login page after leaving the group
+                Stage stage = (Stage) leaveGroupButton.getScene().getWindow();
+                FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("home-page.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
+                stage.setScene(scene);
+            } else {
+                // User clicked Cancel or closed the dialog, do nothing
+            }
+        }
+    }
+
 
 
     @FXML

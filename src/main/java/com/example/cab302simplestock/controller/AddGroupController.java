@@ -32,7 +32,7 @@ public class AddGroupController {
 
     // Handler for Add Group button
     @FXML
-    private void onAddGroupClick() {
+    private void onAddGroupClick() throws IOException {
         String groupName = groupNameField.getText().trim();
 
         if (groupName.isEmpty()) {
@@ -52,6 +52,10 @@ public class AddGroupController {
 
         // Optionally clear the field after adding the group
         groupNameField.clear();
+        Stage stage = (Stage) groupNameField.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("home-page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
+        stage.setScene(scene);
     }
 
     // Handler for Back button
