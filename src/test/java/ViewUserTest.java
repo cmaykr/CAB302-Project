@@ -9,13 +9,13 @@ public class ViewUserTest {
 
     @BeforeEach
     void setUp() {
-        viewUser = new ViewUser("HomeGroup", 2);
+        viewUser = new ViewUser(5, 2);
     }
 
     @Test
-    void testSetGroupName() {
-        viewUser.setGroupName("WorkGroup");
-        assertEquals("WorkGroup", viewUser.getGroupName());
+    void testSetGroupID() {
+        viewUser.setGroupID(3);
+        assertEquals(3, viewUser.getGroupID());
     }
 
     @Test
@@ -31,10 +31,17 @@ public class ViewUserTest {
     }
 
     @Test
-    void testSetEmptyGroupNameShouldThrowIllegalArgumentException() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> viewUser.setGroupName(""));
+    void testSetNegativeGroupIDShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> viewUser.setGroupID(-1));
 
-        assertEquals("ViewUser group name cannot be empty.", exception.getMessage());
+        assertEquals("ViewUser group ID cannot be negative, must be positive, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetGroupIDToZeroShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> viewUser.setGroupID(0));
+
+        assertEquals("ViewUser group ID cannot be negative, must be positive, >0.", exception.getMessage());
     }
 
     @Test

@@ -2,11 +2,11 @@ package com.example.cab302simplestock.model;
 
 public class ViewUser {
     int viewUserID;
-    String groupName;
+    int groupID;
     int userID;
 
-    public ViewUser(String groupName, int userID) {
-        this.groupName = groupName;
+    public ViewUser(int groupID, int userID) {
+        this.groupID = groupID;
         this.userID = userID;
     }
 
@@ -22,18 +22,6 @@ public class ViewUser {
         this.viewUserID = newID;
     }
 
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        if (groupName.isEmpty())
-        {
-            throw new IllegalArgumentException("ViewUser group name cannot be empty.");
-        }
-        this.groupName = groupName;
-    }
-
     public int getUserID() {
         return userID;
     }
@@ -44,5 +32,22 @@ public class ViewUser {
             throw new IllegalArgumentException("ViewUser user ID cannot be negative, must be positive, >0.");
         }
         userID = newUserID;
+    }
+
+    public void setGroupID(int newID) {
+        if (newID <= 0)
+        {
+            throw new IllegalArgumentException("ViewUser group ID cannot be negative, must be positive, >0.");
+        }
+
+        groupID = newID;
+    }
+
+    public int getGroupID() {
+        return groupID;
+    }
+
+    public String getGroupName() {
+        return "";
     }
 }

@@ -87,7 +87,7 @@ public class SqliteViewUserDAO implements IViewUserDAO {
                 int id = resultSet.getInt("id");
                 String groupName = resultSet.getString("groupName");
                 int userID = resultSet.getInt("userID");
-                ViewUser viewUser = new ViewUser(groupName, userID);
+                ViewUser viewUser = new ViewUser(4, userID);
                 viewUser.setID(id);
                 viewUsers.add(viewUser);
             }
