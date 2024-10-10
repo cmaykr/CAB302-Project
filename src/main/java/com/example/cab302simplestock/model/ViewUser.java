@@ -46,8 +46,4 @@ public class ViewUser {
     public int getGroupID() {
         return groupID;
     }
-
-    public String getGroupName() {
-        return "";
-    }
 }
