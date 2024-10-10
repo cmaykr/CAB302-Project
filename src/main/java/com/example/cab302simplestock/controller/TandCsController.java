@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloController {
+public class TandCsController {
     @FXML
     private Label welcomeText;
     @FXML

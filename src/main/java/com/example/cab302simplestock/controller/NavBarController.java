@@ -43,7 +43,7 @@ public class NavBarController {
 
     public void goToCategories(javafx.event.ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) goCategories.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("list-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
     }

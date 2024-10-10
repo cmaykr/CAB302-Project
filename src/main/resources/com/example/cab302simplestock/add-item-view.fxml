@@ -19,7 +19,6 @@
         <HBox spacing="10" alignment="CENTER">
             <Button text="Back" fx:id="backButton" onAction="#backButtonClick" />
             <Region HBox.hgrow="ALWAYS" /> <!-- Spacer -->
-            <Button text="Add Items" fx:id="addItemsButton" onAction="#addItemsButton" />
             <Button text="View List Items" fx:id="ViewItemsButton" />
             <Button text="Logout" fx:id="logoutButton" />
         </HBox>
