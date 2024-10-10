@@ -48,6 +48,12 @@ public class RegistrationController {
             return;
         }
 
+        // Check if the email already exists
+        if (userDAO.getUserByEmail(email.getText()) != null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Email already exists.");
+            return;
+        }
+
         String hashedPassword = hashPassword(password.getText());
         User newUser = new User(firstName.getText(), lastName.getText(), email.getText(), hashedPassword, securityQuestion.getText(), securityAnswer.getText());
         userDAO.addUser(newUser);
@@ -60,6 +66,7 @@ public class RegistrationController {
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
+
 
     private boolean validateInput() {
         if (firstName.getText().isEmpty() || lastName.getText().isEmpty() || email.getText().isEmpty() ||
