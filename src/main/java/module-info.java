@@ -4,6 +4,7 @@ module com.example.cab302simplestock {
     requires java.sql;
     requires java.smartcardio;
     requires org.xerial.sqlitejdbc;
+    requires java.desktop;
 
 
     opens com.example.cab302simplestock.controller to javafx.fxml;
