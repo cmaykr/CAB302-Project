@@ -5,11 +5,6 @@ public class ViewUser {
     String groupName;
     int userID;
 
-    public ViewUser(Group group, User user) {
-        this.groupName = group.getGroupName();
-        this.userID = user.getID();
-    }
-
     public ViewUser(String groupName, int userID) {
         this.groupName = groupName;
         this.userID = userID;
@@ -20,6 +15,10 @@ public class ViewUser {
     }
 
     public void setID(int newID) {
+        if (newID <= 0)
+        {
+            throw new IllegalArgumentException("ViewUser ID cannot be negative, must be positive, >0.");
+        }
         this.viewUserID = newID;
     }
 
@@ -28,6 +27,10 @@ public class ViewUser {
     }
 
     public void setGroupName(String groupName) {
+        if (groupName.isEmpty())
+        {
+            throw new IllegalArgumentException("ViewUser group name cannot be empty.");
+        }
         this.groupName = groupName;
     }
 
@@ -36,6 +39,10 @@ public class ViewUser {
     }
 
     public void setUserID(int newUserID) {
+        if (newUserID <= 0)
+        {
+            throw new IllegalArgumentException("ViewUser user ID cannot be negative, must be positive, >0.");
+        }
         userID = newUserID;
     }
 }

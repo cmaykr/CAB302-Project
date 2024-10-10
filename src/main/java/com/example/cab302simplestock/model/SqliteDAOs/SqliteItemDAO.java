@@ -48,7 +48,7 @@ public class SqliteItemDAO implements IItemDAO {
             statement.setString(1, item.getName());
             statement.setDouble(2, item.getPurchasePrice());
             statement.setDate(3, Date.valueOf(item.getPurchaseDate()));
-            statement.setDouble(4, item.getValue());
+            statement.setDouble(4, item.getQuantity());
             statement.setString(5, item.getDescription());
             statement.setString(6, item.getCategoryName());
             statement.setString(7, item.getTypeName());
@@ -68,13 +68,13 @@ public class SqliteItemDAO implements IItemDAO {
             statement.setString(1, item.getName());
             statement.setDouble(2, item.getPurchasePrice());
             statement.setDate(3, Date.valueOf(item.getPurchaseDate()));
-            statement.setDouble(4, item.getValue());
+            statement.setDouble(4, item.getQuantity());
             statement.setString(5, item.getDescription());
             statement.setString(6, item.getCategoryName());
             statement.setString(7, item.getTypeName());
             statement.setString(8, item.getLocation());
             statement.setBoolean(9, item.getInsured());
-            statement.setInt(10, item.getID());
+            statement.setInt(10, item.getItemID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class SqliteItemDAO implements IItemDAO {
     public void deleteItem(Item item) {
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM item WHERE id = ?");
-            statement.setInt(1, item.getID());
+            statement.setInt(1, item.getItemID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +112,7 @@ public class SqliteItemDAO implements IItemDAO {
                 String location = resultSet.getString("location");
                 boolean insured = resultSet.getBoolean("insured");
                 Item item = new Item(name, purchaseDate.toString(), purchasacePrice, value, description, categoryName, typeName, location, insured);
-                item.setID(id);
+                item.setItemID(id);
                 items.add(item);
             }
         } catch (Exception e) {

@@ -9,7 +9,7 @@ public class CategoryTest {
 
     @BeforeEach
     void setUp() {
-        category = new Category("To buy", "Home inventory");
+        category = new Category("To buy", 2);
     }
 
     @Test
@@ -19,45 +19,36 @@ public class CategoryTest {
     }
 
     @Test
-    void testGetCategoryName() {
-        assertEquals("To buy", category.getCategoryName());
-    }
-
-    @Test
     void testSetCategoryName() {
         category.setCategoryName("Bought items");
         assertEquals("Bought items", category.getCategoryName());
     }
 
     @Test
-    void testGetGroupName() {
-        assertEquals("Home inventory", category.getGroupName());
+    void testSetGroupID() {
+        category.setGroupID(3);
+        assertEquals(3, category.getGroupID());
     }
 
     @Test
-    void testSetGroupName() {
-        category.setGroupName("Company inventory");
-        assertEquals("Company inventory", category.getGroupName());
+    void testSetNegativeIDShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> category.setCategoryID(-1));
+
+        assertEquals("Category ID cannot be negative, must be positive, >0.", exception.getMessage());
     }
 
     @Test
-    void testSetCategoryIDThrowsExceptionAtNegativeID() {
-        Exception exception = assertThrows(Exception.class, () -> category.setCategoryID(-1));
-
-        assertEquals("Category ID cannot be negative.", exception.getMessage());
-    }
-
-    @Test
-    void testSetCategoryNameEmptyThrowsException() {
-        Exception exception = assertThrows(Exception.class, () -> category.setCategoryName(""));
+    void testSetEmptyCategoryNameShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> category.setCategoryName(""));
 
         assertEquals("Category name cannot be empty.", exception.getMessage());
     }
 
     @Test
-    void testSetGroupNameEmptyThrowsException() {
-        Exception exception = assertThrows(Exception.class, () -> category.setGroupName(""));
+    void testSetNegativeGroupIDShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> category.setGroupID(-1));
 
-        assertEquals("Category group name cannot be empty.", exception.getMessage());
+        assertEquals("Category group ID cannot be negative, must be positive, >0.", exception.getMessage());
     }
+
 }

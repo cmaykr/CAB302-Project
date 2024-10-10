@@ -27,7 +27,7 @@ public class Group {
         return ownerID;
     }
 
-    public void setOwner(int newOwnerID) {
+    public void setOwnerID(int newOwnerID) {
         if (newOwnerID <= 0)
         {
             throw new IllegalArgumentException("New owner ID must be positive, >0.");
