@@ -1,5 +1,6 @@
 package com.example.cab302simplestock.model;
 
+import com.example.cab302simplestock.model.InterfaceDAOs.IUserDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

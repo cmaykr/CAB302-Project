@@ -96,8 +96,7 @@ public class RegistrationController {
     }
 
     private String hashPassword(String password) {
-        // Implement your password hashing logic here
-        return password; // Placeholder, replace with actual hashing
+        return password;
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
