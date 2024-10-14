@@ -1,4 +1,4 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.InterfaceDAOs;
 
 import com.example.cab302simplestock.model.Category;
 import java.util.List;
@@ -10,5 +10,5 @@ public interface ICategoryDAO {
 
     public void deleteCategory(Category category);
 
-    public List<Category> getAllCategories(Category category);
+    public List<Category> getAllCategories();
 }

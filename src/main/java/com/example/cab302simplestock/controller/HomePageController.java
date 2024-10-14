@@ -1,13 +1,15 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,44 +25,45 @@ public class HomePageController {
     @FXML
     private Button addGroup;
 
-    // mock username
-    private String username = "JohnDoe"; // This can be passed or loaded dynamically
+    private SqliteGroupDAO groupDAO;
+    private String username = "JohnDoe";  // Example username, replace with the actual logged-in user data
 
-    // mock inventories
-    private List<String> groupList = List.of("Home Group", "Work Group", "Future Buys");
+    public HomePageController() {
+        groupDAO = new SqliteGroupDAO();  // Initialize the Group DAO
+    }
 
     @FXML
     public void initialize() {
-        // Set the welcome text with the username
         welcomeText.setText("Welcome! " + username);
-        // Dynamically create buttons for each group category
-        for (String group : groupList) {
-            Button groupButton = new Button(group);
+        loadGroups();
+    }
+
+    // Load the groups from the database and populate the VBox with buttons
+    private void loadGroups() {
+        List<Group> groupList = groupDAO.getAllGroups();  // Fetch groups from the database
+
+        for (Group group : groupList) {
+            Button groupButton = new Button(group.getGroupName());
             groupButton.setOnAction(event -> {
                 try {
-                    System.out.println(group);
-                    handleGroupClick();
+                    handleGroupClick(group.getGroupName());  // Pass the selected group name
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-            groupButton.setPrefWidth(200.0); // Set button size as needed
-            groupButtonBox.getChildren().add(groupButton); // Add button to VBox
+            groupButton.setPrefWidth(200.0);
+            groupButtonBox.getChildren().add(groupButton);
         }
     }
 
-    // Handle click on group buttons
-    private void handleGroupClick() throws IOException {
-        System.out.println("Clicked on group");
-
-        // Load the new view
+    private void handleGroupClick(String groupName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
-        // Get the controller of the new view
-        // ViewGroupController controller = fxmlLoader.getController();
-        // Pass the group name to the new view
-        // controller.setGroupName(groupName);
-        // Set the new scene
+
+        // Pass the group name to SearchController
+        SearchController controller = fxmlLoader.getController();
+        controller.setGroupName(groupName);  // Set the selected group name
+
         Stage stage = (Stage) addGroup.getScene().getWindow();
         stage.setScene(scene);
     }
@@ -68,11 +71,16 @@ public class HomePageController {
     @FXML
     protected void onAddGroupClick() throws IOException {
         Stage stage = (Stage) addGroup.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("add-group.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
 
+    @FXML
+    protected void logoutClicked() throws IOException {
+        Stage stage = (Stage) addGroup.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
+        stage.setScene(scene);
+    }
 }
-
-

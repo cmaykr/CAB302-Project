@@ -10,6 +10,11 @@ public class Group {
         this.ownerID = groupOwner.getID();
     }
 
+    public Group(String groupName, int ownerID) {
+        this.groupName = groupName;
+        this.ownerID = ownerID;
+    }
+
     public String getGroupName() {
         return groupName;
     }
