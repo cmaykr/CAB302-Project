@@ -3,6 +3,7 @@ package com.example.cab302simplestock.controller;
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -83,4 +84,5 @@ public class HomePageController {
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
+
 }

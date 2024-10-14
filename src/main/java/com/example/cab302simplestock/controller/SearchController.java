@@ -1,6 +1,8 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
 import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
@@ -15,6 +17,7 @@ import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.Item;
 
 import javafx.scene.control.Label; // Import Label
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +47,8 @@ public class SearchController {
     private ListView<String> itemsListView;
     @FXML
     private Button leaveGroupButton;
+    @FXML
+    private Button searchButton;
 
     @FXML
     protected void addItemsButton() throws IOException {
@@ -149,4 +154,8 @@ public class SearchController {
             itemDisplayMap.put(displayText, item.getID());  // Store the item ID in the map
         }
     }
+    public void searchButtonClick(ActionEvent actionEvent){
+
+    }
+
 }

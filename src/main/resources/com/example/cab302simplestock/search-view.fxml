@@ -3,7 +3,6 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.example.cab302simplestock.controller.SearchController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -26,7 +25,10 @@
     <!-- Center section with ListView -->
     <center>
         <VBox alignment="CENTER" spacing="20">
-            <TextField fx:id="searchBar" prefWidth="400" promptText="Search..." />
+            <HBox>
+                <TextField fx:id="searchBar" prefWidth="400" promptText="Search..." />
+                <Button text = "Search" fx:id="searchButton" onAction="#searchButtonClick"></Button>
+            </HBox>
             <ListView fx:id="itemsListView" prefHeight="200" />  <!-- This ListView displays item names -->
         </VBox>
     </center>
