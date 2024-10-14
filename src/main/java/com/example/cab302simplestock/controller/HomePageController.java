@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -43,6 +44,10 @@ public class HomePageController {
         List<Group> groupList = groupDAO.getAllGroups();  // Fetch groups from the database
 
         for (Group group : groupList) {
+            // Create an HBox to hold both the group button and the leave button
+            HBox groupBox = new HBox(10); // 10 px spacing between elements
+
+            // Create the group button
             Button groupButton = new Button(group.getGroupName());
             groupButton.setOnAction(event -> {
                 try {
@@ -51,11 +56,24 @@ public class HomePageController {
                     e.printStackTrace();
                 }
             });
-            groupButton.setPrefWidth(200.0);
-            groupButtonBox.getChildren().add(groupButton);
+            groupButton.setPrefWidth(150.0); // Set width of the group button
+
+            // Create the "Leave Group" button
+            Button leaveGroupButton = new Button("Leave Group");
+            leaveGroupButton.setOnAction(event -> {
+                handleLeaveGroupClick(group);  // Handle leaving the group
+            });
+            leaveGroupButton.setPrefWidth(100.0); // Set width of the leave button
+
+            // Add both buttons to the HBox
+            groupBox.getChildren().addAll(groupButton, leaveGroupButton);
+
+            // Add the HBox to the VBox
+            groupButtonBox.getChildren().add(groupBox);
         }
     }
 
+    // Handle the action of clicking a group button (load the group details or search view)
     private void handleGroupClick(String groupName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
@@ -66,6 +84,16 @@ public class HomePageController {
 
         Stage stage = (Stage) addGroup.getScene().getWindow();
         stage.setScene(scene);
+    }
+
+    // Handle the action of clicking the "Leave Group" button (delete the group)
+    private void handleLeaveGroupClick(Group group) {
+        // Remove the group from the database
+        groupDAO.deleteGroup(group);
+
+        // Refresh the group list in the UI
+        groupButtonBox.getChildren().clear();
+        loadGroups();
     }
 
     @FXML

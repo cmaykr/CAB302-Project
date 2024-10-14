@@ -16,7 +16,6 @@
             <Label fx:id="groupLabel" text="Selected Group: " />
             <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
 
-            <Button fx:id="leaveGroupButton" onAction="#leaveGroupButton" text="Leave Group" />
             <Button fx:id="addItemsButton" onAction="#addItemsButton" text="Add Items" />
             <Button fx:id="logoutButton" text="Logout" onAction="#logoutClicked"/>
         </HBox>
