@@ -105,12 +105,6 @@ public class HomePageController {
         stage.setScene(scene);
     }
 
-    @FXML
-    protected void logoutClicked() throws IOException {
-        Stage stage = (Stage) addGroup.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
-        stage.setScene(scene);
-    }
+
 
 }

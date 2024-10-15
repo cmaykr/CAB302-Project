@@ -16,6 +16,7 @@
         <Button text = "Groups" fx:id ="goGroups" onAction = "#goToGroups"/>
         <Button text = "Accounts" fx:id ="goAccounts" onAction = "#goToAccounts"/>
         <Button text = "Settings" fx:id="goSettings" onAction="#goToSettings"/>
+        <Button text = "Log Out" fx:id="logout" onAction="#logout"/>
     </HBox>
 
 

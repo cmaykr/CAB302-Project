@@ -69,6 +69,13 @@ public class NavBarController {
         stage.setScene(scene);
     }
 
+    public void logout() throws IOException {
+        Stage stage = (Stage) goCategories.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
+        stage.setScene(scene);
+    }
+
 
 
 }
