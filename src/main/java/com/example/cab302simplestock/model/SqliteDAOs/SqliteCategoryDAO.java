@@ -23,11 +23,11 @@ public class SqliteCategoryDAO implements ICategoryDAO {
         try {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS category ("
-                    + "name VARCHAR NOT NULL,"
-                    + "groupName VARCHAR NOT NULL,"
-                    + "PRIMARY KEY (categoryName, groupName),"
-                    + "FOREIGN KEY (groupName) REFERENCES groupDB(name)"
-                    + "UNIQUE(name, groupName)"
+                    + "categoryID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "categoryName VARCHAR NOT NULL,"
+                    + "groupID VARCHAR NOT NULL,"
+                    + "UNIQUE(categoryName, groupID),"
+                    + "FOREIGN KEY (groupID) REFERENCES groupDB(groupID)"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -38,9 +38,9 @@ public class SqliteCategoryDAO implements ICategoryDAO {
     @Override
     public void addCategory(Category category) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO category (name, groupName) VALUES (?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO category (categoryName, groupID) VALUES (?, ?)");
             statement.setString(1, category.getCategoryName());
-            statement.setString(2, category.getGroupName());
+            statement.setInt(2, category.getGroupID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,9 +50,10 @@ public class SqliteCategoryDAO implements ICategoryDAO {
     @Override
     public void updateCategory(Category category) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE category SET groupName = ? WHERE name = ?");
-            statement.setString(1, category.getGroupName());
+            PreparedStatement statement = connection.prepareStatement("UPDATE category SET groupID = ?, categoryName = ? WHERE categoryID = ?");
+            statement.setInt(1, category.getGroupID());
             statement.setString(2, category.getCategoryName());
+            statement.setInt(3, category.getCategoryID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,8 +63,8 @@ public class SqliteCategoryDAO implements ICategoryDAO {
     @Override
     public void deleteCategory(Category category) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM category WHERE name = ?");
-            statement.setString(1, category.getCategoryName());
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM category WHERE categoryID = ?");
+            statement.setInt(1, category.getCategoryID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,9 +79,11 @@ public class SqliteCategoryDAO implements ICategoryDAO {
             String query = "SELECT * FROM category";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                String categoryName = resultSet.getString("name");
-                String groupName = resultSet.getString("groupName");
-                Category category = new Category(categoryName, groupName);
+                int categoryID = resultSet.getInt("categoryID");
+                String categoryName = resultSet.getString("categoryName");
+                int groupID = resultSet.getInt("groupID");
+                Category category = new Category(categoryName, groupID);
+                category.setCategoryID(categoryID);
                 categories.add(category);
             }
         } catch (Exception e) {

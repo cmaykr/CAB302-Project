@@ -75,13 +75,9 @@ public class AddItemController {
             boolean isInsured = insuredRadioButton.isSelected();
             double productPrice = Double.parseDouble(productPriceTextField.getText());
 
-
             // 2. Create a new Item object
-            Item newItem = new Item(productName, productPurchaseDate, productPrice, productValue,
+            Item newItem = new Item(productName, productPurchaseDate, productPrice, productQuantity,
                     productDescription, productCategory, productType, productLocation, isInsured);
-
-
-
 
             // 3. Save the item using DAO
             itemDao.addItem(newItem);

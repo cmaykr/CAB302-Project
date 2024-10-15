@@ -74,9 +74,9 @@ public class listViewController {
         List<Item> items = itemDAO.getAllItems();  // Get all items
 
         for (Item item : items) {
-            if (item.getID() == itemId) {  // Check if the item's ID matches the one we want
+            if (item.getItemID() == itemId) {  // Check if the item's ID matches the one we want
                 currentItem = item; // Store the current item
-                System.out.println(currentItem.getID());
+                System.out.println(currentItem.getItemID());
                 populateFields(item);  // Populate the fields with the item's details
                 break;  // Exit the loop once we find the item
             }
@@ -89,7 +89,7 @@ public class listViewController {
         productTypeTextField.setText(item.getTypeName());
         descriptionTextField.setText(item.getDescription());
         locationTextField.setText(item.getLocation());
-        quantityTextField.setText(String.valueOf(item.getValue()));
+        quantityTextField.setText(String.valueOf(item.getQuantity()));
         purchaseDateTextField.setText(item.getPurchaseDate());
         insuredTextField.setSelected(item.getInsured());
         priceTextField.setText(String.valueOf(item.getPurchasePrice()));
@@ -105,7 +105,7 @@ public class listViewController {
             currentItem.setTypeName(productTypeTextField.getText());
             currentItem.setDescription(descriptionTextField.getText());
             currentItem.setLocation(locationTextField.getText());
-            currentItem.setValue(Double.parseDouble(quantityTextField.getText()));
+            currentItem.setQuantity(Double.parseDouble(quantityTextField.getText()));
             currentItem.setPurchaseDate(purchaseDateTextField.getText());
             currentItem.setInsured(insuredTextField.isSelected());
             currentItem.setPurchasePrice(Double.parseDouble(priceTextField.getText()));

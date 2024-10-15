@@ -6,47 +6,103 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-
+import java.util.regex.Pattern;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
-import javafx.stage.Stage;
 
 public class RegistrationController {
     @FXML
-    TextField firstName;
+    private TextField firstName;
     @FXML
-    TextField lastName;
+    private TextField lastName;
     @FXML
-    TextField email;
+    private TextField email;
     @FXML
-    PasswordField password;
+    private PasswordField password;
     @FXML
-    PasswordField confirmPassword;
+    private PasswordField confirmPassword;
     @FXML
-    Button SignUpButton;
+    private TextField securityQuestion;
+    @FXML
+    private TextField securityAnswer;
+    @FXML
+    private Button signUpButton;
 
-    public void onCreateAccount(ActionEvent actionEvent) throws IOException {
-        SqliteUserDAO userDAO = new SqliteUserDAO();
-        if (!Objects.equals(password.getText(), confirmPassword.getText()))
-        {
-            System.out.println("Password field and confirm password field not identical.");
+    private SqliteUserDAO userDAO;
+
+    public RegistrationController() {
+        userDAO = new SqliteUserDAO();
+    }
+
+    @FXML
+    private void onCreateAccount(ActionEvent actionEvent) throws IOException {
+        if (!validateInput()) {
             return;
         }
-        User newUser = new User(firstName.getText(), lastName.getText(), email.getText(), password.getText());
+
+        // Check if the email already exists
+        if (userDAO.getUserByEmail(email.getText()) != null) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Email already exists.");
+            return;
+        }
+
+        User newUser = new User(firstName.getText(), lastName.getText(), email.getText(), password.getText(), securityQuestion.getText(), securityAnswer.getText());
         userDAO.addUser(newUser);
 
         List<User> users = userDAO.getAllUsers();
-        System.out.println(users.get(users.size()-1).getFirstName());
+        System.out.println(users.get(users.size() - 1).getFirstName());
 
-        Stage stage = (Stage) SignUpButton.getScene().getWindow();
+        Stage stage = (Stage) signUpButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
+    }
+
+
+    private boolean validateInput() {
+        if (firstName.getText().isEmpty() || lastName.getText().isEmpty() || email.getText().isEmpty() ||
+                password.getText().isEmpty() || confirmPassword.getText().isEmpty() ||
+                securityQuestion.getText().isEmpty() || securityAnswer.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "All fields must be filled out.");
+            return false;
+        }
+
+        if (!Objects.equals(password.getText(), confirmPassword.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Passwords do not match.");
+            return false;
+        }
+
+        if (!isValidEmail(email.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Invalid email format.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
+    }
+
+    private String hashPassword(String password) {
+        return password;
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

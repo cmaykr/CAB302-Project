@@ -1,22 +1,16 @@
 import com.example.cab302simplestock.model.Item;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.example.cab302simplestock.model.Photo;
 
 public class PhotoTest {
     Photo photo;
-    Item item;
 
     @BeforeEach
     void setUp() {
-        item = new Item("Nike Shoe", "2022-09-16", 50, 30, "Test descript", "Home inventory", "shoe", "Garage", false);
-        photo = new Photo("shoe.png", item);
-    }
-
-    @Test
-    void testGetImageName() {
-        assertEquals("shoe.png", photo.getImageName());
+        photo = new Photo("shoe.png", 2);
     }
 
     @Test
@@ -26,20 +20,48 @@ public class PhotoTest {
     }
 
     @Test
-    void testGetItemID() {
-        assertEquals(item.getID(), photo.getItemID());
-    }
-
-    @Test
     void testSetItemID() {
-        Item newUser = new Item("Adidas Shoe", "2022-09-16", 50, 30, "Test descript", "Home inventory", "shoe", "Garage", false);
-        photo.setItemID(newUser);
-        assertEquals(newUser.getID(), photo.getItemID());
+        photo.setItemID(30);
+        assertEquals(30, photo.getItemID());
     }
 
     @Test
-    void testGetPhotoID() {
-        photo.setPhotoID(1);
-        assertEquals(1, photo.getPhotoID());
+    void testSetPhotoID() {
+        photo.setPhotoID(2);
+        assertEquals(2, photo.getPhotoID());
+    }
+
+    @Test
+    void testSetEmptyPhotoImageNameShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> photo.setImageName(""));
+
+        assertEquals("Photo image name cannot be empty.", exception.getMessage());
+    }
+
+    @Test
+    void testSetNegativePhotoIDShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> photo.setPhotoID(-2));
+
+        assertEquals("Photo ID cannot be negative, must be a positive value, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetPhotoIDToZeroShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> photo.setPhotoID(0));
+
+        assertEquals("Photo ID cannot be negative, must be a positive value, >0.", exception.getMessage());
+    }
+    @Test
+    void testSetNegativePhotoItemIDShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> photo.setItemID(-1));
+
+        assertEquals("Photo Item ID cannot be negative, must be a positive value, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetPhotoItemIDToZeroShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> photo.setItemID(0));
+
+        assertEquals("Photo Item ID cannot be negative, must be a positive value, >0.", exception.getMessage());
     }
 }

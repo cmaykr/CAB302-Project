@@ -19,7 +19,6 @@
         <HBox spacing="10" alignment="CENTER">
             <Button text="Back" fx:id="backButton" onAction="#backButtonClick" />
             <Region HBox.hgrow="ALWAYS" /> <!-- Spacer -->
-            <Button text="Add Items" fx:id="addItemsButton" onAction="#addItemsButton" />
             <Button text="View List Items" fx:id="ViewItemsButton" />
             <Button text="Logout" fx:id="logoutButton" />
         </HBox>
@@ -59,7 +58,7 @@
 
     <bottom>
         <HBox spacing="10.0" alignment="CENTER">
-            <Button text="Add to List" onAction="#addItemToList" />
+            <Button text="Add to List" fx:id="addItemsButton" onAction="#addItemToList" />
             <Button text="View Your List" />
         </HBox>
     </bottom>

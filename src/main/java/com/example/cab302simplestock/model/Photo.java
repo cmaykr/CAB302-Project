@@ -5,11 +5,6 @@ public class Photo {
     String imageName;
     int itemID;
 
-    public Photo(String imageName, Item item) {
-        this.imageName = imageName;
-        this.itemID = item.getID();
-    }
-
     public Photo(String imageName, int itemID) {
         this.imageName = imageName;
         this.itemID = itemID;
@@ -20,6 +15,10 @@ public class Photo {
     }
 
     public void setPhotoID(int id) {
+        if (id <= 0)
+        {
+            throw new IllegalArgumentException("Photo ID cannot be negative, must be a positive value, >0.");
+        }
         photoID = id;
     }
 
@@ -28,6 +27,10 @@ public class Photo {
     }
 
     public void setImageName(String imageName) {
+        if (imageName.isEmpty())
+        {
+            throw new IllegalArgumentException("Photo image name cannot be empty.");
+        }
         this.imageName = imageName;
     }
 
@@ -35,7 +38,11 @@ public class Photo {
         return itemID;
     }
 
-    public void setItemID(Item newItem) {
-        this.itemID = newItem.getID();
+    public void setItemID(int itemID) {
+        if (itemID <= 0)
+        {
+            throw new IllegalArgumentException("Photo Item ID cannot be negative, must be a positive value, >0.");
+        }
+        this.itemID = itemID;
     }
 }

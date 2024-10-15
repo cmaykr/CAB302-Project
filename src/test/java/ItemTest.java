@@ -14,17 +14,12 @@ public class ItemTest {
         double purchasePrice = 42;
         double value = 30;
         String description = "A white shoe with the Nike logo on it, worn a little";
-        String listName = "Owned items";
-        String typeName = "Shoe"; // TODO: Enum?
+        int categoryID = 1;
+        int typeID = 4;
         String location = "Garage";
         boolean insured = true;
 
-        item = new Item(itemName, purchaseDate, purchasePrice, value, description, listName, typeName, location, insured);
-    }
-
-    @Test
-    void testGetName() {
-        assertEquals("Nike Shoe", item.getName());
+        item = new Item(itemName, purchaseDate, purchasePrice, value, description, categoryID, typeID, location, insured);
     }
 
     @Test
@@ -34,19 +29,9 @@ public class ItemTest {
     }
 
     @Test
-    void testGetPurchaseDate() {
-        assertEquals("2022-09-16", item.getPurchaseDate());
-    }
-
-    @Test
     void testSetPurchaseDate() {
         item.setPurchaseDate("2019-08-10");
         assertEquals("2019-08-10", item.getPurchaseDate());
-    }
-
-    @Test
-    void testGetPurchasePrice() {
-        assertEquals(42, item.getPurchasePrice());
     }
 
     @Test
@@ -56,52 +41,27 @@ public class ItemTest {
     }
 
     @Test
-    void testGetDescription() {
-        assertEquals("A white shoe with the Nike logo on it, worn a little", item.getDescription());
-    }
-
-    @Test
     void testSetDescription() {
         item.setDescription("A black adidas shoe, never worn.");
         assertEquals("A black adidas shoe, never worn.", item.getDescription());
     }
 
     @Test
-    void testGetListName() {
-        assertEquals("Owned items", item.getCategoryName());
+    void testSetCategoryID() {
+        item.setCategoryID(2);
+        assertEquals(2, item.getCategoryID());
     }
 
     @Test
-    void testSetListName() {
-        item.setCategoryName("To buy");
-        assertEquals("To buy", item.getCategoryName());
+    void testSetTypeID() {
+        item.setTypeID(6);
+        assertEquals(6, item.getTypeID());
     }
 
     @Test
-    void testGetTypeName() {
-        assertEquals("Shoe", item.getTypeName());
-    }
-
-    @Test
-    void testSetTypeName() {
-        item.setTypeName("Boot");
-        assertEquals("Boot", item.getTypeName());
-    }
-
-    @Test
-    void testGetValue() {
-        assertEquals(30, item.getValue());
-    }
-
-    @Test
-    void testSetValue() {
-        item.setValue(24);
-        assertEquals(24, item.getValue());
-    }
-
-    @Test
-    void testGetLocation() {
-        assertEquals("Garage", item.getLocation());
+    void testSetQuantity() {
+        item.setQuantity(24);
+        assertEquals(24, item.getQuantity());
     }
 
     @Test
@@ -111,20 +71,80 @@ public class ItemTest {
     }
 
     @Test
-    void testGetInsured() {
-        assertTrue(item.getInsured());
-    }
-
-    @Test
     void testSetInsured() {
         item.setInsured(false);
         assertFalse(item.getInsured());
     }
 
     @Test
-    void testGetID()
-    {
-        item.setID(1);
-        assertEquals(1, item.getID());
+    void testSetItemID() {
+        item.setItemID(2);
+        assertEquals(2, item.getItemID());
     }
+
+    @Test
+    void testSetEmptyItemNameShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> item.setName(""));
+
+        assertEquals("Item name cannot be empty.", exception.getMessage());
+    }
+
+
+    @Test
+    void testSetNegativeItemPurchasePriceShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> item.setPurchasePrice(-1));
+
+        assertEquals("Item purchase price cannot be negative.", exception.getMessage());
+    }
+
+    @Test
+    void testSetNegativeItemQuantityShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> item.setQuantity(-1));
+
+        assertEquals("Item quantity cannot be negative, must be a positive value.", exception.getMessage());
+    }
+
+    @Test
+    void testSetNegativeItemCategoryIDShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> item.setCategoryID(-1));
+
+        assertEquals("Item category ID cannot be negative, must be a positive value, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetItemCategoryIDToZeroShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> item.setCategoryID(0));
+
+        assertEquals("Item category ID cannot be negative, must be a positive value, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetNegativeItemTypeIDThrowsException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> item.setTypeID(-1));
+
+        assertEquals("Item type ID cannot be negative, must be a positive value, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetItemTypeIDToZeroShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> item.setTypeID(0));
+
+        assertEquals("Item type ID cannot be negative, must be a positive value, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetNegativeItemIDShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> item.setItemID(-1));
+
+        assertEquals("Item ID cannot be negative, must be positive, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetItemIDToZeroShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> item.setItemID(0));
+
+        assertEquals("Item ID cannot be negative, must be positive, >0.", exception.getMessage());
+    }
+
+
 }
