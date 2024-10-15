@@ -76,37 +76,6 @@ public class SearchController {
 
 
     @FXML
-    protected void leaveGroupButton() throws IOException {
-        String groupName = groupLabel.getText();  // Get the group name from the label
-
-        if (groupName != null && !groupName.isEmpty()) {
-            // Create a confirmation dialog
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Leave Group");
-            alert.setHeaderText("Are you sure you want to leave the group?");
-            alert.setContentText("Group: " + groupName);
-
-            // Wait for the user to click OK or Cancel
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                // User clicked OK, delete the group
-                Group group = new Group(groupName, 0);  // Assuming ownerID is not required here
-                groupDao.deleteGroup(group);
-
-                // Navigate back to the login page after leaving the group
-                Stage stage = (Stage) leaveGroupButton.getScene().getWindow();
-                FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("home-page.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
-                stage.setScene(scene);
-            } else {
-                // User clicked Cancel or closed the dialog, do nothing
-            }
-        }
-    }
-
-
-
-    @FXML
     public void initialize() {
         loadItems();
         setupItemSelection();
@@ -155,6 +124,10 @@ public class SearchController {
         }
     }
     public void searchButtonClick(ActionEvent actionEvent){
+
+    }
+
+    public void leaveGroupButton(ActionEvent actionEvent) {
 
     }
 
