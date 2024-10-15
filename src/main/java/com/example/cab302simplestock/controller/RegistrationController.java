@@ -45,7 +45,7 @@ public class RegistrationController {
         System.out.println(users.get(users.size()-1).getFirstName());
 
         Stage stage = (Stage) SignUpButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("terms-and-conditions.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
     }

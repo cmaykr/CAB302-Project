@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.cab302simplestock.controller.NavBarController"
+            prefHeight="400.0" prefWidth="600.0">
+    <HBox>
+        <Button text = "Home" fx:id ="goHome" onAction = "#goToHome"/>
+        <Button text = "Categories" fx:id ="goCategories" onAction = "#goToCategories"/>
+        <Button text = "Groups" fx:id ="goGroups" onAction = "#goToGroups"/>
+        <Button text = "Accounts" fx:id ="goAccounts" onAction = "#goToAccounts"/>
+        <Button text = "Settings" fx:id="goSettings" onAction="#goToSettings"/>
+    </HBox>
+
+
+</AnchorPane>
