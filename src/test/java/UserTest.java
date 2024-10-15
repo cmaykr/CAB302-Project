@@ -1,10 +1,15 @@
 import com.example.cab302simplestock.model.User;
 import org.junit.jupiter.api.*;
 
-import java.util.IllegalFormatException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserTest {
     User user;
@@ -43,7 +48,14 @@ public class UserTest {
     @Test
     void testSetPassword() {
         user.setPassword("6789");
-        assertEquals("6789", user.getHashedPassword());
+        try {
+            MessageDigest hashFunc = MessageDigest.getInstance("sha256");
+            byte[] encodedhash = hashFunc.digest("6789".getBytes());
+
+            assertEquals(Base64.getEncoder().encodeToString(encodedhash), user.getHashedPassword());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -123,5 +135,16 @@ public class UserTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> user.setID(-1));
 
         assertEquals("User ID cannot be negative, must be a positive value, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testCheckPassword() {
+        user.checkPassword("12345");
+    }
+
+    @Test
+    void testSetId() {
+        user.setID(1);
+        assertEquals(user.getID(), 1);
     }
 }

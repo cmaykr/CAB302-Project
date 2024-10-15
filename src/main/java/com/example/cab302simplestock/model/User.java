@@ -1,6 +1,12 @@
 package com.example.cab302simplestock.model;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Objects;
+import java.util.UUID;
 
 public class User {
     int userID;
@@ -24,13 +30,16 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password; // TODO: Create a hashed value for the password for better security.
+        this.securityQuestion = "";
+        this.securityAnswer = "";
     }
 
     public User(String firstName, String lastName, String email, String password, String securityQuestion, String securityAnswer) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password; // TODO: Create a hashed value for the password for better security.
+        setPassword(password);
+        //this.password = password; // TODO: Create a hashed value for the password for better security.
         this.securityQuestion = securityQuestion;
         this.securityAnswer = securityAnswer;
     }
@@ -76,8 +85,15 @@ public class User {
     }
 
     public boolean checkPassword(String password) {
-        // TODO: Add code to check if the hash from the inputted password is identical to the stored hashed password.
-        return Objects.equals(this.password, password); // FIXME Temporary solution
+        try {
+            MessageDigest hashFunc = MessageDigest.getInstance("sha256");
+            byte[] encodedhash = hashFunc.digest(password.getBytes(StandardCharsets.UTF_8));
+            System.out.println(Base64.getEncoder().encodeToString(encodedhash));
+            String stringHashed = Base64.getEncoder().encodeToString(encodedhash);
+            return Objects.equals(this.password, stringHashed);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getHashedPassword() {
@@ -90,6 +106,13 @@ public class User {
             throw new IllegalArgumentException("User password cannot be empty.");
         }
         this.password = password;
+        try {
+            MessageDigest hashFunc = MessageDigest.getInstance("sha256");
+            byte[] encodedhash = hashFunc.digest(password.getBytes(StandardCharsets.UTF_8));
+            this.password = Base64.getEncoder().encodeToString(encodedhash);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setID(int id) {
