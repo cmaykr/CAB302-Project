@@ -7,15 +7,17 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.RegistrationController">
-<center>
-    <VBox alignment="CENTER" spacing="20">
-        <Label>Sign up</Label>
-        <TextField fx:id="firstName" promptText="First Name" maxWidth="200"/>
-        <TextField fx:id="lastName" promptText="Last Name" maxWidth="200"/>
-        <TextField fx:id="email" promptText="Email Address" maxWidth="200"/>
-        <PasswordField fx:id="password" promptText="Password" maxWidth="200"/>
-        <PasswordField fx:id="confirmPassword" promptText="Confirm Password" maxWidth="200"/>
-        <Button fx:id="SignUpButton" text="Sign Up" onAction="#onCreateAccount"/>
-    </VBox>
-</center>
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <Label>Sign up</Label>
+            <TextField fx:id="firstName" promptText="First Name" maxWidth="200"/>
+            <TextField fx:id="lastName" promptText="Last Name" maxWidth="200"/>
+            <TextField fx:id="email" promptText="Email Address" maxWidth="200"/>
+            <PasswordField fx:id="password" promptText="Password" maxWidth="200"/>
+            <PasswordField fx:id="confirmPassword" promptText="Confirm Password" maxWidth="200"/>
+            <TextField fx:id="securityQuestion" promptText="Security Question" maxWidth="200"/>
+            <TextField fx:id="securityAnswer" promptText="Security Answer" maxWidth="200"/>
+            <Button fx:id="signUpButton" text="Sign Up" onAction="#onCreateAccount"/>
+        </VBox>
+    </center>
 </BorderPane>

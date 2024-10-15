@@ -19,8 +19,7 @@ public class SqliteUserDAO implements IUserDAO {
         createTable();
     }
 
-    private void createTable()
-    {
+    private void createTable() {
         try {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS user ("
@@ -108,5 +107,28 @@ public class SqliteUserDAO implements IUserDAO {
             e.printStackTrace();
         }
         return users;
+    }
+
+    public User getUserByEmail(String email) {
+        User user = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM user WHERE email = ?");
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("userID");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String hashedPassword = resultSet.getString("hashedPassword");
+                String securityQuestion = resultSet.getString("securityQuestion");
+                String securityAnswer = resultSet.getString("securityAnswer");
+                user = new User(firstName, lastName, email, hashedPassword, securityQuestion, securityAnswer);
+                user.setHashedPassword(hashedPassword);
+                user.setID(id);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

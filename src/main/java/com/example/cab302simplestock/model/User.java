@@ -88,7 +88,6 @@ public class User {
         try {
             MessageDigest hashFunc = MessageDigest.getInstance("sha256");
             byte[] encodedhash = hashFunc.digest(password.getBytes(StandardCharsets.UTF_8));
-            System.out.println(Base64.getEncoder().encodeToString(encodedhash));
             String stringHashed = Base64.getEncoder().encodeToString(encodedhash);
             return Objects.equals(this.password, stringHashed);
         } catch (NoSuchAlgorithmException e) {
@@ -100,12 +99,20 @@ public class User {
         return password;
     }
 
+    public void setHashedPassword(String hashedPassword) {
+        if (hashedPassword.isEmpty())
+        {
+            throw new IllegalArgumentException(("User hashed password cannot be empty."));
+        }
+
+        this.password = hashedPassword;
+    }
+
     public void setPassword(String password) {
         if (password.isEmpty())
         {
             throw new IllegalArgumentException("User password cannot be empty.");
         }
-        this.password = password;
         try {
             MessageDigest hashFunc = MessageDigest.getInstance("sha256");
             byte[] encodedhash = hashFunc.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -114,6 +121,8 @@ public class User {
             throw new RuntimeException(e);
         }
     }
+
+
 
     public void setID(int id) {
         if (id <= 0)
