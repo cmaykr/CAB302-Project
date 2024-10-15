@@ -58,7 +58,7 @@
 
     <bottom>
         <HBox spacing="10.0" alignment="CENTER">
-            <Button text="Add to List" onAction="#addItemToList" />
+            <Button text="Add to List" fx:id="addItemsButton" onAction="#addItemToList" />
             <Button text="View Your List" />
         </HBox>
     </bottom>

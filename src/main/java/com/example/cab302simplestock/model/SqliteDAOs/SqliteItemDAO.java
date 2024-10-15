@@ -48,8 +48,8 @@ public class SqliteItemDAO implements IItemDAO {
                     + "description, categoryID, typeID, location, insured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             statement.setString(1, item.getName());
-            statement.setDouble(2, item.getPurchasePrice());
-            statement.setDate(3, Date.valueOf(item.getPurchaseDate()));
+            statement.setDate(2, Date.valueOf(item.getPurchaseDate()));
+            statement.setDouble(3, item.getPurchasePrice());
             statement.setDouble(4, item.getQuantity());
             statement.setString(5, item.getDescription());
             statement.setInt(6, item.getCategoryID());

@@ -23,6 +23,8 @@ public class Item {
     public Item(String itemName, String purchaseDate, double purchasePrice, double quantity, String description, String categoryName, String typeName, String location, boolean insured) {
         System.out.println("Usage of deprecated Item constructor.");
 
+        System.out.println(purchaseDate);
+        System.out.println(purchasePrice);
         this.itemName = itemName;
         this.purchaseDate = LocalDate.parse(purchaseDate);
         this.purchasePrice = purchasePrice;
