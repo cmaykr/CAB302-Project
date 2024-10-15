@@ -18,6 +18,10 @@ public class UserManager {
     }
 
     public void setLoggedInUser(User newUser) {
+        if (loggedInUser != null)
+        {
+            throw new IllegalStateException("A user is already logged in!");
+        }
         loggedInUser = newUser;
     }
 

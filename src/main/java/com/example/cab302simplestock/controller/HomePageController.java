@@ -3,6 +3,8 @@ package com.example.cab302simplestock.controller;
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
+import com.example.cab302simplestock.model.User;
+import com.example.cab302simplestock.model.UserManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +38,7 @@ public class HomePageController {
 
     @FXML
     public void initialize() {
+        username = UserManager.getInstance().getLoggedInUser().getFirstName() + " " + UserManager.getInstance().getLoggedInUser().getLastName();
         welcomeText.setText("Welcome! " + username);
         loadGroups();
     }
@@ -107,6 +110,7 @@ public class HomePageController {
 
     @FXML
     protected void logoutClicked() throws IOException {
+        UserManager.getInstance().logOutUser();
         Stage stage = (Stage) addGroup.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);

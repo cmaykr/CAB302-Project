@@ -1,6 +1,7 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.UserManager;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import com.example.cab302simplestock.model.Group;
@@ -68,6 +69,7 @@ public class SearchController {
 
     @FXML
     protected void logoutClicked() throws IOException {
+        UserManager.getInstance().logOutUser();
         Stage stage = (Stage) backButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);

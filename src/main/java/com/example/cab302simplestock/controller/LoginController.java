@@ -2,6 +2,7 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
 import com.example.cab302simplestock.model.User;
+import com.example.cab302simplestock.model.UserManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,6 +45,7 @@ public class LoginController {
                 User user = userDao.getUserByEmail(email);
                 if (user != null && user.checkPassword(pwd)) {
                     showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + user.getFirstName() + "!");
+                    UserManager.getInstance().setLoggedInUser(user);
                     loadHomePage();
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid email or password.");
