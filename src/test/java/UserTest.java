@@ -1,10 +1,10 @@
 import com.example.cab302simplestock.model.User;
 import org.junit.jupiter.api.*;
 
+import java.util.IllegalFormatException;
 import java.util.Objects;
-import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
     User user;
@@ -15,49 +15,113 @@ public class UserTest {
         String lastName = "Smith";
         String email = "J.Smith@mail.com";
         String password = "12345";
-        user = new User(firstName, lastName, email, password);
+        String secQuestion = "Which university did you study at?";
+        String secAnswer = "QUT";
+        user = new User(firstName, lastName, email, password, secQuestion, secAnswer);
     }
 
     @Test
-    void testConstructor() {
-        String firstName = "John";
-        String lastName = "Smith";
-        String email = "J.Smith@mail.com";
-        String password = "12345";
-
-        User testUser = new User(firstName, lastName, email, password);
-
-        assert(Objects.equals(testUser.getFirstName(), firstName));
-        assert(Objects.equals(testUser.getLastName(), lastName));
-        assert(Objects.equals(testUser.getEmail(), email));
-        assert(testUser.checkPassword(password));
-    }
-
-    @Test
-    void testChangeFirstName() {
-        String newName = "Erik";
+    void testSetFirstName() {
+        String newName = "Ella";
         user.setFirstName(newName);
-        assert(Objects.equals(user.getFirstName(), newName));
+        assertEquals("Ella", user.getFirstName());
     }
 
     @Test
-    void testChangeLastName() {
+    void testSetLastName() {
         String newName = "Johnson";
         user.setLastName(newName);
-        assert(Objects.equals(user.getLastName(), newName));
+        assertEquals("Johnson", user.getLastName());
     }
 
     @Test
-    void testChangeEmail() {
-        String newMail = "Erik@mail.com";
-        user.setEmail(newMail);
-        assert(Objects.equals(user.getEmail(), newMail));
+    void testSetEmail() {
+        user.setEmail("Smith@mail.com");
+        assertEquals("Smith@mail.com", user.getEmail());
     }
 
     @Test
-    void testChangePassword() {
-        String newPassword = "54321";
-        user.setPassword(newPassword);
-        assert(user.checkPassword(newPassword));
+    void testSetPassword() {
+        user.setPassword("6789");
+        assertEquals("6789", user.getHashedPassword());
+    }
+
+    @Test
+    void testSetSecurityQuestion() {
+        user.setSecurityQuestion("Where did you grow up?");
+        assertEquals("Where did you grow up?", user.getSecurityQuestion());
+    }
+
+    @Test
+    void testSetSecurityAnswer() {
+        user.setSecurityAnswer("UQ");
+        assertEquals("UQ", user.getSecurityAnswer());
+    }
+
+    @Test
+    void testSetUserID() {
+        user.setID(2);
+        assertEquals(2, user.getID());
+    }
+
+    @Test
+    void testCheckUserPassword() {
+        assertTrue(user.checkPassword("12345"));
+    }
+
+    @Test
+    void testSetEmptyFirstNameShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> user.setFirstName(""));
+
+        assertEquals("User first name cannot be empty.", exception.getMessage());
+    }
+
+    @Test
+    void testSetEmptyLastNameShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> user.setLastName(""));
+
+        assertEquals("User last name cannot be empty.", exception.getMessage());
+    }
+
+    @Test
+    void testSetEmptyEmailShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> user.setEmail(""));
+
+        assertEquals("User email cannot be empty.", exception.getMessage());
+    }
+
+    @Test
+    void testSetInvalidEmailShouldThrowIllegalFormatException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> user.setEmail("john.com"));
+
+        assertEquals("User email format invalid, use format: name@domain.", exception.getMessage());
+    }
+
+    @Test
+    void testSetEmptyPasswordShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> user.setPassword(""));
+
+        assertEquals("User password cannot be empty.", exception.getMessage());
+    }
+
+    @Test
+    void testSetEmptySecurityQuestionShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> user.setSecurityQuestion(""));
+
+        assertEquals("User security question cannot be empty.", exception.getMessage());
+    }
+
+    @Test
+    void testSetEmptySecurityAnswerShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> user.setSecurityAnswer(""));
+
+        assertEquals("User security answer cannot be empty.", exception.getMessage());
+    }
+
+    @Test
+    void testSetNegativeUserIDShouldThrowIllegalArgumentException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> user.setID(-1));
+
+        assertEquals("User ID cannot be negative, must be a positive value, >0.", exception.getMessage());
     }
 }

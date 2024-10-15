@@ -20,9 +20,11 @@ public class SqliteGroupDAO implements IGroupDAO {
         try {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS groupDB ("
-                    + "name VARCHAR PRIMARY KEY,"
+                    + "groupID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "name VARCHAR,"
                     + "ownerID INTEGER NOT NULL,"
-                    + "FOREIGN KEY (ownerID) REFERENCES user(id)"
+                    + "FOREIGN KEY (ownerID) REFERENCES user(userID),"
+                    + "UNIQUE(name)"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -46,10 +48,11 @@ public class SqliteGroupDAO implements IGroupDAO {
     @Override
     public void updateGroup(Group group) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE groupDB SET ownerID = ? WHERE name = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE groupDB SET ownerID = ?, name = ? WHERE groupID = ?");
 
             statement.setInt(1, group.getOwnerID());
             statement.setString(2, group.getGroupName());
+            statement.setString(3, group.getGroupName());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,9 +62,9 @@ public class SqliteGroupDAO implements IGroupDAO {
     @Override
     public void deleteGroup(Group group) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM groupDB WHERE name = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM groupDB WHERE groupID = ?");
 
-            statement.setString(1, group.getGroupName());
+            statement.setInt(1, group.getGroupID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,9 +79,11 @@ public class SqliteGroupDAO implements IGroupDAO {
             String query = "SELECT * FROM groupDB";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
+                int groupID = resultSet.getInt("groupID");
                 String name = resultSet.getString("name");
                 int ownerID = resultSet.getInt("ownerID");
                 Group group = new Group(name, ownerID);
+                group.setGroupID(groupID);
                 groups.add(group);
             }
         } catch (Exception e) {

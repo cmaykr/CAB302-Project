@@ -24,12 +24,12 @@ public class SqliteViewUserDAO implements IViewUserDAO {
         try {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS viewUser ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "groupName VARCHAR NOT NULL,"
+                    + "viewUserID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "groupID VARCHAR NOT NULL,"
                     + "userID INTEGER NOT NULL,"
-                    + "FOREIGN KEY (groupName) REFERENCES groupDB(groupName),"
+                    + "FOREIGN KEY (groupID) REFERENCES groupDB(groupID),"
                     + "FOREIGN KEY (userID) REFERENCES user(userID),"
-                    + "UNIQUE(groupName, userID)"
+                    + "UNIQUE(groupID, userID)"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -41,8 +41,8 @@ public class SqliteViewUserDAO implements IViewUserDAO {
     @Override
     public void addViewUser(ViewUser viewUser) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO viewUser (groupName, userID) VALUES (?, ?)");
-            statement.setString(1, viewUser.getGroupName());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO viewUser (groupID, userID) VALUES (?, ?)");
+            statement.setInt(1, viewUser.getGroupID());
             statement.setInt(2, viewUser.getUserID());
             statement.executeUpdate();
         } catch (Exception e) {
@@ -55,10 +55,10 @@ public class SqliteViewUserDAO implements IViewUserDAO {
     @Override
     public void updateViewUser(ViewUser viewUser) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE viewUser SET groupName = ?, userID = ? WHERE id = ?");
-            statement.setString(1, viewUser.getGroupName());
+            PreparedStatement statement = connection.prepareStatement("UPDATE viewUser SET groupID = ?, userID = ? WHERE viewUserID = ?");
+            statement.setInt(1, viewUser.getGroupID());
             statement.setInt(2, viewUser.getUserID());
-            statement.setInt(5, viewUser.getID());
+            statement.setInt(3, viewUser.getID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class SqliteViewUserDAO implements IViewUserDAO {
     @Override
     public void deleteViewUser(ViewUser viewUser) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM viewUser WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM viewUser WHERE viewUserID = ?");
             statement.setInt(1, viewUser.getID());
             statement.executeUpdate();
         } catch (Exception e) {
@@ -84,10 +84,10 @@ public class SqliteViewUserDAO implements IViewUserDAO {
             String query = "SELECT * FROM viewUser";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String groupName = resultSet.getString("groupName");
+                int id = resultSet.getInt("viewUserID");
+                int groupID = resultSet.getInt("groupID");
                 int userID = resultSet.getInt("userID");
-                ViewUser viewUser = new ViewUser(groupName, userID);
+                ViewUser viewUser = new ViewUser(groupID, userID);
                 viewUser.setID(id);
                 viewUsers.add(viewUser);
             }

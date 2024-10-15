@@ -24,11 +24,13 @@ public class SqliteUserDAO implements IUserDAO {
         try {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS user ("
-                    + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "userID INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "firstName VARCHAR NOT NULL,"
                     + "lastName VARCHAR NOT NULL,"
                     + "email VARCHAR NOT NULL,"
-                    + "hashedPassword VARCHAR NOT NULL"
+                    + "hashedPassword VARCHAR NOT NULL,"
+                    + "securityQuestion VARCHAR NOT NULL,"
+                    + "securityAnswer VARCHAR NOT NULL"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -40,11 +42,14 @@ public class SqliteUserDAO implements IUserDAO {
     @Override
     public void addUser(User user) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO user (firstName, lastName, email, hashedPassword) VALUES (?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO user (firstName, lastName, email, hashedPassword, securityQuestion, securityAnswer) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)");
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getHashedPassword());
+            statement.setString(5, user.getSecurityQuestion());
+            statement.setString(6, user.getSecurityAnswer());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,12 +59,15 @@ public class SqliteUserDAO implements IUserDAO {
     @Override
     public void updateUser(User user) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE user SET firstName = ?, lastName = ?, email = ?, hashedPassword = ? WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE user SET firstName = ?, lastName = ?, email = ?, hashedPassword = ?, securityQuestion = ?, securityAnswer = ?" +
+                    " WHERE userID = ?");
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getHashedPassword());
-            statement.setInt(5, user.getID());
+            statement.setString(5, user.getSecurityQuestion());
+            statement.setString(6, user.getSecurityAnswer());
+            statement.setInt(7, user.getID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +77,7 @@ public class SqliteUserDAO implements IUserDAO {
     @Override
     public void deleteUser(User user) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM user WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM user WHERE userID = ?");
             statement.setInt(1, user.getID());
             statement.executeUpdate();
         } catch (Exception e) {
@@ -85,12 +93,14 @@ public class SqliteUserDAO implements IUserDAO {
             String query = "SELECT * FROM user";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt("userID");
                 String firstName = resultSet.getString("firstName");
                 String lastName = resultSet.getString("lastName");
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("hashedPassword");
-                User user = new User(firstName, lastName, email, password);
+                String secQuestion = resultSet.getString("securityQuestion");
+                String secAnswer = resultSet.getString("securityAnswer");
+                User user = new User(firstName, lastName, email, password, secQuestion, secAnswer);
                 user.setID(id);
                 users.add(user);
             }

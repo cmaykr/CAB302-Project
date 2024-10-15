@@ -1,24 +1,22 @@
-import com.example.cab302simplestock.model.User;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.example.cab302simplestock.model.Group;
 
 public class GroupTest {
     Group group;
-    User user;
 
     @BeforeEach
     void setUp()
     {
-        user = new User("John", "Smith", "j.Smith@mail.com", "12345");
-        group = new Group("HomeGroup", user);
+        group = new Group("HomeGroup", 1);
     }
 
     @Test
-    void testGetGroupName()
-    {
-        assertEquals("HomeGroup", group.getGroupName());
+    void testSetGroupID() {
+        group.setGroupID(1);
+        assertEquals(1, group.getGroupID());
     }
 
     @Test
@@ -29,16 +27,44 @@ public class GroupTest {
     }
 
     @Test
-    void testGetOwner()
+    void testSetOwnerID()
     {
-        assertEquals(user.getID(), group.getOwnerID());
+        group.setOwnerID(2);
+        assertEquals(2, group.getOwnerID());
     }
 
     @Test
-    void testSetOwner()
-    {
-        User newUser = new User("Erik", "Smith", "j.Smith@mail.com", "54321");
-        group.setOwner(newUser);
-        assertEquals(newUser.getID(), group.getOwnerID());
+    void testSetEmptyGroupNameShouldThrowIllegalArgumentException() {
+        Exception exception = assertThrows(Exception.class, () -> group.setGroupName(""));
+
+        assertEquals("Group name cannot be empty.", exception.getMessage());
+    }
+
+    @Test
+    void testSetNegativeOwnerIDShouldThrowIllegalArgumentException() {
+        Exception exception = assertThrows(Exception.class, () -> group.setOwnerID(-1));
+
+        assertEquals("New owner ID must be positive, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetOwnerIDToZeroShouldThrowIllegalArgumentException() {
+        Exception exception = assertThrows(Exception.class, () -> group.setOwnerID(0));
+
+        assertEquals("New owner ID must be positive, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetNegativeGroupIDShouldThrowIllegalArgumentException() {
+        Exception exception = assertThrows(Exception.class, () -> group.setGroupID(-1));
+
+        assertEquals("Group ID must be positive, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetGroupIDToZeroShouldThrowIllegalArgumentException() {
+        Exception exception = assertThrows(Exception.class, () -> group.setGroupID(0));
+
+        assertEquals("Group ID must be positive, >0.", exception.getMessage());
     }
 }

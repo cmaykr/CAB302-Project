@@ -23,10 +23,11 @@ public class SqlitePhotoDAO implements IPhotoDAO {
         try {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS photo ("
+                    + "photoID INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "name VARCHAR NOT NULL,"
                     + "itemID INTEGER NOT NULL,"
-                    + "PRIMARY KEY (name, itemID),"
-                    + "FOREIGN KEY (itemID) REFERENCES item(id)"
+                    + "UNIQUE(name, itemID),"
+                    + "FOREIGN KEY (itemID) REFERENCES item(itemID)"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -49,10 +50,10 @@ public class SqlitePhotoDAO implements IPhotoDAO {
     @Override
     public void updatePhoto(Photo photo) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE photo SET name = ?, itemID = ? WHERE rowid = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE photo SET name = ?, itemID = ? WHERE photoID = ?");
             statement.setString(1, photo.getImageName());
             statement.setInt(2, photo.getItemID());
-            statement.setInt(5, photo.getPhotoID());
+            statement.setInt(3, photo.getPhotoID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +63,7 @@ public class SqlitePhotoDAO implements IPhotoDAO {
     @Override
     public void deletePhoto(Photo photo) {
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM photo WHERE rowid = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM photo WHERE photoID = ?");
             statement.setInt(1, photo.getPhotoID());
             statement.executeUpdate();
         } catch (Exception e) {
@@ -78,10 +79,11 @@ public class SqlitePhotoDAO implements IPhotoDAO {
             String query = "SELECT rowid, * FROM photo";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
+                int photoID = resultSet.getInt("photoID");
                 String imageName = resultSet.getString("name");
                 int itemID = resultSet.getInt("itemID");
                 Photo photo = new Photo(imageName, itemID);
-                photo.setPhotoID(resultSet.getInt("rowid"));
+                photo.setPhotoID(photoID);
                 photos.add(photo);
             }
         } catch (Exception e) {

@@ -120,7 +120,7 @@ public class SearchController {
         for (Item item : items) {
             String displayText = item.getName() + " - " + item.getCategoryName();  // Example format
             itemsListView.getItems().add(displayText);
-            itemDisplayMap.put(displayText, item.getID());  // Store the item ID in the map
+            itemDisplayMap.put(displayText, item.getItemID());  // Store the item ID in the map
         }
     }
     public void searchButtonClick(ActionEvent actionEvent){
