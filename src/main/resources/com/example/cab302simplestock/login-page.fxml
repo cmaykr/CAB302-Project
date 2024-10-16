@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.LoginController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.LoginController" stylesheets="@credential_Page.css">
     <center>
         <VBox alignment="CENTER" spacing="20">
-            <Label>Login</Label>
+            <Label fx:id="login_text">Login</Label>
             <TextField fx:id="username" promptText="Username" maxWidth="200"/>
             <PasswordField fx:id="password" promptText="Password" maxWidth="200"/>
             <HBox alignment="CENTER" spacing="30">
-                <Button text="Forgotten password?" onAction="#onForgottenPassword"/>
-                <Button fx:id="Submit" text="Submit" onAction="#onSubmit"/>
+                <Hyperlink text="Forgotten password?" onAction="#onForgottenPassword"/>
+                <Button fx:id="SignUpButton" text="log in" onAction="#onSubmit"/>
             </HBox>
         </VBox>
     </center>
@@ -24,7 +24,7 @@
             <padding>
                 <Insets bottom="10" left="10"/>
             </padding>
-            <Button fx:id="createAccountButton" text="Create an Account" onAction="#onCreateAccount"/>
+            <Hyperlink fx:id="createAccountButton" text="Don't have an account?Register" onAction="#onCreateAccount"/>
         </VBox>
     </bottom>
 </BorderPane>

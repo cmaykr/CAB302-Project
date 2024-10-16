@@ -6,7 +6,7 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.RegistrationController"  stylesheets="@credential_Page.css">
     <center>
         <VBox alignment="CENTER" spacing="20">
-            <Label>Sign up</Label>
+            <Label fx:id="sign_up">Sign up</Label>
             <TextField fx:id="firstName" promptText="First Name" maxWidth="200"/>
             <TextField fx:id="lastName" promptText="Last Name" maxWidth="200"/>
             <TextField fx:id="email" promptText="Email Address" maxWidth="200"/>
