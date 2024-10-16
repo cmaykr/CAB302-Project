@@ -15,8 +15,22 @@ import com.example.cab302simplestock.model.Item;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * Controller class handling the addition of new items to the system.
+ * Manages the user interface and logic for adding items, including form for validation and communication
+ * with the database through the DAO layer.
+ *
+ */
 public class AddItemController {
+    /**
+     * DAO interface for performing item-related database operation.
+     */
     private IItemDAO itemDao;
+
+    /**
+     * Constructgor for the AddItemContorller.
+     * Initialises the DAO implementation for interacting with the database.
+     */
     public AddItemController(){
         itemDao = new SqliteItemDAO();
     }
@@ -45,6 +59,14 @@ public class AddItemController {
     private Button addItemsButton;
     @FXML
     private Button backButton;
+
+    /**
+     * Handles the action when the "Add Items" button is clicked.
+     * Transitions the user to the "Add Item" view.
+     *
+     * @throws IOException if there is an error while loading the FXML file for the
+     * add item view.
+     */
     @FXML
     protected void addItemsButton() throws IOException {
         Stage stage = (Stage)addItemsButton.getScene().getWindow();
@@ -52,6 +74,12 @@ public class AddItemController {
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH,SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
+
+    /**
+     * Handles the action when the "Back" button is clicked.
+     * Navigates the user back to the "search" view.
+     * @throws IOException if there is an Error while loading the FXML file for the search view.
+     */
     @FXML
     protected void backButtonClick() throws IOException{
         Stage stage = (Stage)backButton.getScene().getWindow();
@@ -59,7 +87,11 @@ public class AddItemController {
         Scene scene = new Scene(fxmlLoader.load(),SimpleStock.WIDTH,SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
-
+    /**
+     * Retrieves input data from the form, validates it, creates an Item object,
+     * and saves the item to the database using the DAO. If successful, it navigates
+     * back to the search view.
+     */
     @FXML
     protected void addItemToList() {
         try {

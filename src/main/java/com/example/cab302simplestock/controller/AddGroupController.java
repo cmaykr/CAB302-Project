@@ -14,23 +14,46 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 
+/**
+ * Controller class for adding a new group in the system.
+ * Handle user interactions related to the group creation process.
+ */
 public class AddGroupController {
-
+    /**
+     * Text field for entering the group name.
+     */
     @FXML
     private TextField groupNameField;
-
+    /**
+     * DAO interface for interacting with group-related database operations.
+     */
     private IGroupDAO groupDao;
 
+    /**
+     * Initialises the controller and sets up the group DAO for database access.
+     * The DAO implementation used is {@code SqliteGroupDAO}.
+     */
     public AddGroupController() {
         groupDao = new SqliteGroupDAO();
     }
 
+    /**
+     * Initalises any required data or logic after the FXML components have been loaded.
+     * This method is automatically called after the FXML file has been loaded.
+     */
     @FXML
     private void initialize() {
         // Initialize logic if needed
     }
 
-    // Handler for Add Group button
+    /**
+     * Handles the action when the "ADD Group" button is clicked.
+     * This method checks if the group name is provided, then adds the group to the database.
+     * If successful, a success message is displayed, and the group name field is cleared.
+     * Finally, the scene transitions back to the home page.
+     *
+     * @throws IOException if there is an error while loading the home page FXML file.
+     */
     @FXML
     private void onAddGroupClick() throws IOException {
         String groupName = groupNameField.getText().trim();
@@ -58,7 +81,12 @@ public class AddGroupController {
         stage.setScene(scene);
     }
 
-    // Handler for Back button
+    /**
+     * Handles the action when the "Back" button is clicked.
+     * This method transitions the scene back to the home page.
+     *
+     * @throws IOException if there is an error while loading the home page FXML file.
+     */
     @FXML
     private void onBackButtonClick() throws IOException {
         Stage stage = (Stage) groupNameField.getScene().getWindow();
@@ -67,7 +95,11 @@ public class AddGroupController {
         stage.setScene(scene);
     }
 
-    // Utility function to show an alert message
+    /**
+     * Display an alert dialog with the given title and message.
+     * @param title the title of the alter dialog
+     * @param message  the message to be displayed in the alert dialog.
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
