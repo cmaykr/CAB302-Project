@@ -92,6 +92,11 @@ public class LoginController {
             Parent root = loader.load();
             Stage stage = (Stage) username.getScene().getWindow();
             stage.setScene(new Scene(root));
+
+            // Set minimum width and height for the window
+            stage.setMinWidth(640);  // Set your preferred minimum width
+            stage.setMinHeight(500); // Set your preferred minimum height
+            stage.sizeToScene(); // Resize the stage to fit the new scene
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
