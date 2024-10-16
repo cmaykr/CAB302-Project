@@ -19,13 +19,9 @@
         <VBox alignment="CENTER_LEFT" spacing="15">
             <Label fx:id="groupLabel" text="Selected Group: " style="-fx-font-weight: bold; -fx-font-size: 14px;-fx-background-color: lightgray; -fx-padding: 5px;" />
             <HBox alignment="CENTER_LEFT" spacing="15">
-                <Button fx:id="backButton" onAction="#backButtonClick" text="Back" />
 
                 <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
-
-                <Button fx:id="leaveGroupButton" onAction="#leaveGroupButton" text="Leave Group" />
                 <Button fx:id="addItemsButton" onAction="#addItemsButton" text="Add Items" />
-                <Button fx:id="logoutButton" text="Logout" onAction="#logoutClicked"/>
             </HBox>
         </VBox>
     </top>

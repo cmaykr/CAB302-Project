@@ -58,22 +58,6 @@ public class SearchController {
         stage.setScene(scene);
     }
 
-    @FXML
-    protected void backButtonClick() throws IOException {
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("home-page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
-        stage.setScene(scene);
-    }
-
-    @FXML
-    protected void logoutClicked() throws IOException {
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
-        stage.setScene(scene);
-    }
-
 
     @FXML
     public void initialize() {
@@ -127,8 +111,5 @@ public class SearchController {
 
     }
 
-    public void leaveGroupButton(ActionEvent actionEvent) {
-
-    }
 
 }

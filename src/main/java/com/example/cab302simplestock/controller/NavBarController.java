@@ -3,6 +3,7 @@ package com.example.cab302simplestock.controller;
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
+import com.example.cab302simplestock.model.UserManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -70,6 +71,7 @@ public class NavBarController {
     }
 
     public void logout() throws IOException {
+        UserManager.getInstance().logOutUser();
         Stage stage = (Stage) goCategories.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
