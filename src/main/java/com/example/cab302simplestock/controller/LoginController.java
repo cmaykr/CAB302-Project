@@ -64,7 +64,7 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/forgotten-pass.fxml"));
                 Parent root = loader.load();
 
-                com.example.cab302simplestock.controller.ForgottenpassController controller = loader.getController();
+                ForgottenpassController controller = loader.getController();
                 controller.initialize(user);
 
                 Stage stage = (Stage) username.getScene().getWindow();
@@ -78,8 +78,6 @@ public class LoginController {
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the security question page.");
         }
     }
-
-
 
     @FXML
     private void onCreateAccount() {
