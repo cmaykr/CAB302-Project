@@ -3,6 +3,8 @@ package com.example.cab302simplestock.controller;
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
+import com.example.cab302simplestock.model.User;
+import com.example.cab302simplestock.model.UserManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,8 +30,8 @@ public class HomePageController {
     private Button addGroup;
 
     private SqliteGroupDAO groupDAO;
-    private String username = "JohnDoe";  // Example username, replace with the actual logged-in user data
-
+    private User loggedInUser = UserManager.getInstance().getLoggedInUser();
+    private String username = loggedInUser.getFirstName();  // Example username, replace with the actual logged-in user data
     public HomePageController() {
         groupDAO = new SqliteGroupDAO();  // Initialize the Group DAO
     }
