@@ -33,7 +33,7 @@ public class LoginController {
         userDao = new SqliteUserDAO();
     }
 
-    @FXML
+    /*@FXML
     private void onSubmit() {
         String email = username.getText();
         String pwd = password.getText();
@@ -58,7 +58,49 @@ public class LoginController {
             showAlert(Alert.AlertType.ERROR, "Error", "An unexpected error occurred.");
         }
     }
+     */
+    @FXML
+    private void onSubmit() {
+        String email = username.getText().trim(); // Get the email and trim whitespace
+        String pwd = password.getText().trim(); // Get the password and trim whitespace
 
+        // Check if email or password fields are empty
+        if (email.isEmpty() || pwd.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid email or password."); // Show alert for empty credentials
+            return; // Exit the method
+        }
+
+        try {
+            // Check for admin credentials
+            if (email.equals(ADMIN_EMAIL) && pwd.equals(ADMIN_PASSWORD)) {
+                UserManager.getInstance().setLoggedInUser(new User("Admin", "User", ADMIN_EMAIL, ADMIN_PASSWORD, "", ""));
+                showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, Admin!");
+                loadHomePage();
+                return; // Exit after successful admin login
+            }
+
+            // Check for user in the database
+            User user = userDao.getUserByEmail(email);
+            if (user != null) {
+                // If user exists, check the password
+                if (user.checkPassword(pwd)) {
+                    UserManager.getInstance().setLoggedInUser(user);
+                    showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + user.getFirstName() + "!");
+                    loadHomePage();
+                } else {
+                    // Password incorrect
+                    showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid email or password.");
+                }
+            } else {
+                // User not found
+                showAlert(Alert.AlertType.ERROR, "Login Failed", "No user found with this email and password.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "An unexpected error occurred.");
+        }
+    }
+    /*
     @FXML
     private void onForgottenPassword() {
         String email = username.getText();
@@ -82,6 +124,33 @@ public class LoginController {
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the security question page.");
         }
     }
+     */
+    @FXML
+    private void onForgottenPassword() {
+        try {
+            // Load the forgotten password FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/forgotten-pass.fxml"));
+            Parent root = loader.load();
+
+            // Optionally, you can still pass the user object if needed
+            String email = username.getText().trim();
+            User user = userDao.getUserByEmail(email); // Fetch user to check existence (optional)
+
+            com.example.cab302simplestock.controller.ForgottenpassController controller = loader.getController();
+            if (user != null) {
+                // If the user exists, pass the user object to the controller
+                controller.initialize(user);
+            }
+
+            // Set the new scene for the stage
+            Stage stage = (Stage) username.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the forgotten password page.");
+        }
+    }
 
 
 
@@ -92,6 +161,11 @@ public class LoginController {
             Parent root = loader.load();
             Stage stage = (Stage) username.getScene().getWindow();
             stage.setScene(new Scene(root));
+
+            // Set minimum width and height for the window
+            stage.setMinWidth(640);  // Set your preferred minimum width
+            stage.setMinHeight(500); // Set your preferred minimum height
+            stage.sizeToScene(); // Resize the stage to fit the new scene
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -14,7 +14,7 @@
             <PasswordField fx:id="confirmPassword" promptText="Confirm Password" maxWidth="200"/>
             <TextField fx:id="securityQuestion" promptText="Security Question" maxWidth="200"/>
             <TextField fx:id="securityAnswer" promptText="Security Answer" maxWidth="200"/>
-            <Button fx:id="signUpButton" text="Sign Up" onAction="#onCreateAccount"/>
+            <Button fx:id="signUpButton" text="Sign Up" onAction="#onCreateAccount" prefWidth="200"/>
         </VBox>
     </center>
 </BorderPane>
