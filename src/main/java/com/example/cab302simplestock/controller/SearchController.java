@@ -70,6 +70,7 @@ public class SearchController {
     }
 
 
+
     private void setupItemSelection() {
         itemsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {

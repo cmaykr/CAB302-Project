@@ -2,6 +2,7 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.GroupManager;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
 import com.example.cab302simplestock.model.User;
 import com.example.cab302simplestock.model.UserManager;
@@ -54,7 +55,7 @@ public class HomePageController {
             Button groupButton = new Button(group.getGroupName());
             groupButton.setOnAction(event -> {
                 try {
-                    handleGroupClick(group.getGroupName());  // Pass the selected group name
+                    handleGroupClick(group);  // Pass the selected group name
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -77,13 +78,14 @@ public class HomePageController {
     }
 
     // Handle the action of clicking a group button (load the group details or search view)
-    private void handleGroupClick(String groupName) throws IOException {
+    private void handleGroupClick(Group group) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
 
         // Pass the group name to SearchController
         SearchController controller = fxmlLoader.getController();
-        controller.setGroupName(groupName);  // Set the selected group name
+        //controller.setGroupName(groupName);  // Set the selected group name replace with group singleton
+        GroupManager.setSelectedGroup(group);
 
         Stage stage = (Stage) addGroup.getScene().getWindow();
         stage.setScene(scene);
@@ -93,7 +95,7 @@ public class HomePageController {
     private void handleLeaveGroupClick(Group group) {
         // Remove the group from the database
         groupDAO.deleteGroup(group);
-
+        GroupManager.deselectGroup();
         // Refresh the group list in the UI
         groupButtonBox.getChildren().clear();
         loadGroups();

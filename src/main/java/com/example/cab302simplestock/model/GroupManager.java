@@ -2,7 +2,7 @@ package com.example.cab302simplestock.model;
 
 public class GroupManager {
     private static GroupManager instance;
-    private Group selectedGroup = null;
+    private static Group selectedGroup = null;
 
     private GroupManager() { }
 
@@ -17,11 +17,11 @@ public class GroupManager {
         return selectedGroup;
     }
 
-    public void setSelectedGroup(Group newGroup) {
+    public static void setSelectedGroup(Group newGroup) {
         selectedGroup = newGroup;
     }
 
-    public void deselectGroup() {
+    public static void deselectGroup() {
         selectedGroup = null;
     }
 }
