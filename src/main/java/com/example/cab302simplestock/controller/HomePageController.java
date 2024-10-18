@@ -60,14 +60,14 @@ public class HomePageController {
                 }
             });
             groupButton.setPrefWidth(150.0); // Set width of the group button
-
+            groupButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;"); // change colour of leave group button
             // Create the "Leave Group" button
             Button leaveGroupButton = new Button("Leave Group");
             leaveGroupButton.setOnAction(event -> {
                 handleLeaveGroupClick(group);  // Handle leaving the group
             });
             leaveGroupButton.setPrefWidth(100.0); // Set width of the leave button
-
+            leaveGroupButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;"); // change colour of leave group button
             // Add both buttons to the HBox
             groupBox.getChildren().addAll(groupButton, leaveGroupButton);
 
