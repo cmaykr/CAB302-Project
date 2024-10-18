@@ -94,6 +94,9 @@ public class SearchController {
         stage.setScene(scene);
     }
 
+
+
+
     private void loadItems() {
         itemsListView.getItems().clear();
         itemDisplayMap.clear();  // Clear the map to avoid old data

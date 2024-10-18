@@ -6,9 +6,10 @@
 }
 #backButton{
 -fx-font-weight:bold;
--fx-background-color:#4CAF50;
+-fx-background-color:#080505;
 -fx-text-fill:white;
 -fx-font-size:14px;
+
 }
 #groupNameField{
 -fx-background-radius:8;

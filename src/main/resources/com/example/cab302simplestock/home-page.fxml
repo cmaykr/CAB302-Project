@@ -6,16 +6,16 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.cab302simplestock.controller.HomePageController">
+            fx:controller="com.example.cab302simplestock.controller.HomePageController" stylesheets="@groupstyles.css">
 
    <fx:include source="navbar.fxml"/>
 
-   <Text fx:id="welcomeText" layoutX="41.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
+   <Text fx:id="welcomeText" layoutX="30.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
       <font>
          <Font name="System Bold" size="22.0"/>
       </font>
    </Text>
    <VBox fx:id="groupButtonBox" layoutX="73.0" layoutY="100.0" spacing="10.0"/>
-   <Button fx:id="addGroup" layoutX="360.0" layoutY="100.0" mnemonicParsing="false" onAction="#onAddGroupClick"
+   <Button fx:id="addGroup" layoutX="360.0"  prefWidth="100" layoutY="100.0" mnemonicParsing="false" onAction="#onAddGroupClick"
            text="Add Group"/>
 </AnchorPane>
