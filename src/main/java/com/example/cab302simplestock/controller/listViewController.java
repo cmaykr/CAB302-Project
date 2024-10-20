@@ -21,8 +21,6 @@ import java.util.List;
  */
 public class listViewController {
 
-    @FXML
-    private Button goBack;
 
     @FXML
     private Button confirmButton; // Added confirm button
@@ -63,7 +61,7 @@ public class listViewController {
      */
     @FXML
     protected void goBack() throws IOException {
-        Stage stage = (Stage) goBack.getScene().getWindow();
+        Stage stage = (Stage) confirmButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);

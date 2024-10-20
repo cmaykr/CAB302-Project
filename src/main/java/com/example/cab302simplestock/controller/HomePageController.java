@@ -79,11 +79,12 @@ public class HomePageController {
 
     // Handle the action of clicking a group button (load the group details or search view)
     private void handleGroupClick(Group group) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("add-item-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
 
         // Pass the group name to SearchController
-        SearchController controller = fxmlLoader.getController();
+        //SearchController controller = fxmlLoader.getController();
+        AddItemController controller = fxmlLoader.getController();
         //controller.setGroupName(groupName);  // Set the selected group name replace with group singleton
         GroupManager.setSelectedGroup(group);
 

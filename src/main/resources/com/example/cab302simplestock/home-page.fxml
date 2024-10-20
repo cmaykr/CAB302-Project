@@ -8,7 +8,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.cab302simplestock.controller.HomePageController" stylesheets="@groupstyles.css">
 
-   <fx:include source="navbar.fxml"/>
+   <fx:include source="navbar.fxml" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
 
    <Text fx:id="welcomeText" layoutX="30.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
       <font>
