@@ -4,16 +4,22 @@ import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.Node;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.scene.control.RadioButton;
 import com.example.cab302simplestock.model.Item;
 
+import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -33,11 +39,13 @@ public class AddItemController {
      * Constructgor for the AddItemContorller.
      * Initialises the DAO implementation for interacting with the database.
      */
-    public AddItemController(){
+    public AddItemController() {
         itemDao = new SqliteItemDAO();
     }
 
     // Link to the FXML fields
+    @FXML
+    private ImageView plusIcon;
     @FXML
     private TextField productNameTextField;
     @FXML
@@ -56,19 +64,18 @@ public class AddItemController {
     private RadioButton notInsuredRadioButton;
     @FXML
     private TextField productPriceTextField;
-
     @FXML
     private Button addItemsButton;
     @FXML
     private Button ViewYourList;
-
     @FXML
-    protected void ViewListItem() throws IOException{
-        Stage stage = (Stage)ViewYourList.getScene().getWindow();
+    protected void ViewListItem() throws IOException {
+        Stage stage = (Stage) ViewYourList.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),SimpleStock.WIDTH,SimpleStock.HEIGHT);
+        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
+
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -76,6 +83,7 @@ public class AddItemController {
         alert.setContentText(message);
         alert.showAndWait(); // Wait for the user to close the alert
     }
+
     private boolean validateForm() {
         if (productNameTextField.getText().isEmpty() ||
                 productTypeTextField.getText().isEmpty() ||
@@ -103,6 +111,7 @@ public class AddItemController {
         }
         return true;
     }
+
     @FXML
     protected void addItemToList() {
         if (!validateForm()) {
@@ -131,7 +140,7 @@ public class AddItemController {
             showAlert("Success", "Item added successfully", Alert.AlertType.INFORMATION);
 
             // 5. Navigate back to search page
-            Stage stage = (Stage)addItemsButton.getScene().getWindow(); // Get current stage
+            Stage stage = (Stage) addItemsButton.getScene().getWindow(); // Get current stage
             FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml")); // Load the next FXML
             Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT); // Set scene dimensions
             stage.setScene(scene); // Set the new scene
@@ -142,9 +151,5 @@ public class AddItemController {
             showAlert("Error", "Error adding item: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
-
-
-
 
 }
