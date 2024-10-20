@@ -2,6 +2,7 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.GroupManager;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
 import com.example.cab302simplestock.model.User;
 import com.example.cab302simplestock.model.UserManager;
@@ -30,8 +31,8 @@ public class HomePageController {
     private Button addGroup;
 
     private SqliteGroupDAO groupDAO;
-    private String username = "JohnDoe";  // Example username, replace with the actual logged-in user data
-
+    private User loggedInUser = UserManager.getInstance().getLoggedInUser();
+    private String username = loggedInUser.getFirstName();  // Example username, replace with the actual logged-in user data
     public HomePageController() {
         groupDAO = new SqliteGroupDAO();  // Initialize the Group DAO
     }
@@ -55,20 +56,20 @@ public class HomePageController {
             Button groupButton = new Button(group.getGroupName());
             groupButton.setOnAction(event -> {
                 try {
-                    handleGroupClick(group.getGroupName());  // Pass the selected group name
+                    handleGroupClick(group);  // Pass the selected group name
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
             groupButton.setPrefWidth(150.0); // Set width of the group button
-
+            groupButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;"); // change colour of leave group button
             // Create the "Leave Group" button
             Button leaveGroupButton = new Button("Leave Group");
             leaveGroupButton.setOnAction(event -> {
                 handleLeaveGroupClick(group);  // Handle leaving the group
             });
             leaveGroupButton.setPrefWidth(100.0); // Set width of the leave button
-
+            leaveGroupButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;"); // change colour of leave group button
             // Add both buttons to the HBox
             groupBox.getChildren().addAll(groupButton, leaveGroupButton);
 
@@ -78,13 +79,15 @@ public class HomePageController {
     }
 
     // Handle the action of clicking a group button (load the group details or search view)
-    private void handleGroupClick(String groupName) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
+    private void handleGroupClick(Group group) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("add-item-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
 
         // Pass the group name to SearchController
-        SearchController controller = fxmlLoader.getController();
-        controller.setGroupName(groupName);  // Set the selected group name
+        //SearchController controller = fxmlLoader.getController();
+        AddItemController controller = fxmlLoader.getController();
+        //controller.setGroupName(groupName);  // Set the selected group name replace with group singleton
+        GroupManager.setSelectedGroup(group);
 
         Stage stage = (Stage) addGroup.getScene().getWindow();
         stage.setScene(scene);
@@ -94,7 +97,7 @@ public class HomePageController {
     private void handleLeaveGroupClick(Group group) {
         // Remove the group from the database
         groupDAO.deleteGroup(group);
-
+        GroupManager.deselectGroup();
         // Refresh the group list in the UI
         groupButtonBox.getChildren().clear();
         loadGroups();
@@ -108,13 +111,6 @@ public class HomePageController {
         stage.setScene(scene);
     }
 
-    @FXML
-    protected void logoutClicked() throws IOException {
-        UserManager.getInstance().logOutUser();
-        Stage stage = (Stage) addGroup.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
-        stage.setScene(scene);
-    }
+
 
 }

@@ -10,21 +10,16 @@ import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.Item;
 
-import javafx.scene.control.Label; // Import Label
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import java.util.Optional;
 
 public class SearchController {
@@ -50,28 +45,14 @@ public class SearchController {
     private Button leaveGroupButton;
     @FXML
     private Button searchButton;
+    @FXML
+    private TextField searchBar;
+
 
     @FXML
     protected void addItemsButton() throws IOException {
         Stage stage = (Stage) addItemsButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("add-item-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
-        stage.setScene(scene);
-    }
-
-    @FXML
-    protected void backButtonClick() throws IOException {
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("home-page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
-        stage.setScene(scene);
-    }
-
-    @FXML
-    protected void logoutClicked() throws IOException {
-        UserManager.getInstance().logOutUser();
-        Stage stage = (Stage) backButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("login-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
         stage.setScene(scene);
     }
@@ -84,8 +65,9 @@ public class SearchController {
     }
 
     public void setGroupName(String groupName) {
-        groupLabel.setText(groupName);  // Display selected group name
+        groupLabel.setText(groupName);
     }
+
 
 
     private void setupItemSelection() {
@@ -111,7 +93,6 @@ public class SearchController {
         controller.loadItemById(itemId);  // Pass the item ID to the listViewController
         stage.setScene(scene);
     }
-
     private void loadItems() {
         itemsListView.getItems().clear();
         itemDisplayMap.clear();  // Clear the map to avoid old data
@@ -126,11 +107,30 @@ public class SearchController {
         }
     }
     public void searchButtonClick(ActionEvent actionEvent){
+        String searchText = searchBar.getText().trim().toLowerCase(); // Get text from the search bar
+        filterItems(searchText); // Call method to filter items
+    }
+    private void filterItems(String searchText) {
+        itemsListView.getItems().clear();
+        itemDisplayMap.clear();
 
+        List<Item> items = itemDao.getAllItems();
+
+        for (Item item : items) {
+            String displayText = item.getName() + " - " + item.getCategoryName(); // Example format
+            // Check if the display text contains the search text
+            if (displayText.toLowerCase().contains(searchText)) {
+                itemsListView.getItems().add(displayText); // Add matching items to the ListView
+                itemDisplayMap.put(displayText, item.getItemID()); // Store the item ID in the map
+            }
+        }
+
+        if (itemsListView.getItems().isEmpty()) {
+            // If no items found, show an alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "No items found matching your search.", ButtonType.OK);
+            alert.showAndWait();
+        }
     }
 
-    public void leaveGroupButton(ActionEvent actionEvent) {
-
-    }
 
 }

@@ -35,6 +35,8 @@ public class RegistrationController {
     private TextField securityAnswer;
     @FXML
     private Button signUpButton;
+    @FXML
+    private Button onCreateAccount;
 
     private SqliteUserDAO userDAO;
 

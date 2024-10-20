@@ -13,17 +13,17 @@
 <?import javafx.scene.control.RadioButton?>
 
 <VBox alignment="TOP_LEFT" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cab302simplestock.controller.listViewController"
+      fx:controller="com.example.cab302simplestock.controller.listViewController" stylesheets="@list_view.css" style="-fx-background-color:#e6f7ff;"
 >
 
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <HBox>
-        <Button text = "Back" fx:id ="goBack" onAction = "#goBack"/>
-    </HBox>
+        <fx:include source="navbar.fxml"/>
+
     <Label text="Select a Product to view or edit." />
+
     <HBox VBox.vgrow="ALWAYS" spacing="20.0">
         <VBox spacing="10.0">
             <ListView fx:id="contactsListView"  />
@@ -56,7 +56,7 @@
             <HBox spacing="10.0" alignment="CENTER">
                 <Button fx:id="confirmButton" text="Confirm" onAction="#updateItem" />
                 <Button fx:id="deleteButton" text="Delete" onAction="#deleteItem" />
-                <Button text="Cancel" />
+                <Button fx:id="cancelButton" text="Cancel" />
             </HBox>
         </VBox>
     </HBox>

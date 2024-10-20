@@ -1,0 +1,12 @@
+#addGroup{
+-fx-background-color: #007BFF;
+-fx-text-fill:white;
+-fx-font-size:14px;
+-fx-font-weight:bold;
+}
+
+#groupButtonBox{
+-fx-text-fill:white;
+-fx-font-size:14px;
+-fx-font-weight:bold;
+}

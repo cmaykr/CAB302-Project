@@ -1,0 +1,21 @@
+#confirmButton{
+-fx-background-color:#007BFF;
+-fx-text-fill:white;
+-fx-font-weight:bold;
+}
+#deleteButton{
+-fx-background-color:#f56464;
+-fx-text-fill:white;
+-fx-font-weight:bold;
+}
+#cancelButton{
+-fx-background-color:#7a6e6e;
+-fx-text-fill:white;
+-fx-font-weight:bold;
+}
+.text-field{
+ -fx-background-radius: 7;
+ -fx-padding: 7;
+ -fx-font-size: 10px;
+ -fx-width:7px;
+}

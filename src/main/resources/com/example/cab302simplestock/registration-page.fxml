@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.RegistrationController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.RegistrationController"  stylesheets="@credential_Page.css" style="-fx-background-color: #e6f7ff;">
     <center>
         <VBox alignment="CENTER" spacing="20">
-            <Label>Sign up</Label>
+            <Label fx:id="sign_up">Sign up</Label>
             <TextField fx:id="firstName" promptText="First Name" maxWidth="200"/>
             <TextField fx:id="lastName" promptText="Last Name" maxWidth="200"/>
             <TextField fx:id="email" promptText="Email Address" maxWidth="200"/>
@@ -17,7 +14,7 @@
             <PasswordField fx:id="confirmPassword" promptText="Confirm Password" maxWidth="200"/>
             <TextField fx:id="securityQuestion" promptText="Security Question" maxWidth="200"/>
             <TextField fx:id="securityAnswer" promptText="Security Answer" maxWidth="200"/>
-            <Button fx:id="signUpButton" text="Sign Up" onAction="#onCreateAccount"/>
+            <Button fx:id="signUpButton" text="Sign Up" onAction="#onCreateAccount" prefWidth="200"/>
         </VBox>
     </center>
 </BorderPane>
