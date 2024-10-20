@@ -60,11 +60,11 @@ public class AddItemController {
     @FXML
     private Button addItemsButton;
     @FXML
-    private Button backButton;
+    private Button ViewYourList;
 
     @FXML
-    protected void backButtonClick() throws IOException{
-        Stage stage = (Stage)backButton.getScene().getWindow();
+    protected void ViewListItem() throws IOException{
+        Stage stage = (Stage)ViewYourList.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),SimpleStock.WIDTH,SimpleStock.HEIGHT);
         stage.setScene(scene);
@@ -142,6 +142,8 @@ public class AddItemController {
             showAlert("Error", "Error adding item: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+
 
 
 

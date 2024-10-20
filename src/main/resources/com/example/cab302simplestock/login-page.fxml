@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.LoginController" stylesheets="@credential_Page.css">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.LoginController" stylesheets="@credential_Page.css" style="-fx-background-color: #e6f7ff;">
     <center>
         <VBox alignment="CENTER" spacing="20">
             <Label fx:id="login_text">Login</Label>

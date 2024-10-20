@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.AddItemController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.AddItemController" style="-fx-background-color: #e6f7ff;">
 
     <!-- Navbar section -->
     <fx:include source="navbar.fxml" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
@@ -45,6 +45,6 @@
     <!-- Bottom section for buttons -->
     <HBox spacing="10.0" alignment="CENTER" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
         <Button text="Add to List" fx:id="addItemsButton" onAction="#addItemToList" />
-        <Button text="View Your List" fx:id="ViewYourList"/>
+        <Button text="View Your List" fx:id="ViewYourList" onAction="#ViewListItem"/>
     </HBox>
 </AnchorPane>

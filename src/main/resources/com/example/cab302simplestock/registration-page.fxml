@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.RegistrationController"  stylesheets="@credential_Page.css">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.RegistrationController"  stylesheets="@credential_Page.css" style="-fx-background-color: #e6f7ff;">
     <center>
         <VBox alignment="CENTER" spacing="20">
             <Label fx:id="sign_up">Sign up</Label>

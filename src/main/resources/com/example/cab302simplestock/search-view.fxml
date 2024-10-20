@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.SearchController" stylesheets="@style.css" >
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.SearchController" stylesheets="@style.css"  style="-fx-background-color: #e6f7ff;">
     <fx:include source="navbar.fxml" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
 
     <VBox layoutY="100"  layoutX="90" alignment="CENTER" spacing="20">

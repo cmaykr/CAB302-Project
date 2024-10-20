@@ -8,3 +8,20 @@
 
 
 }
+.list-view {
+    -fx-background-color: #ffffff; /* Background color of ListView */
+    -fx-border-color: #cccccc; /* Border color */
+    -fx-border-width: 2px; /* Border width */
+}
+
+.list-view .list-cell {
+    -fx-background-color:#ffffff; /* Coral background for items */
+    -fx-padding: 10px;
+    -fx-text-fill: #121111; /* White text for better contrast */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #f5e9e9; /* A slightly darker coral for hover effect */
+}

@@ -5,3 +5,8 @@
 -fx-font-weight:bold;
 }
 
+#groupButtonBox{
+-fx-text-fill:white;
+-fx-font-size:14px;
+-fx-font-weight:bold;
+}

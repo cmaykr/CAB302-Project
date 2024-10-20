@@ -13,7 +13,7 @@
 <?import javafx.scene.control.RadioButton?>
 
 <VBox alignment="TOP_LEFT" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cab302simplestock.controller.listViewController"
+      fx:controller="com.example.cab302simplestock.controller.listViewController" stylesheets="@list_view.css" style="-fx-background-color:#e6f7ff;"
 >
 
     <padding>
@@ -56,7 +56,7 @@
             <HBox spacing="10.0" alignment="CENTER">
                 <Button fx:id="confirmButton" text="Confirm" onAction="#updateItem" />
                 <Button fx:id="deleteButton" text="Delete" onAction="#deleteItem" />
-                <Button text="Cancel" />
+                <Button fx:id="cancelButton" text="Cancel" />
             </HBox>
         </VBox>
     </HBox>
