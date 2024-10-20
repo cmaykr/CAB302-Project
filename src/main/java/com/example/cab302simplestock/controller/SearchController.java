@@ -1,6 +1,7 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.UserManager;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import com.example.cab302simplestock.model.Group;

@@ -39,6 +39,7 @@ public class HomePageController {
 
     @FXML
     public void initialize() {
+        username = UserManager.getInstance().getLoggedInUser().getFirstName() + " " + UserManager.getInstance().getLoggedInUser().getLastName();
         welcomeText.setText("Welcome! " + username);
         loadGroups();
     }
