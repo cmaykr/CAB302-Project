@@ -33,17 +33,28 @@ public class SqliteGroupDAO implements IGroupDAO {
     }
 
     @Override
-    public void addGroup(Group group) {
+    public int addGroup(Group group) {
+        int groupId = -1;
         try {
+            // Insert the new group
             PreparedStatement statement = connection.prepareStatement("INSERT INTO groupDB (name, ownerID) VALUES (?, ?)");
-
             statement.setString(1, group.getGroupName());
             statement.setInt(2, group.getOwnerID());
             statement.executeUpdate();
+
+            // Retrieve the last inserted groupID
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                groupId = rs.getInt(1);  // Retrieve the generated groupID
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return groupId;  // Return the groupID
     }
+
 
     @Override
     public void updateGroup(Group group) {

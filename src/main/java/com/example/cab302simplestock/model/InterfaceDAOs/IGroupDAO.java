@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IGroupDAO {
 
-    public void addGroup(Group group);
+    public int addGroup(Group group);
 
     public void updateGroup(Group group);
 

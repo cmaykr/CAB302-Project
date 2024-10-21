@@ -3,7 +3,11 @@ package com.example.cab302simplestock.controller;
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
+import com.example.cab302simplestock.model.InterfaceDAOs.IViewUserDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
+import com.example.cab302simplestock.model.UserManager;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteViewUserDAO;
+import com.example.cab302simplestock.model.ViewUser;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -28,12 +32,13 @@ public class AddGroupController {
      * DAO interface for interacting with group-related database operations.
      */
     private IGroupDAO groupDao;
-
+    private IViewUserDAO viewUserDAO;
     /**
      * Initialises the controller and sets up the group DAO for database access.
      * The DAO implementation used is {@code SqliteGroupDAO}.
      */
     public AddGroupController() {
+        viewUserDAO = new SqliteViewUserDAO();
         groupDao = new SqliteGroupDAO();
     }
 
@@ -45,7 +50,8 @@ public class AddGroupController {
     private void initialize() {
         // Initialize logic if needed
     }
-
+    public int user_id = UserManager.getInstance().getLoggedInUser().getID();
+    public int group_id;
     /**
      * Handles the action when the "ADD Group" button is clicked.
      * This method checks if the group name is provided, then adds the group to the database.
@@ -66,9 +72,10 @@ public class AddGroupController {
         // Assuming the owner ID is the logged-in user (hardcoded for now as 1)
         int ownerId = 1; // Replace this with dynamic user ID fetching in real implementation
         Group newGroup = new Group(groupName, ownerId);
-
         // Add the group to the database
-        groupDao.addGroup(newGroup);
+        int group_id = groupDao.addGroup(newGroup);
+        ViewUser viewUserToAdd = new ViewUser(user_id, group_id);
+        viewUserDAO.addViewUser(viewUserToAdd);
 
         // Show success message
         showAlert("Success", "Group added successfully!");
