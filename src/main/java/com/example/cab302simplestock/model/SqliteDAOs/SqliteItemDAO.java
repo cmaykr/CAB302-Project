@@ -8,14 +8,24 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sqlite implementation of the Item DAO interface.
+ */
 public class SqliteItemDAO implements IItemDAO {
     private Connection connection;
 
+    /**
+     * Connects to the Sqlite database and creates the item table, if it doesn't exist.
+     */
     public SqliteItemDAO() {
         connection = SqliteConnection.getInstance();
         createTable();
     }
 
+    /**
+     * Creates a Sqlite database table for item.
+     * The columns are item ID, name, purchase date, purchase price, quantity, description, category ID, type ID, location and if it's insured.
+     */
     private void createTable()
     {
         try {
@@ -40,7 +50,10 @@ public class SqliteItemDAO implements IItemDAO {
         }
     }
 
-
+    /**
+     * Adds an item to the Sqlite database. The item ID is set automatically by the database.
+     * @param item The item that should be added to the database.
+     */
     @Override
     public void addItem(Item item) {
         try {
@@ -62,6 +75,11 @@ public class SqliteItemDAO implements IItemDAO {
         }
     }
 
+    /**
+     * Updates an item that already exists in the database. The item is chosen by its ID value.
+     * If no item with that ID exists nothing is updated in the database.
+     * @param item The item that should be updated.
+     */
     @Override
     public void updateItem(Item item) {
         try {
@@ -83,6 +101,10 @@ public class SqliteItemDAO implements IItemDAO {
         }
     }
 
+    /**
+     * Deletes an item in the Sqlite database, looks for the item with the same ID as the parameter one. No other checks other than the ID is made.
+     * @param item The item to be deleted. The ID value should be set to the ID value for the item to be deleted.
+     */
     @Override
     public void deleteItem(Item item) {
         try {
@@ -94,7 +116,10 @@ public class SqliteItemDAO implements IItemDAO {
         }
     }
 
-
+    /**
+     * Gets every item stored in the database, does no checks for the items.
+     * @return A list of all items in the Sqlite database.
+     */
     @Override
     public List<Item> getAllItems() {
         List<Item> items = new ArrayList<>();

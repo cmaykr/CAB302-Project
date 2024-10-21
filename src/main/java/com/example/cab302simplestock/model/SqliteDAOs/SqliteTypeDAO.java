@@ -11,14 +11,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sqlite implementation of the Type DAO interface.
+ */
 public class SqliteTypeDAO implements ITypeDAO {
     Connection connection;
 
+    /**
+     * Connects to the Sqlite database and creates the type table, if it doesn't exist.
+     */
     public SqliteTypeDAO() {
         connection = SqliteConnection.getInstance();
         createTable();
     }
 
+    /**
+     * Creates a Sqlite database table for type.
+     * The columns are type ID and its name.
+     */
     private void createTable() {
         try {
             Statement statement = connection.createStatement();
@@ -31,6 +41,11 @@ public class SqliteTypeDAO implements ITypeDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Adds a type to the Sqlite database. The type ID is set automatically by the database.
+     * @param type The type that should be added to the database.
+     */
     @Override
     public void addType(Type type) {
         try {
@@ -42,6 +57,11 @@ public class SqliteTypeDAO implements ITypeDAO {
         }
     }
 
+    /**
+     * Updates a type that already exists in the database. The type is chosen by its ID value.
+     * If no type with that ID exists nothing is updated in the database.
+     * @param type The type that should be updated.
+     */
     @Override
     public void updateType(Type type) {
         try {
@@ -54,6 +74,10 @@ public class SqliteTypeDAO implements ITypeDAO {
         }
     }
 
+    /**
+     * Deletes a type in the Sqlite database, looks for the type with the same ID as the parameter one. No other checks other than the ID is made.
+     * @param type The type to be deleted. The ID value should be set to the ID value for the type to be deleted.
+     */
     @Override
     public void deleteType(Type type) {
         try {
@@ -65,6 +89,10 @@ public class SqliteTypeDAO implements ITypeDAO {
         }
     }
 
+    /**
+     * Gets every type stored in the database, does no checks for the types.
+     * @return A list of all types in the Sqlite database.
+     */
     @Override
     public List<Type> getAllTypes() {
         List<Type> types = new ArrayList<>();

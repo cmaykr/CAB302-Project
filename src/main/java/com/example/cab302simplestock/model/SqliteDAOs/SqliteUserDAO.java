@@ -11,14 +11,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sqlite implementation of the User DAO interface.
+ */
 public class SqliteUserDAO implements IUserDAO {
     private Connection connection;
 
+    /**
+     * Connects to the Sqlite database and creates the user table, if it doesn't exist.
+     */
     public SqliteUserDAO() {
         connection = SqliteConnection.getInstance();
         createTable();
     }
 
+    /**
+     * Creates a Sqlite database table for user.
+     * The columns are user ID, the first name, last name, email associated with the user, the hashed password, security question and the security answer.
+     */
     private void createTable() {
         try {
             Statement statement = connection.createStatement();
@@ -38,6 +48,10 @@ public class SqliteUserDAO implements IUserDAO {
     }
 
 
+    /**
+     * Adds a user to the Sqlite database. The user ID is set automatically by the database.
+     * @param user The user that should be added to the database.
+     */
     @Override
     public void addUser(User user) {
         try {
@@ -55,6 +69,11 @@ public class SqliteUserDAO implements IUserDAO {
         }
     }
 
+    /**
+     * Updates a user that already exists in the database. The user is chosen by its ID value.
+     * If no user with that ID exists nothing is updated in the database.
+     * @param user The user that should be updated.
+     */
     @Override
     public void updateUser(User user) {
         try {
@@ -73,6 +92,10 @@ public class SqliteUserDAO implements IUserDAO {
         }
     }
 
+    /**
+     * Deletes a user in the Sqlite database, looks for the type with the same ID as the parameter one. No other checks other than the ID is made.
+     * @param user The user to be deleted. The ID value should be set to the ID value for the user to be deleted.
+     */
     @Override
     public void deleteUser(User user) {
         try {
@@ -84,6 +107,10 @@ public class SqliteUserDAO implements IUserDAO {
         }
     }
 
+    /**
+     * Gets every user stored in the database, does no checks for the users.
+     * @return A list of all users in the Sqlite database.
+     */
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();

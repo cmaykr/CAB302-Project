@@ -11,14 +11,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sqlite implementation of the Photo DAO interface.
+ */
 public class SqlitePhotoDAO implements IPhotoDAO {
     Connection connection;
 
+    /**
+     * Connects to the Sqlite database and creates the photo table, if it doesn't exist.
+     */
     public SqlitePhotoDAO() {
         connection = SqliteConnection.getInstance();
         createTable();
     }
 
+    /**
+     * Creates a Sqlite database table for photo.
+     * The columns are photo ID, name, ID of item it's of which references an item, name + itemID are unique.
+     */
     private void createTable() {
         try {
             Statement statement = connection.createStatement();
@@ -35,6 +45,10 @@ public class SqlitePhotoDAO implements IPhotoDAO {
         }
     }
 
+    /**
+     * Adds a photo to the Sqlite database. The photo ID is set automatically by the database.
+     * @param photo The photo that should be added to the database.
+     */
     @Override
     public void addPhoto(Photo photo) {
         try {
@@ -47,6 +61,11 @@ public class SqlitePhotoDAO implements IPhotoDAO {
         }
     }
 
+    /**
+     * Updates a photo that already exists in the database. The photo is chosen by its ID value.
+     * If no photo with that ID exists nothing is updated in the database.
+     * @param photo The photo that should be updated.
+     */
     @Override
     public void updatePhoto(Photo photo) {
         try {
@@ -60,6 +79,10 @@ public class SqlitePhotoDAO implements IPhotoDAO {
         }
     }
 
+    /**
+     * Deletes a photo in the Sqlite database, looks for the photo with the same ID as the parameter one. No other checks other than the ID is made.
+     * @param photo The photo to be deleted. The ID value should be set to the ID value for the photo to be deleted.
+     */
     @Override
     public void deletePhoto(Photo photo) {
         try {
@@ -71,6 +94,10 @@ public class SqlitePhotoDAO implements IPhotoDAO {
         }
     }
 
+    /**
+     * Gets every photo stored in the database, does no checks for the photos.
+     * @return A list of all photos in the Sqlite database.
+     */
     @Override
     public List<Photo> getAllPhotos() {
         List<Photo> photos = new ArrayList<>();

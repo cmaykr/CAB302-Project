@@ -11,14 +11,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sqlite implementation of the ViewUser DAO interface.
+ */
 public class SqliteViewUserDAO implements IViewUserDAO {
     private Connection connection;
 
+    /**
+     * Connects to the Sqlite database and creates the viewUser table, if it doesn't exist.
+     */
     public SqliteViewUserDAO() {
         connection = SqliteConnection.getInstance();
         createTable();
     }
 
+    /**
+     * Creates a Sqlite database table for viewUSer.
+     * The columns are viewUser ID, the group ID it's associated with, the user ID the viewUser is of. The groupID + userID are unique in the table.
+     */
     private void createTable()
     {
         try {
@@ -37,7 +47,10 @@ public class SqliteViewUserDAO implements IViewUserDAO {
         }
     }
 
-
+    /**
+     * Adds a viewUser to the Sqlite database. The viewUser ID is set automatically by the database.
+     * @param viewUser The viewUser that should be added to the database.
+     */
     @Override
     public void addViewUser(ViewUser viewUser) {
         try {
@@ -52,6 +65,11 @@ public class SqliteViewUserDAO implements IViewUserDAO {
         }
     }
 
+    /**
+     * Updates a viewUser that already exists in the database. The viewUser is chosen by its ID value.
+     * If no viewUser with that ID exists nothing is updated in the database.
+     * @param viewUser The viewUser that should be updated.
+     */
     @Override
     public void updateViewUser(ViewUser viewUser) {
         try {
@@ -65,6 +83,10 @@ public class SqliteViewUserDAO implements IViewUserDAO {
         }
     }
 
+    /**
+     * Deletes a viewUser in the Sqlite database, looks for the type with the same ID as the parameter one. No other checks other than the ID is made.
+     * @param viewUser The viewUser to be deleted. The ID value should be set to the ID value for the viewUser to be deleted.
+     */
     @Override
     public void deleteViewUser(ViewUser viewUser) {
         try {
@@ -76,6 +98,10 @@ public class SqliteViewUserDAO implements IViewUserDAO {
         }
     }
 
+    /**
+     * Gets every viewUser stored in the database, does no checks for the viewUsers.
+     * @return A list of all viewUsers in the Sqlite database.
+     */
     @Override
     public List<ViewUser> getAllViewUsers() {
         List<ViewUser> viewUsers = new ArrayList<>();
