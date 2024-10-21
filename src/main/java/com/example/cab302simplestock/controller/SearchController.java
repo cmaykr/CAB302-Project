@@ -1,13 +1,24 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
-import com.example.cab302simplestock.model.UserManager;
-import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
-import com.example.cab302simplestock.model.Group;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+import com.example.cab302simplestock.SimpleStock;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.event.ActionEvent;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -20,7 +31,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 
 public class SearchController {
     private IItemDAO itemDao;
@@ -106,9 +117,20 @@ public class SearchController {
             itemDisplayMap.put(displayText, item.getItemID());  // Store the item ID in the map
         }
     }
-    public void searchButtonClick(ActionEvent actionEvent){
-        String searchText = searchBar.getText().trim().toLowerCase(); // Get text from the search bar
-        filterItems(searchText); // Call method to filter items
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null); // Optional: Remove header
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    @FXML
+    protected void searchButtonClick() {
+        String productName = searchBar.getText(); // Assuming Username is the TextField for email
+
+        if (productName == null || productName.trim().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Input Error", "Search field cannot be empty.");
+        }
     }
     private void filterItems(String searchText) {
         itemsListView.getItems().clear();

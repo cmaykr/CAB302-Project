@@ -4,18 +4,16 @@ import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.Node;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
-import javafx.scene.control.RadioButton;
 import com.example.cab302simplestock.model.Item;
 
 import java.awt.event.ActionEvent;
@@ -47,6 +45,8 @@ public class AddItemController {
     @FXML
     private ImageView plusIcon;
     @FXML
+    private StackPane imageUploadPane;
+    @FXML
     private TextField productNameTextField;
     @FXML
     private TextField productTypeTextField;
@@ -62,12 +62,19 @@ public class AddItemController {
     private RadioButton insuredRadioButton;
     @FXML
     private RadioButton notInsuredRadioButton;
+    private ToggleGroup insuredToggleGroup;
     @FXML
     private TextField productPriceTextField;
     @FXML
     private Button addItemsButton;
     @FXML
     private Button ViewYourList;
+    @FXML
+    public void initialize() {
+        insuredToggleGroup = new ToggleGroup();
+        insuredRadioButton.setToggleGroup(insuredToggleGroup);
+        notInsuredRadioButton.setToggleGroup(insuredToggleGroup);
+    }
     @FXML
     protected void ViewListItem() throws IOException {
         Stage stage = (Stage) ViewYourList.getScene().getWindow();
@@ -151,5 +158,35 @@ public class AddItemController {
             showAlert("Error", "Error adding item: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    @FXML
+    private void handleImageUpload(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image");
+
+        // Set extension filter to allow only image files
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        // Show open file dialog
+        File file = fileChooser.showOpenDialog(imageUploadPane.getScene().getWindow());
+
+        // If an image is selected, set it in the ImageView
+        if (file != null) {
+            Image image = new Image(file.toURI().toString());
+            plusIcon.setImage(image);
+        } else {
+            // Show an alert if no file was selected
+            showAlert(Alert.AlertType.ERROR, "Image Upload Failed", "No image file selected.");
+        }
+    }
+
 
 }

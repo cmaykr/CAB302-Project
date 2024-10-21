@@ -39,7 +39,17 @@ public class ForgottenpassController {
         }
     }
 
+    @FXML
+    protected void handleSubmitAction() {
+        String email = Username.getText();
 
+        if (email == null || email.trim().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Input Error", "Email field cannot be empty.");
+        } else {
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Email submitted successfully.");
+            // Add logic to handle email submission, like sending an email, if needed.
+        }
+    }
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

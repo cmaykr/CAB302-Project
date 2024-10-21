@@ -6,9 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.AddItemController" style="-fx-background-color: #e6f7ff;" stylesheets="@add_item_view.css">
 
     <!-- Navbar section -->
@@ -35,21 +35,24 @@
         <TextField fx:id="productPurchaseDateTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="300" promptText="YYYY-MM-DD"/>
 
         <Label text="Insured:" GridPane.columnIndex="0" GridPane.rowIndex="6" style="-fx-padding: 0; -fx-margin: 0;" />
+
         <HBox GridPane.columnIndex="1" GridPane.rowIndex="6" spacing="10">
-            <RadioButton fx:id="insuredRadioButton" text="YES" />
-            <RadioButton fx:id="notInsuredRadioButton" text="NO" />
+            <RadioButton fx:id="insuredRadioButton" text="YES"/>
+            <RadioButton fx:id="notInsuredRadioButton" text="NO"/>
         </HBox>
 
         <Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
         <TextField fx:id="productPriceTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" prefWidth="300" promptText="e.g. $"/>
     </GridPane>
-    <StackPane AnchorPane.topAnchor="70" AnchorPane.rightAnchor="30" prefWidth="100" prefHeight="100">
+
+    <StackPane fx:id="imageUploadPane" AnchorPane.topAnchor="70" AnchorPane.rightAnchor="30" prefWidth="100" prefHeight="100" onMouseClicked="#handleImageUpload">
         <Rectangle width="100" height="100" fill="#fcfafa" stroke="#cccccc" strokeWidth="2"/>
         <VBox alignment="CENTER" spacing="5">
             <Label text="Upload Image" style="-fx-font-weight: bold;"/>
             <ImageView fx:id="plusIcon" fitHeight="40" fitWidth="40" pickOnBounds="true" style="-fx-background-color: red;" preserveRatio="true"/>
         </VBox>
     </StackPane>
+
     <!-- Bottom section for buttons -->
     <HBox spacing="10.0" alignment="CENTER" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
         <Button text="Add to List" fx:id="addItemsButton" onAction="#addItemToList" />
