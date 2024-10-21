@@ -14,7 +14,7 @@
             <HBox alignment="CENTER" spacing="10">
                 <Label fx:id ="Email">Email</Label>
                 <TextField fx:id="Username" promptText="MyEmail@gmail.com" maxWidth="200"/>
-                <Button fx:id="submit" text="Submit"/>
+                <Button fx:id="submit" text="Submit" onAction="#handleSubmitAction"/>
             </HBox>
         </VBox>
     </center>

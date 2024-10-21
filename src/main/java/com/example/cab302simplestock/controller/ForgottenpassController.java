@@ -1,8 +1,10 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.model.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -13,6 +15,10 @@ public class ForgottenpassController {
 
     @FXML
     private TextField securityAnswer;
+    @FXML
+    private TextField Username;
+    @FXML
+    private Button submit;
 
     private User user;
 
@@ -32,6 +38,7 @@ public class ForgottenpassController {
             showAlert(Alert.AlertType.ERROR, "Answer Incorrect", "The answer you provided is incorrect.");
         }
     }
+
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
