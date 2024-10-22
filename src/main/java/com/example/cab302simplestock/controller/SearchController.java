@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,6 +29,7 @@ import javafx.stage.Stage;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.Item;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -75,6 +79,51 @@ public class SearchController {
     public void initialize() {
         loadItems();
         setupItemSelection();
+
+        // Set a custom cell factory for the ListView to add the clickable square
+        itemsListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> listView) {
+                return new ListCell<String>() {
+                    private HBox content;
+                    private Text itemText;
+                    private CheckBox checkBox;
+                    private Region spacer; // A spacer to push the checkbox to the right
+
+                    {
+                        itemText = new Text();
+                        checkBox = new CheckBox();  // This acts as the clickable square
+                        spacer = new Region();
+                        HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS); // Spacer grows to fill space
+
+                        content = new HBox(10); // Set spacing between the text and checkbox
+                        content.getChildren().addAll(itemText, spacer, checkBox); // Text -> Spacer -> CheckBox
+
+                        // Action handler for checkbox click
+                        checkBox.setOnAction(event -> {
+                            if (checkBox.isSelected()) {
+                                // Handle checkbox checked
+                                System.out.println("Item checked: " + itemText.getText());
+                            } else {
+                                // Handle checkbox unchecked
+                                System.out.println("Item unchecked: " + itemText.getText());
+                            }
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setGraphic(null);
+                        } else {
+                            itemText.setText(item);
+                            setGraphic(content);
+                        }
+                    }
+                };
+            }
+        });
     }
 
     public void setGroupName(String groupName) {
