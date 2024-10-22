@@ -140,12 +140,17 @@ public class LoginController {
             if (user != null) {
                 // If the user exists, pass the user object to the controller
                 controller.initialize(user);
+
+                // Set the new scene for the stage
+                Stage stage = (Stage) username.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "No user found with this email.");
             }
 
-            // Set the new scene for the stage
-            Stage stage = (Stage) username.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the forgotten password page.");

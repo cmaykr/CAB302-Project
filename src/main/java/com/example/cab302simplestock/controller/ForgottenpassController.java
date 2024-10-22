@@ -97,6 +97,8 @@ public class ForgottenpassController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/login-page.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) confirmButton.getScene().getWindow();
+            stage.setMinWidth(640);  // Set your preferred minimum width
+            stage.setMinHeight(500); // Set your preferred minimum height
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

@@ -5,10 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="150.0" prefWidth="350.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302simplestock.controller.ForgottenpassController">
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="350.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302simplestock.controller.ForgottenpassController">
 
     <!-- New password fields, initially hidden -->
-    <Label fx:id="newPasswordLabel" text="New Password" visible="false" />
+    <Label fx:id="newPasswordLabel" text="New Password" visible="false">
+      <font>
+         <Font size="18.0" />
+      </font></Label>
     <Label fx:id="securityQuestionLabel" text="Security Question" textAlignment="CENTER">
       <font>
          <Font size="16.0" />
@@ -18,8 +21,8 @@
          <Insets top="10.0" />
       </VBox.margin></TextField>
     <Button onAction="#onSubmitAnswer" text="Submit" />
-    <PasswordField fx:id="newPassword" promptText="Enter new password" visible="false" />
+    <PasswordField fx:id="newPassword" maxWidth="200.0" promptText="Enter new password" visible="false" />
     <Label fx:id="confirmPasswordLabel" text="Confirm Password" visible="false" />
-    <PasswordField fx:id="confirmPassword" promptText="Confirm new password" visible="false" />
+    <PasswordField fx:id="confirmPassword" maxWidth="200.0" promptText="Confirm new password" visible="false" />
     <Button fx:id="confirmButton" onAction="#onResetPassword" text="Confirm" visible="false" />
 </VBox>
