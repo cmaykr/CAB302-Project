@@ -3,19 +3,19 @@ package com.example.cab302simplestock.model;
 /**
  * Singleton class for tracking the current active group.
  */
-public class ActiveGroup implements IActiveGroup {
-    private static ActiveGroup instance;
+public class ActiveGroupManager implements IActiveGroup {
+    private static ActiveGroupManager instance;
     private static Group selectedGroup = null;
 
-    private ActiveGroup() { }
+    private ActiveGroupManager() { }
 
     /**
      * Gets the instance of the singleton, if it doesn't exist it's created.
      * @return The ActiveGroup instance.
      */
-    public static ActiveGroup getInstance() {
+    public static ActiveGroupManager getInstance() {
         if (instance == null)
-            instance = new ActiveGroup();
+            instance = new ActiveGroupManager();
 
         return instance;
     }

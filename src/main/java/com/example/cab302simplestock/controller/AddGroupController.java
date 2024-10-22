@@ -1,13 +1,13 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
-import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.*;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IViewUserDAO;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
-import com.example.cab302simplestock.model.ActiveUserManager;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteViewUserDAO;
-import com.example.cab302simplestock.model.ViewUser;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -28,17 +28,21 @@ public class AddGroupController {
     @FXML
     private TextField groupNameField;
     /**
-     * DAO interface for interacting with group-related database operations.
+     * Group manager for interacting with group-related database operations.
      */
-    private IGroupDAO groupDao;
-    private IViewUserDAO viewUserDAO;
+    private GroupManager groupManager;
     /**
      * Initialises the controller and sets up the group DAO for database access.
      * The DAO implementation used is {@code SqliteGroupDAO}.
      */
     public AddGroupController() {
-        viewUserDAO = new SqliteViewUserDAO();
-        groupDao = new SqliteGroupDAO();
+        //viewUserDAO = new SqliteViewUserDAO();
+        SqliteGroupDAO groupDao = new SqliteGroupDAO();
+        CategoryManager categoryManager = new CategoryManager(new SqliteCategoryDAO());
+        UserManager userManager = new UserManager(new SqliteUserDAO());
+        ViewUserManager viewUserManager = new ViewUserManager(new SqliteViewUserDAO(), userManager);
+
+        groupManager = new GroupManager(groupDao, categoryManager, viewUserManager);
     }
 
     /**
@@ -72,9 +76,9 @@ public class AddGroupController {
         int ownerId = 1; // Replace this with dynamic user ID fetching in real implementation
         Group newGroup = new Group(groupName, ownerId);
         // Add the group to the database
-        int group_id = groupDao.addGroup(newGroup);
-        ViewUser viewUserToAdd = new ViewUser(user_id, group_id);
-        viewUserDAO.addViewUser(viewUserToAdd);
+        int group_id = groupManager.addGroup(newGroup);
+        User user = ActiveUserManager.getInstance().getLoggedInUser();
+        groupManager.addUser(user, group_id);
 
         // Show success message
         showAlert("Success", "Group added successfully!");

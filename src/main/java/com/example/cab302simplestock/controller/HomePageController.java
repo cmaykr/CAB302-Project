@@ -2,7 +2,7 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.Group;
-import com.example.cab302simplestock.model.ActiveGroup;
+import com.example.cab302simplestock.model.ActiveGroupManager;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
 import com.example.cab302simplestock.model.User;
 import com.example.cab302simplestock.model.ActiveUserManager;
@@ -86,7 +86,7 @@ public class HomePageController {
         //SearchController controller = fxmlLoader.getController();
         AddItemController controller = fxmlLoader.getController();
         //controller.setGroupName(groupName);  // Set the selected group name replace with group singleton
-        ActiveGroup.getInstance().setActiveGroup(group);
+        ActiveGroupManager.getInstance().setActiveGroup(group);
 
         Stage stage = (Stage) addGroup.getScene().getWindow();
         stage.setScene(scene);
@@ -96,7 +96,7 @@ public class HomePageController {
     private void handleLeaveGroupClick(Group group) {
         // Remove the group from the database
         groupDAO.deleteGroup(group);
-        ActiveGroup.getInstance().deselectGroup();
+        ActiveGroupManager.getInstance().deselectGroup();
         // Refresh the group list in the UI
         groupButtonBox.getChildren().clear();
         loadGroups();

@@ -6,6 +6,7 @@ module com.example.cab302simplestock {
     requires org.xerial.sqlitejdbc;
     requires javafx.graphics;
     requires java.desktop;
+    requires org.apache.commons.compress;
 
 
     opens com.example.cab302simplestock.controller to javafx.fxml;
@@ -14,5 +15,4 @@ module com.example.cab302simplestock {
     exports com.example.cab302simplestock.controller;
     exports com.example.cab302simplestock.model.InterfaceDAOs;
     exports com.example.cab302simplestock.model.SqliteDAOs;
-    exports com.example.cab302simplestock.model.MockDAOs;
 }
