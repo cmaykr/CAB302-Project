@@ -32,4 +32,8 @@ public interface ITypeDAO {
      * @return A list of types.
      */
     List<Type> getAllTypes();
+
+    Type findTypeByName(String typeName);
+
+    Type findTypeByID(int typeID);
 }

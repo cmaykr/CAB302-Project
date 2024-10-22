@@ -32,4 +32,6 @@ public interface IItemDAO {
      * @return A list of items.
      */
     List<Item> getAllItems();
+
+    Item findItemByID(int itemId);
 }

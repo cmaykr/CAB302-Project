@@ -34,7 +34,7 @@ public class SqliteTypeDAO implements ITypeDAO {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS type ("
                     + "typeID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "name VARCHAR"
+                    + "name VARCHAR UNIQUE"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -121,5 +121,46 @@ public class SqliteTypeDAO implements ITypeDAO {
             e.printStackTrace();
         }
         return types;
+    }
+
+    @Override
+    public Type findTypeByName(String typeName) {
+
+        try {
+            String query = "SELECT * FROM type WHERE name = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, typeName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int typeID = resultSet.getInt("typeID");
+                String name = resultSet.getString("name");
+                Type type = new Type(name);
+                type.setTypeID(typeID);
+                return type;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Type findTypeByID(int typeID) {
+        try {
+            String query = "SELECT * FROM type WHERE typeID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, typeID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int ID = resultSet.getInt("typeID");
+                String name = resultSet.getString("name");
+                Type type = new Type(name);
+                type.setTypeID(ID);
+                return type;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
