@@ -58,6 +58,8 @@ public class SearchController {
     private Button searchButton;
     @FXML
     private TextField searchBar;
+    @FXML
+    private Button AddItem;
 
 
     @FXML
