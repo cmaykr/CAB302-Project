@@ -55,7 +55,8 @@ public class SqliteItemDAO implements IItemDAO {
      * @param item The item that should be added to the database.
      */
     @Override
-    public void addItem(Item item) {
+    public int addItem(Item item) {
+        int itemID = -1;
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO item (name, purchaseDate, purchasePrice, quantity, "
                     + "description, categoryID, typeID, location, insured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -70,9 +71,18 @@ public class SqliteItemDAO implements IItemDAO {
             statement.setString(8, item.getLocation());
             statement.setBoolean(9, item.getInsured());
             statement.executeUpdate();
+
+            // Retrieve the last inserted groupID
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                itemID = rs.getInt(1);  // Retrieve the generated groupID
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return itemID;
     }
 
     /**

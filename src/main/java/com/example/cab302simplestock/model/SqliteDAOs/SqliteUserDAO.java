@@ -3,6 +3,7 @@ package com.example.cab302simplestock.model.SqliteDAOs;
 import com.example.cab302simplestock.model.InterfaceDAOs.IUserDAO;
 import com.example.cab302simplestock.model.SqliteConnection;
 import com.example.cab302simplestock.model.User;
+import com.example.cab302simplestock.model.ViewUser;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Sqlite implementation of the User DAO interface.
@@ -53,7 +55,8 @@ public class SqliteUserDAO implements IUserDAO {
      * @param user The user that should be added to the database.
      */
     @Override
-    public void addUser(User user) {
+    public int addUser(User user) {
+        int userID = -1;
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO user (firstName, lastName, email, hashedPassword, securityQuestion, securityAnswer) " +
                     "VALUES (?, ?, ?, ?, ?, ?)");
@@ -64,9 +67,18 @@ public class SqliteUserDAO implements IUserDAO {
             statement.setString(5, user.getSecurityQuestion());
             statement.setString(6, user.getSecurityAnswer());
             statement.executeUpdate();
+
+            // Retrieve the last inserted groupID
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                userID = rs.getInt(1);  // Retrieve the generated groupID
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return userID;
     }
 
     /**
@@ -118,6 +130,34 @@ public class SqliteUserDAO implements IUserDAO {
             Statement statement = connection.createStatement();
             String query = "SELECT * FROM user";
             ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("userID");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("hashedPassword");
+                String secQuestion = resultSet.getString("securityQuestion");
+                String secAnswer = resultSet.getString("securityAnswer");
+                User user = new User(firstName, lastName, email, password, secQuestion, secAnswer);
+                user.setID(id);
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getUsersByIDs(List<Integer> IDs) {
+        List<User> users = new ArrayList<>();
+        try {
+            String queryID = IDs.stream().map(String::valueOf).collect(Collectors.joining(","));
+
+            String query = "SELECT * FROM user WHERE userID IN (?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, queryID);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("userID");
                 String firstName = resultSet.getString("firstName");

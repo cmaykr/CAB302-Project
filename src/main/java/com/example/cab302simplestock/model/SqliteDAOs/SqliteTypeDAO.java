@@ -47,14 +47,24 @@ public class SqliteTypeDAO implements ITypeDAO {
      * @param type The type that should be added to the database.
      */
     @Override
-    public void addType(Type type) {
+    public int addType(Type type) {
+        int typeID = -1;
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO type (name) VALUES (?)");
             statement.setString(1, type.getName());
             statement.executeUpdate();
+
+            // Retrieve the last inserted groupID
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                typeID = rs.getInt(1);  // Retrieve the generated groupID
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return typeID;
     }
 
     /**

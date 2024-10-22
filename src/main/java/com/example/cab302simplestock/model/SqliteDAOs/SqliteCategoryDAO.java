@@ -50,15 +50,24 @@ public class SqliteCategoryDAO implements ICategoryDAO {
      * @param category The category that should be added to the database.
      */
     @Override
-    public void addCategory(Category category) {
+    public int addCategory(Category category) {
+        int categoryID = -1;
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO category (categoryName, groupID) VALUES (?, ?)");
             statement.setString(1, category.getCategoryName());
             statement.setInt(2, category.getGroupID());
             statement.executeUpdate();
+
+            // Retrieve the last inserted groupID
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                categoryID = rs.getInt(1);  // Retrieve the generated groupID
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return categoryID;
     }
 
     /**
