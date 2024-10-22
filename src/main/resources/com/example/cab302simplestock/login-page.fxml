@@ -22,7 +22,7 @@
             <padding>
                 <Insets bottom="10" left="10"/>
             </padding>
-            <Hyperlink fx:id="createAccountButton" text="Don't have an account?Register" onAction="#onCreateAccount"/>
+            <Hyperlink fx:id="createAccountButton" text="Don't have an account? [Register here]" onAction="#onCreateAccount"/>
         </VBox>
     </bottom>
 </BorderPane>

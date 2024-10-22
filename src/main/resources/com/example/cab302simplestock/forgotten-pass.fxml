@@ -3,19 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.geometry.Insets?>
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.cab302simplestock.controller.ForgottenpassController"
-            prefHeight="400.0" prefWidth="600.0" stylesheets="@fogottenpassword.css" style="-fx-background-color: #e6f7ff;">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.ForgottenpassController" spacing="10" alignment="CENTER">
+    <Label fx:id="securityQuestionLabel" text="Security Question" />
+    <TextField fx:id="securityAnswer" promptText="Enter your answer" />
+    <Button text="Submit" onAction="#onSubmitAnswer" />
 
-    <center>
-        <VBox>
-            <HBox alignment="CENTER" spacing="10">
-                <Label fx:id ="Email">Email</Label>
-                <TextField fx:id="Username" promptText="MyEmail@gmail.com" maxWidth="200"/>
-                <Button fx:id="submit" text="Submit" onAction="#handleSubmitAction"/>
-            </HBox>
-        </VBox>
-    </center>
-</BorderPane>
+    <!-- New password fields, initially hidden -->
+    <Label fx:id="newPasswordLabel" text="New Password" visible="false" />
+    <PasswordField fx:id="newPassword" promptText="Enter new password" visible="false" />
+    <Label fx:id="confirmPasswordLabel" text="Confirm Password" visible="false" />
+    <PasswordField fx:id="confirmPassword" promptText="Confirm new password" visible="false" />
+    <Button fx:id="confirmButton" text="Confirm" onAction="#onResetPassword" visible="false" />
+</VBox>
