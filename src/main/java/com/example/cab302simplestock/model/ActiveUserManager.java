@@ -3,19 +3,19 @@ package com.example.cab302simplestock.model;
 /**
  * Singleton class used to keep track of the current logged-in user.
  */
-public class UserManager {
-    private static UserManager instance;
+public class ActiveUserManager {
+    private static ActiveUserManager instance;
     private User loggedInUser = null;
 
-    private UserManager() { }
+    private ActiveUserManager() { }
 
     /**
      * Gets the singleton instance of the UserManager, if the instance doesn't exist a new instance is created.
      * @return The instance of UserManager.
      */
-    public static UserManager getInstance() {
+    public static ActiveUserManager getInstance() {
         if (instance == null)
-            instance = new UserManager();
+            instance = new ActiveUserManager();
 
         return instance;
     }

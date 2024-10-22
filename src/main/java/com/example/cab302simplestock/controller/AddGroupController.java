@@ -5,13 +5,12 @@ import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IViewUserDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
-import com.example.cab302simplestock.model.UserManager;
+import com.example.cab302simplestock.model.ActiveUserManager;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteViewUserDAO;
 import com.example.cab302simplestock.model.ViewUser;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -50,7 +49,7 @@ public class AddGroupController {
     private void initialize() {
         // Initialize logic if needed
     }
-    public int user_id = UserManager.getInstance().getLoggedInUser().getID();
+    public int user_id = ActiveUserManager.getInstance().getLoggedInUser().getID();
     public int group_id;
     /**
      * Handles the action when the "ADD Group" button is clicked.

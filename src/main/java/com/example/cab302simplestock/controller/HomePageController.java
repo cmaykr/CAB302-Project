@@ -5,7 +5,7 @@ import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.ActiveGroup;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
 import com.example.cab302simplestock.model.User;
-import com.example.cab302simplestock.model.UserManager;
+import com.example.cab302simplestock.model.ActiveUserManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -30,7 +30,7 @@ public class HomePageController {
     private Button addGroup;
 
     private SqliteGroupDAO groupDAO;
-    private User loggedInUser = UserManager.getInstance().getLoggedInUser();
+    private User loggedInUser = ActiveUserManager.getInstance().getLoggedInUser();
     private String username = loggedInUser.getFirstName();  // Example username, replace with the actual logged-in user data
     public HomePageController() {
         groupDAO = new SqliteGroupDAO();  // Initialize the Group DAO
@@ -38,7 +38,7 @@ public class HomePageController {
 
     @FXML
     public void initialize() {
-        username = UserManager.getInstance().getLoggedInUser().getFirstName() + " " + UserManager.getInstance().getLoggedInUser().getLastName();
+        username = ActiveUserManager.getInstance().getLoggedInUser().getFirstName() + " " + ActiveUserManager.getInstance().getLoggedInUser().getLastName();
         welcomeText.setText("Welcome! " + username);
         loadGroups();
     }

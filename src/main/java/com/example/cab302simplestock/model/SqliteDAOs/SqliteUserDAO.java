@@ -36,7 +36,7 @@ public class SqliteUserDAO implements IUserDAO {
                     + "userID INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "firstName VARCHAR NOT NULL,"
                     + "lastName VARCHAR NOT NULL,"
-                    + "email VARCHAR NOT NULL,"
+                    + "email VARCHAR NOT NULL UNIQUE,"
                     + "hashedPassword VARCHAR NOT NULL,"
                     + "securityQuestion VARCHAR NOT NULL,"
                     + "securityAnswer VARCHAR NOT NULL"
