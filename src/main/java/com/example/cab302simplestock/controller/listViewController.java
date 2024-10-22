@@ -3,7 +3,11 @@ package com.example.cab302simplestock.controller;
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.Item;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
+import com.example.cab302simplestock.model.ItemManager;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteTypeDAO;
+import com.example.cab302simplestock.model.Type;
+import com.example.cab302simplestock.model.TypeManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -52,8 +56,10 @@ public class listViewController {
     @FXML
     private TextField priceTextField;
 
-    private IItemDAO itemDAO;
+    //private IItemDAO itemDAO;
     private Item currentItem; // Store the current item for updates/deletes
+    private TypeManager typeManager;
+    private ItemManager itemManager;
     /**
      * Event handler for the "Go Back" button. Navigates back to the search view.
      *
@@ -72,7 +78,9 @@ public class listViewController {
      */
     @FXML
     public void initialize() {
-        itemDAO = new SqliteItemDAO();  // Initialize the DAO
+        //itemDAO = new SqliteItemDAO();  // Initialize the DAO
+        typeManager = new TypeManager(new SqliteTypeDAO());
+        itemManager = new ItemManager(new SqliteItemDAO(), typeManager);
     }
     /**
      * Loads an item from the database by its ID and populates the input fields with the item's details.
@@ -88,16 +96,12 @@ public class listViewController {
      * @param itemId the ID of the item to load.
      */
     private void loadItemFromDatabase(int itemId) {
-        List<Item> items = itemDAO.getAllItems();  // Get all items
-
-        for (Item item : items) {
-            if (item.getItemID() == itemId) {  // Check if the item's ID matches the one we want
-                currentItem = item; // Store the current item
-                System.out.println(currentItem.getItemID());
-                populateFields(item);  // Populate the fields with the item's details
-                break;  // Exit the loop once we find the item
-            }
-        }
+        List<Item> items = itemManager.getAllItems();  // Get all items
+        Item item = itemManager.findItemByID(itemId);
+        currentItem = item;
+        System.out.println(currentItem.getItemID());
+        System.out.println(currentItem.getTypeID());
+        populateFields(item);
     }
 
     /**
@@ -108,7 +112,7 @@ public class listViewController {
     private void populateFields(Item item) {
 
         productNameTextField.setText(item.getName());
-        productTypeTextField.setText(item.getTypeName());
+        productTypeTextField.setText(typeManager.getTypeByID(item.getTypeID()).getName());
         descriptionTextField.setText(item.getDescription());
         locationTextField.setText(item.getLocation());
         quantityTextField.setText(String.valueOf(item.getQuantity()));
@@ -138,7 +142,7 @@ public class listViewController {
             currentItem.setPurchasePrice(Double.parseDouble(priceTextField.getText()));
 
             // Update the item in the database
-            itemDAO.updateItem(currentItem);
+            itemManager.updateItem(currentItem);
             //System.out.println(currentItem.getPurchaseDate());
             goBack();
 
@@ -153,7 +157,7 @@ public class listViewController {
     @FXML
     protected void deleteItem() throws IOException {
         if (currentItem != null) {
-            itemDAO.deleteItem(currentItem); // Delete the item from the database
+            itemManager.deleteItem(currentItem); // Delete the item from the database
             goBack(); // Go back to the previous screen after deletion
         }
     }

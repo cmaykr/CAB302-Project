@@ -1,7 +1,8 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
-import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
+import com.example.cab302simplestock.model.*;
+import com.example.cab302simplestock.model.SqliteDAOs.*;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import com.example.cab302simplestock.model.Item;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -31,14 +31,17 @@ public class AddItemController {
     /**
      * DAO interface for performing item-related database operation.
      */
-    private IItemDAO itemDao;
+    //private IItemDAO itemDao;
+    private ItemManager itemManager;
+    private TypeManager typeManager;
 
     /**
      * Constructgor for the AddItemContorller.
      * Initialises the DAO implementation for interacting with the database.
      */
     public AddItemController() {
-        itemDao = new SqliteItemDAO();
+        typeManager = new TypeManager(new SqliteTypeDAO());
+        itemManager = new ItemManager(new SqliteItemDAO(), typeManager);
     }
 
     // Link to the FXML fields
@@ -141,7 +144,7 @@ public class AddItemController {
                     productDescription, productCategory, productType, productLocation, isInsured);
 
             // 3. Save the item using DAO
-            itemDao.addItem(newItem);
+            itemManager.addItem(newItem);
 
             // 4. Show success message
             showAlert("Success", "Item added successfully", Alert.AlertType.INFORMATION);

@@ -1,6 +1,10 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.IItemManager;
+import com.example.cab302simplestock.model.ItemManager;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteTypeDAO;
+import com.example.cab302simplestock.model.TypeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,14 +38,20 @@ import java.util.Map;
 
 
 public class SearchController {
-    private IItemDAO itemDao;
-    private IGroupDAO groupDao;
+    //private IItemDAO itemDao;
+    //private IGroupDAO groupDao;
+
+    private ItemManager itemManager;
+    private TypeManager typeManager;
     private Map<String, Integer> itemDisplayMap; // Map to store display text and item IDs
 
     public SearchController() {
-        itemDao = new SqliteItemDAO();
-        groupDao = new SqliteGroupDAO();
+        //itemDao = new SqliteItemDAO();
+        IGroupDAO groupDao = new SqliteGroupDAO();
         itemDisplayMap = new HashMap<>();
+
+        typeManager = new TypeManager(new SqliteTypeDAO());
+        itemManager = new ItemManager(new SqliteItemDAO(), typeManager);
     }
 
     @FXML
@@ -108,11 +118,11 @@ public class SearchController {
         itemsListView.getItems().clear();
         itemDisplayMap.clear();  // Clear the map to avoid old data
 
-        List<Item> items = itemDao.getAllItems();  // Get all items from the DAO
+        List<Item> items = itemManager.getAllItems();  // Get all items from the DAO
 
         // Loop through each item, add its name to the ListView and map it to its ID
         for (Item item : items) {
-            String displayText = item.getName() + " - " + item.getCategoryName();  // Example format
+            String displayText = item.getName() + " - " + typeManager.getTypeByID(item.getTypeID()).getName();  // Example format
             itemsListView.getItems().add(displayText);
             itemDisplayMap.put(displayText, item.getItemID());  // Store the item ID in the map
         }
@@ -136,7 +146,7 @@ public class SearchController {
         itemsListView.getItems().clear();
         itemDisplayMap.clear();
 
-        List<Item> items = itemDao.getAllItems();
+        List<Item> items = itemManager.getAllItems();
 
         for (Item item : items) {
             String displayText = item.getName() + " - " + item.getCategoryName(); // Example format
