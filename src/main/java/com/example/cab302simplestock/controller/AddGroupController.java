@@ -70,7 +70,8 @@ public class AddGroupController {
         }
 
         // Assuming the owner ID is the logged-in user (hardcoded for now as 1)
-        int ownerId = 1; // Replace this with dynamic user ID fetching in real implementation
+        // int ownerId = 1; // Replace this with dynamic user ID fetching in real implementation
+        int ownerId = UserManager.getInstance().getLoggedInUser().getID();
         Group newGroup = new Group(groupName, ownerId);
         // Add the group to the database
         int group_id = groupDao.addGroup(newGroup);
