@@ -79,6 +79,9 @@ public class AddGroupController {
         int group_id = groupManager.addGroup(newGroup);
         User user = ActiveUserManager.getInstance().getLoggedInUser();
         groupManager.addUser(user, group_id);
+        Category category = new Category("Owned items", group_id);
+        System.out.println(group_id);
+        groupManager.addCategory(category);
 
         // Show success message
         showAlert("Success", "Group added successfully!");

@@ -41,7 +41,8 @@ public class AddItemController {
      */
     public AddItemController() {
         typeManager = new TypeManager(new SqliteTypeDAO());
-        itemManager = new ItemManager(new SqliteItemDAO(), typeManager);
+        CategoryManager categoryManager = new CategoryManager(new SqliteCategoryDAO());
+        itemManager = new ItemManager(new SqliteItemDAO(), typeManager, categoryManager);
     }
 
     // Link to the FXML fields
@@ -133,7 +134,7 @@ public class AddItemController {
             String productType = productTypeTextField.getText();
             String productDescription = productDescriptionTextField.getText();
             String productLocation = productLocationTextField.getText();
-            String productCategory = "mock category"; // Temporary category
+            String productCategory = "Owned items"; // Temporary category
             int productQuantity = Integer.parseInt(productQuantityTextField.getText());
             String productPurchaseDate = productPurchaseDateTextField.getText();
             boolean isInsured = insuredRadioButton.isSelected();
@@ -144,7 +145,7 @@ public class AddItemController {
                     productDescription, productCategory, productType, productLocation, isInsured);
 
             // 3. Save the item using DAO
-            itemManager.addItem(newItem);
+            itemManager.addItem(newItem, productType, productCategory, ActiveGroupManager.getInstance().getActiveGroup().getGroupID());
 
             // 4. Show success message
             showAlert("Success", "Item added successfully", Alert.AlertType.INFORMATION);

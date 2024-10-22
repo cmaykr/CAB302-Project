@@ -9,27 +9,35 @@ import java.util.List;
 public class ItemManager implements IItemManager {
     IItemDAO itemDAO;
     ITypeManager typeManager;
+    ICategoryManager categoryManager;
 
-    public ItemManager(IItemDAO itemDAO, ITypeManager typeManager) {
+    public ItemManager(IItemDAO itemDAO, ITypeManager typeManager, ICategoryManager categoryManager) {
         this.itemDAO = itemDAO;
         this.typeManager = typeManager;
+        this.categoryManager = categoryManager;
     }
 
     @Override
-    public int addItem(Item item) {
-        Type type = typeManager.findType(item.getTypeName());
+    public int addItem(Item item, String typeName, String categoryName, int groupID) {
+        Type type = typeManager.findType(typeName);
         int typeID = -1;
         if (type == null)
         {
-            Type newType = new Type(item.getTypeName());
+            // Create the type as it doesn't exist.
+            Type newType = new Type(typeName);
             typeID = typeManager.addType(newType);
         }
         else
             typeID = type.getTypeID();
+        System.out.println(categoryName);
+        System.out.println(groupID);
+        Category category = categoryManager.findCategoryInGroupByName(categoryName, groupID);
+
+        System.out.println(categoryManager.getAllCategories().size());
 
         item.setTypeID(typeID);
-        itemDAO.addItem(item);
-        return 0;
+        item.setCategoryID(category.getCategoryID());
+        return itemDAO.addItem(item);
     }
 
     @Override
@@ -50,5 +58,10 @@ public class ItemManager implements IItemManager {
     @Override
     public Item findItemByID(int itemId) {
         return itemDAO.findItemByID(itemId);
+    }
+
+    @Override
+    public List<Item> searchItemsByNameInCategory(String itemName, int categoryID) {
+        return itemDAO.getItemByNameInCategory(itemName, categoryID);
     }
 }

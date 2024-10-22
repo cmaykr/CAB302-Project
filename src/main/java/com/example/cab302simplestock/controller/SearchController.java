@@ -1,10 +1,9 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
-import com.example.cab302simplestock.model.IItemManager;
-import com.example.cab302simplestock.model.ItemManager;
+import com.example.cab302simplestock.model.*;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteTypeDAO;
-import com.example.cab302simplestock.model.TypeManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,13 +28,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
-import com.example.cab302simplestock.model.Item;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class SearchController {
     //private IItemDAO itemDao;
@@ -51,7 +48,8 @@ public class SearchController {
         itemDisplayMap = new HashMap<>();
 
         typeManager = new TypeManager(new SqliteTypeDAO());
-        itemManager = new ItemManager(new SqliteItemDAO(), typeManager);
+        CategoryManager categoryManager = new CategoryManager(new SqliteCategoryDAO());
+        itemManager = new ItemManager(new SqliteItemDAO(), typeManager, categoryManager);
     }
 
     @FXML

@@ -1,13 +1,11 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
-import com.example.cab302simplestock.model.Item;
+import com.example.cab302simplestock.model.*;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
-import com.example.cab302simplestock.model.ItemManager;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteTypeDAO;
-import com.example.cab302simplestock.model.Type;
-import com.example.cab302simplestock.model.TypeManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -80,7 +78,8 @@ public class listViewController {
     public void initialize() {
         //itemDAO = new SqliteItemDAO();  // Initialize the DAO
         typeManager = new TypeManager(new SqliteTypeDAO());
-        itemManager = new ItemManager(new SqliteItemDAO(), typeManager);
+        CategoryManager categoryManager = new CategoryManager(new SqliteCategoryDAO());
+        itemManager = new ItemManager(new SqliteItemDAO(), typeManager, categoryManager);
     }
     /**
      * Loads an item from the database by its ID and populates the input fields with the item's details.

@@ -127,4 +127,51 @@ public class SqliteCategoryDAO implements ICategoryDAO {
         }
         return categories;
     }
+
+    @Override
+    public Category getCategoryInGroupByName(String categoryName, int groupID) {
+        try {
+            System.out.println(categoryName);
+            System.out.println(groupID);
+            String query = "SELECT * FROM category WHERE categoryName = ? AND groupID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, categoryName);
+            statement.setInt(2, groupID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int categoryID = resultSet.getInt("categoryID");
+                String name = resultSet.getString("categoryName");
+                int grID = resultSet.getInt("groupID");
+                Category category = new Category(name, grID);
+                category.setCategoryID(categoryID);
+                return category;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Category> getCategoriesByGroupID(int groupID) {
+        List<Category> categories = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM category WHERE groupID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, groupID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int categoryID = resultSet.getInt("categoryID");
+                String name = resultSet.getString("categoryName");
+                int grID = resultSet.getInt("groupID");
+                Category category = new Category(name, grID);
+                category.setCategoryID(categoryID);
+                System.out.println(category.getCategoryName());
+                categories.add(category);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categories;
+    }
 }

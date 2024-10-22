@@ -30,4 +30,8 @@ public interface ICategoryDAO {
      * @return A list of all categories.
      */
     List<Category> getAllCategories();
+
+    Category getCategoryInGroupByName(String categoryName, int groupID);
+
+    List<Category> getCategoriesByGroupID(int groupID);
 }

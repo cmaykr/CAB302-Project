@@ -185,4 +185,34 @@ public class SqliteItemDAO implements IItemDAO {
         }
         return null;
     }
+
+    @Override
+    public List<Item> getItemByNameInCategory(String itemName, int categoryID) {
+        List<Item> items = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM item WHERE name = ? AND categoryID";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, itemName);
+            statement.setInt(2, categoryID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("itemID");
+                String name = resultSet.getString("name");
+                Date purchaseDate = resultSet.getDate("purchaseDate");
+                double purchasePrice = resultSet.getDouble("purchasePrice");
+                double quantity = resultSet.getDouble("quantity");
+                String description = resultSet.getString("description");
+                int catID = resultSet.getInt("categoryID");
+                int typeID = resultSet.getInt("typeID");
+                String location = resultSet.getString("location");
+                boolean insured = resultSet.getBoolean("insured");
+                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, categoryID, typeID, location, insured);
+                item.setItemID(id);
+                items.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
 }

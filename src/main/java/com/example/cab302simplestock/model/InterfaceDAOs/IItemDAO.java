@@ -34,4 +34,6 @@ public interface IItemDAO {
     List<Item> getAllItems();
 
     Item findItemByID(int itemId);
+
+    List<Item> getItemByNameInCategory(String itemName, int categoryID);
 }

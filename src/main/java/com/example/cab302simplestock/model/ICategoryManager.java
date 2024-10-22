@@ -11,4 +11,8 @@ public interface ICategoryManager {
     int addCategoryToGroup(Category category);
 
     void deleteCategory(int categoryID);
+
+    Category findCategoryInGroupByName(String categoryName, int groupID);
+
+    List<Category> getAllCategories();
 }
