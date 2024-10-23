@@ -14,7 +14,7 @@
             <TextField fx:id="username" promptText="Username" maxWidth="200"/>
             <PasswordField fx:id="password" promptText="Password" maxWidth="200"/>
                 <Hyperlink text="Forgotten password?" onAction="#onForgottenPassword"/>
-                <Button fx:id="login" text="log in" onAction="#onSubmit" prefWidth="200"/>
+                <Button fx:id="login" text="Log in" onAction="#onSubmit" prefWidth="200"/>
         </VBox>
     </center>
     <bottom>
