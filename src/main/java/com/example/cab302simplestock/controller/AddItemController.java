@@ -1,8 +1,11 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.Category;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
+import com.example.cab302simplestock.model.GroupManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -20,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Controller class handling the addition of new items to the system.
@@ -40,8 +44,11 @@ public class AddItemController {
     public AddItemController() {
         itemDao = new SqliteItemDAO();
     }
+    private SqliteCategoryDAO categoryDao; // Category DAO for retrieving categories from DB
 
     // Link to the FXML fields
+    @FXML
+    private ComboBox<String> categoryComboBox;
     @FXML
     private ImageView plusIcon;
     @FXML
@@ -71,6 +78,7 @@ public class AddItemController {
     private Button ViewYourList;
     @FXML
     public void initialize() {
+        categoryDao = new SqliteCategoryDAO(); // Initialize the category DAO
         insuredToggleGroup = new ToggleGroup();
         insuredRadioButton.setToggleGroup(insuredToggleGroup);
         notInsuredRadioButton.setToggleGroup(insuredToggleGroup);
@@ -90,6 +98,19 @@ public class AddItemController {
         alert.setContentText(message);
         alert.showAndWait(); // Wait for the user to close the alert
     }
+
+    private void loadCategories() {
+        int groupId = GroupManager.getInstance().getSelectedGroup().getGroupID(); // Get the group ID from GroupManager
+        List<Category> allCategories = categoryDao.getAllCategories(); // Get all categories
+
+        // Filter categories by group ID and populate the ComboBox with the filtered category names
+        for (Category category : allCategories) {
+            if (category.getGroupID() == groupId) {
+                categoryComboBox.getItems().add(category.getCategoryName());
+            }
+        }
+    }
+
 
     private boolean validateForm() {
         if (productNameTextField.getText().isEmpty() ||
