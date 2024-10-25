@@ -8,11 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Mock implementation for the category DAO interface.
+ */
 public class MockCategoryDAO implements ICategoryDAO {
     List<Category> categories;
+
+    /**
+     * Constructs the mock DAO.
+     */
     public MockCategoryDAO() {
         categories = new ArrayList<>();
     }
+
+    /**
+     * Adds a new category to the mock database.
+     * @param category The category that should be added to the database.
+     * @return The ID of the added category.
+     */
     @Override
     public int addCategory(Category category) {
         if (categories.isEmpty())
@@ -26,6 +39,10 @@ public class MockCategoryDAO implements ICategoryDAO {
         return category.getCategoryID();
     }
 
+    /**
+     * Updates a category in the mock database.
+     * @param category The category that should be updated.
+     */
     @Override
     public void updateCategory(Category category) {
         int categoryID = -1;
@@ -44,6 +61,10 @@ public class MockCategoryDAO implements ICategoryDAO {
         }
     }
 
+    /**
+     * Deletes a category in the mock database.
+     * @param category The category to be deleted. The ID value should be set.
+     */
     @Override
     public void deleteCategory(Category category) {
         int categoryID = -1;
@@ -68,11 +89,21 @@ public class MockCategoryDAO implements ICategoryDAO {
         }
     }
 
+    /**
+     * Gets all categories that exist in the mock database.
+     * @return A list of all categories.
+     */
     @Override
     public List<Category> getAllCategories() {
         return categories;
     }
 
+    /**
+     * Searches and gets a category where the search is based on the categories name and searches in a specific group.
+     * @param categoryName The name of the category to search for.
+     * @param groupID The ID of the group to search in.
+     * @return The category if found, otherwise null.
+     */
     @Override
     public Category getCategoryInGroupByName(String categoryName, int groupID) {
         for (Category category: categories)
@@ -85,6 +116,11 @@ public class MockCategoryDAO implements ICategoryDAO {
         return null;
     }
 
+    /**
+     * Gets all categories that exist in a group in the mock database.
+     * @param groupID The ID of the group to get all categories for.
+     * @return A list of all categories in the group.
+     */
     @Override
     public List<Category> getCategoriesByGroupID(int groupID) {
         List<Category> categoriesInGroup = new ArrayList<>();

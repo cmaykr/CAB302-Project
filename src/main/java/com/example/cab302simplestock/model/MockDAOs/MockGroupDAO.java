@@ -1,19 +1,29 @@
 package com.example.cab302simplestock.model.MockDAOs;
 
-import com.example.cab302simplestock.model.Category;
 import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Mock implementation for the group DAO interface.
+ */
 public class MockGroupDAO implements IGroupDAO {
     List<Group> groups;
 
+    /**
+     * Constructs the mock DAO.
+     */
     public MockGroupDAO() {
         groups = new ArrayList<>();
     }
 
+    /**
+     * Adds a new group to the mock database.
+     * @param group The category that should be added to the database.
+     * @return The ID of the added group.
+     */
     @Override
     public int addGroup(Group group) {
         if (groups.isEmpty())
@@ -28,6 +38,10 @@ public class MockGroupDAO implements IGroupDAO {
         return group.getGroupID();
     }
 
+    /**
+     * Updates a group in the mock database.
+     * @param group The group that should be updated.
+     */
     @Override
     public void updateGroup(Group group) {
         int groupID = -1;
@@ -46,6 +60,10 @@ public class MockGroupDAO implements IGroupDAO {
         }
     }
 
+    /**
+     * Deletes a group in the mock database.
+     * @param group The group to be deleted. The ID value should be set.
+     */
     @Override
     public void deleteGroup(Group group) {
         int groupID = -1;
@@ -64,6 +82,10 @@ public class MockGroupDAO implements IGroupDAO {
         }
     }
 
+    /**
+     * Gets all groups that exist in the mock database.
+     * @return A list of all groups.
+     */
     @Override
     public List<Group> getAllGroups() {
         return groups;
