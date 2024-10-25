@@ -18,6 +18,9 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
 
+/**
+ * Controller class for handling the user registration functionality.
+ */
 public class RegistrationController {
     @FXML
     private TextField firstName;
@@ -38,10 +41,20 @@ public class RegistrationController {
 
     private SqliteUserDAO userDAO;
 
+    /**
+     * Constructor for RegistrationController.
+     * Initializes the user DAO.
+     */
     public RegistrationController() {
         userDAO = new SqliteUserDAO();
     }
 
+    /**
+     * Handles the creation of a new account.
+     *
+     * @param actionEvent The action event triggered by the user.
+     * @throws IOException If an input or output exception occurred.
+     */
     @FXML
     private void onCreateAccount(ActionEvent actionEvent) throws IOException {
         if (!validateInput()) {
@@ -66,7 +79,11 @@ public class RegistrationController {
         stage.setScene(scene);
     }
 
-
+    /**
+     * Validates the user input.
+     *
+     * @return true if the input is valid, false otherwise.
+     */
     private boolean validateInput() {
         if (firstName.getText().isEmpty() || lastName.getText().isEmpty() || email.getText().isEmpty() ||
                 password.getText().isEmpty() || confirmPassword.getText().isEmpty() ||
@@ -88,16 +105,25 @@ public class RegistrationController {
         return true;
     }
 
+    /**
+     * Checks if the given email is in a valid format.
+     *
+     * @param email The email to check.
+     * @return true if the email is valid, false otherwise.
+     */
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(emailRegex);
         return pattern.matcher(email).matches();
     }
 
-    private String hashPassword(String password) {
-        return password;
-    }
-
+    /**
+     * Displays an alert with the given type, title, and message.
+     *
+     * @param alertType The type of alert.
+     * @param title     The title of the alert.
+     * @param message   The message of the alert.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

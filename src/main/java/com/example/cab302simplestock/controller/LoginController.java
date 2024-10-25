@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Controller class for handling the login functionality.
+ */
 public class LoginController {
 
     @FXML
@@ -27,10 +30,17 @@ public class LoginController {
     private static final String ADMIN_EMAIL = "admin@example.com";
     private static final String ADMIN_PASSWORD = "admin123";
 
+    /**
+     * Constructor for LoginController.
+     * Initializes the user DAO.
+     */
     public LoginController() {
         userDao = new SqliteUserDAO();
     }
 
+    /**
+     * Handles the submission of the login form.
+     */
     @FXML
     private void onSubmit() {
         String email = username.getText();
@@ -55,30 +65,26 @@ public class LoginController {
         }
     }
 
+    /**
+     * Handles the forgotten password action.
+     */
     @FXML
     private void onForgottenPassword() {
-        String email = username.getText();
         try {
-            User user = userDao.getUserByEmail(email);
-            if (user != null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/forgotten-pass.fxml"));
-                Parent root = loader.load();
-
-                ForgottenpassController controller = loader.getController();
-                controller.initialize(user);
-
-                Stage stage = (Stage) username.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Error", "No user found with this email.");
-            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/forgotten-pass.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) username.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the security question page.");
         }
     }
 
+    /**
+     * Handles the create account action.
+     */
     @FXML
     private void onCreateAccount() {
         try {
@@ -93,6 +99,9 @@ public class LoginController {
         }
     }
 
+    /**
+     * Loads the home page after successful login.
+     */
     private void loadHomePage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/home-page.fxml"));
@@ -106,6 +115,13 @@ public class LoginController {
         }
     }
 
+    /**
+     * Displays an alert with the given type, title, and message.
+     *
+     * @param alertType The type of alert.
+     * @param title     The title of the alert.
+     * @param message   The message of the alert.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

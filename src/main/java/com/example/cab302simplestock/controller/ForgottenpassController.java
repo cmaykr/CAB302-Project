@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Controller class for handling the forgotten password functionality.
+ */
 public class ForgottenpassController {
 
     @FXML
@@ -41,6 +44,11 @@ public class ForgottenpassController {
     private User user;
     private SqliteUserDAO userDao;
 
+    /**
+     * Initializes the controller with the given user.
+     *
+     * @param user The user who has forgotten their password.
+     */
     public void initialize(User user) {
         this.user = user;
         this.userDao = new SqliteUserDAO();
@@ -52,6 +60,9 @@ public class ForgottenpassController {
         confirmButton.setVisible(false);
     }
 
+    /**
+     * Handles the submission of the security answer.
+     */
     @FXML
     private void onSubmitAnswer() {
         String answer = securityAnswer.getText();
@@ -68,6 +79,9 @@ public class ForgottenpassController {
         }
     }
 
+    /**
+     * Handles the password reset process.
+     */
     @FXML
     private void onResetPassword() {
         String newPass = newPassword.getText();
@@ -84,6 +98,13 @@ public class ForgottenpassController {
         }
     }
 
+    /**
+     * Displays an alert with the given type, title, and message.
+     *
+     * @param alertType The type of alert.
+     * @param title     The title of the alert.
+     * @param message   The message of the alert.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -92,6 +113,9 @@ public class ForgottenpassController {
         alert.showAndWait();
     }
 
+    /**
+     * Returns the user to the login page.
+     */
     private void returnToLogin() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/login-page.fxml"));

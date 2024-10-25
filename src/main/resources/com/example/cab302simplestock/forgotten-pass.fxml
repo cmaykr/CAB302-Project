@@ -4,9 +4,12 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.ForgottenpassController" spacing="10" alignment="CENTER">
-    <Label fx:id="securityQuestionLabel" text="Security Question" />
-    <TextField fx:id="securityAnswer" promptText="Enter your answer" />
-    <Button text="Submit" onAction="#onSubmitAnswer" />
+    <TextField fx:id="emailField" promptText="Enter your email" />
+    <Button text="Check Email" onAction="#onCheckEmail" />
+
+    <Label fx:id="securityQuestionLabel" text="Security Question" visible="false" />
+    <TextField fx:id="securityAnswer" promptText="Enter your answer" visible="false" />
+    <Button text="Submit" onAction="#onSubmitAnswer" visible="false" />
 
     <!-- New password fields, initially hidden -->
     <Label fx:id="newPasswordLabel" text="New Password" visible="false" />
