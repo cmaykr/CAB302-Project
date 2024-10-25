@@ -48,6 +48,7 @@ public class SearchController {
         categoryDao = new SqliteCategoryDAO();
         itemDisplayMap = new HashMap<>();
     }
+
     @FXML
     private Label totalValueLabel;
     @FXML
@@ -89,6 +90,8 @@ public class SearchController {
         groupLabel.setText(groupName);
     }
 
+
+
     private void setupItemSelection() {
         itemsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -114,45 +117,53 @@ public class SearchController {
     }
     private void loadItems() {
         itemsListView.getItems().clear();
-        itemDisplayMap.clear();
+        itemDisplayMap.clear();  // Clear the map to avoid old data
 
         double totalValue = 0.0;
         int totalCount = 0;
 
-        /*
-
-         */
-
+        // Get all items from the DAO
         List<Item> items = itemDao.getAllItems();
+
+        // Get the selected group from GroupManager
         Group currentGroup = GroupManager.getInstance().getSelectedGroup();
 
         if (currentGroup == null) {
+            // If no group is selected, show an alert and return early
             showAlert(Alert.AlertType.WARNING, "No Group Selected", "Please select a group first.");
             return;
         }
 
-        List<Category> allCategories = categoryDao.getAllCategories();
+        // Fetch all categories from the database
+        System.out.println("getting categories"); // there are no categories...
+        List<Category> allCategories = categoryDao.getAllCategories(); // Assuming groupDao is using SqliteCategoryDAO
+
+        // Filter categories based on the current group's ID
         List<Integer> categoryIds = new ArrayList<>();
         for (Category category : allCategories) {
+
+            System.out.println(category.getCategoryID());
             if (category.getGroupID() == currentGroup.getGroupID()) {
                 categoryIds.add(category.getCategoryID());
             }
         }
 
+        // Now filter the items based on the category IDs
         for (Item item : items) {
             if (categoryIds.contains(item.getCategoryID())) {
+                // Only add items if their categoryID matches one in the selected group
                 String displayText = item.getName() + " - " + item.getCategoryID();
-                totalValue += item.getPurchasePrice();
-                totalCount += 1; // Count each item
                 itemsListView.getItems().add(displayText);
-                itemDisplayMap.put(displayText, item.getItemID());
+                itemDisplayMap.put(displayText, item.getItemID());  // Store the item ID in the map
+                totalValue += item.getPurchasePrice();
+                totalCount++;
                 totalValueLabel.setText("Total Value: $" + String.format("%.2f", totalValue));
                 totalCountLabel.setText("Total Count: " + totalCount);
             }
         }
 
-
         if (itemsListView.getItems().isEmpty()) {
+            // If no items found for the selected group, show an alert
             showAlert(Alert.AlertType.INFORMATION, "No Items Found", "No items found for the selected group.");
         }
     }
