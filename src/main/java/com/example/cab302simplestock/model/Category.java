@@ -4,21 +4,10 @@ package com.example.cab302simplestock.model;
  * Simple model class for representing a category with a name and the group it's owned by.
  */
 public class Category {
-    int categoryID;
-    String categoryName;
-    String groupName; // DEPRECATED
-    int groupID;
-
-    /**
-     * DEPRECATED, use other Category constructor instead.
-     * @param listName
-     * @param groupName
-     */
-    public Category(String listName, String groupName) {
-        System.out.println("Usage of deprecated Category constructor.");
-        this.categoryName = listName;
-        this.groupName = groupName;
-    }
+    private int categoryID;
+    private String categoryName;
+    private String groupName; // DEPRECATED
+    private int groupID;
 
     /**
      * Main constructor for the class.

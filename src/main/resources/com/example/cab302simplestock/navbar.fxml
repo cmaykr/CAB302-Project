@@ -17,10 +17,9 @@
           styleClass="navbar" alignment="CENTER_LEFT"> <!-- Use styleClass to apply CSS -->
         <Button text="Home" fx:id="goHome" onAction="#goToHome" styleClass="navbar-button"/>
         <Button text="Categories" fx:id="goCategories" onAction="#goToCategories" styleClass="navbar-button"/>
-        <Button text="Groups" fx:id="goGroups" onAction="#goToGroups" styleClass="navbar-button"/>
-        <Button text="Accounts" fx:id="goAccounts" onAction="#goToAccounts" styleClass="navbar-button"/>
-        <Button text="Settings" fx:id="goSettings" onAction="#goToSettings" styleClass="navbar-button"/>
+        <Button text="Account Settings" fx:id="goAccounts" onAction="#goToAccounts" styleClass="navbar-button"/>
         <Button text="Log Out" fx:id="logout" onAction="#logout" styleClass="navbar-button"/>
     </HBox>
 
 </AnchorPane>
+

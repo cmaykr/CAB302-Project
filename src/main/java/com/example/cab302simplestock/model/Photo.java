@@ -4,9 +4,9 @@ package com.example.cab302simplestock.model;
  * Simple model class for representing a photo, with the image name and the item ID the photo is of.
  */
 public class Photo {
-    int photoID;
-    String imageName;
-    int itemID;
+    private int photoID;
+    private String imageName;
+    private int itemID;
 
     /**
      * Constructor that sets the value for image name and item ID.

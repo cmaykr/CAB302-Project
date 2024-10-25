@@ -15,24 +15,24 @@
     <fx:include source="navbar.fxml" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"/>
     <children>
 
-        <Text fx:id="accountsText" layoutX="30.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accounts">
+        <Text fx:id="accountsText" layoutX="30.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Settings">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
         </Text>
 
         <GridPane hgap="10" vgap="10" AnchorPane.topAnchor="70" AnchorPane.leftAnchor="20">
-            <Label text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="userFirstNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="300" promptText="John"/>
+            <Label text="First Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="userFirstNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="300" promptText="John"/>
 
-            <Label text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField fx:id="userLastNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="300" promptText="Doe"/>
+            <Label text="Last Name:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="userLastNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="300" promptText="Doe"/>
 
-            <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="userEmailTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="300" promptText="johndoe@email.com"/>
+            <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="userEmailTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="300" promptText="johndoe@email.com"/>
 
-            <Label text="Update your details?" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <Button fx:id="updateButton" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="300" text="Confirm" onAction="#updateUser"/>
+            <Label text="Update your details?" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <Button fx:id="updateButton" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="300" text="Confirm" onAction="#updateUser"/>
 
         </GridPane>
 

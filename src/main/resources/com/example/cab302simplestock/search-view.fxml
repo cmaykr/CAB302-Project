@@ -13,5 +13,6 @@
             <Button text="Search" fx:id="searchButton" onAction="#searchButtonClick"/>
         </HBox>
         <ListView fx:id="itemsListView" prefHeight="200"/>  <!-- This ListView displays item names -->
+        <Button fx:id="addItemsButton" text="Add Item" onAction="#addItemsButton"/>
     </VBox>
 </AnchorPane>

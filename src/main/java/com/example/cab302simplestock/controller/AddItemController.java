@@ -1,8 +1,13 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.*;
+import com.example.cab302simplestock.model.SqliteDAOs.*;
+import com.example.cab302simplestock.model.Category;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
+import com.example.cab302simplestock.model.GroupManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -14,12 +19,12 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import com.example.cab302simplestock.model.Item;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Controller class handling the addition of new items to the system.
@@ -31,17 +36,24 @@ public class AddItemController {
     /**
      * DAO interface for performing item-related database operation.
      */
-    private IItemDAO itemDao;
+    //private IItemDAO itemDao;
+    private ItemManager itemManager;
+    private TypeManager typeManager;
+    private CategoryManager categoryManager;
 
     /**
      * Constructgor for the AddItemContorller.
      * Initialises the DAO implementation for interacting with the database.
      */
     public AddItemController() {
-        itemDao = new SqliteItemDAO();
+        typeManager = new TypeManager(new SqliteTypeDAO());
+        categoryManager = new CategoryManager(new SqliteCategoryDAO());
+        itemManager = new ItemManager(new SqliteItemDAO(), typeManager, categoryManager);
     }
 
     // Link to the FXML fields
+    @FXML
+    private ComboBox<String> categoryComboBox;
     @FXML
     private ImageView plusIcon;
     @FXML
@@ -91,6 +103,19 @@ public class AddItemController {
         alert.showAndWait(); // Wait for the user to close the alert
     }
 
+    private void loadCategories() {
+        int groupId = ActiveGroupManager.getInstance().getActiveGroup().getGroupID(); // Get the group ID from GroupManager
+        List<Category> allCategories = categoryManager.getAllCategories(); // Get all categories
+
+        // Filter categories by group ID and populate the ComboBox with the filtered category names
+        for (Category category : allCategories) {
+            if (category.getGroupID() == groupId) {
+                categoryComboBox.getItems().add(category.getCategoryName());
+            }
+        }
+    }
+
+
     private boolean validateForm() {
         if (productNameTextField.getText().isEmpty() ||
                 productTypeTextField.getText().isEmpty() ||
@@ -127,10 +152,13 @@ public class AddItemController {
         try {
             // 1. Retrieve data from the form
             String productName = productNameTextField.getText();
+            int productTypeID = 1; //productTypeTextField.getText(); // not sure what type id is so just going to set it as 1.
             String productType = productTypeTextField.getText();
             String productDescription = productDescriptionTextField.getText();
             String productLocation = productLocationTextField.getText();
-            String productCategory = "mock category"; // Temporary category
+            String productCategory = "Owned items"; // Temporary category
+            int productCategoryID = ActiveGroupManager.getInstance().getActiveGroup().getGroupID(); // just associating each item with a group essentially.
+            //Integer.parseInt(productTypeTextField.getText()); // category id
             int productQuantity = Integer.parseInt(productQuantityTextField.getText());
             String productPurchaseDate = productPurchaseDateTextField.getText();
             boolean isInsured = insuredRadioButton.isSelected();
@@ -138,10 +166,15 @@ public class AddItemController {
 
             // 2. Create a new Item object
             Item newItem = new Item(productName, productPurchaseDate, productPrice, productQuantity,
-                    productDescription, productCategory, productType, productLocation, isInsured);
+                    productDescription, productCategoryID, productTypeID, productLocation, isInsured);
+
+            // String itemName, String purchaseDate,
+            // double purchasePrice, double quantity,
+            // String description, int categoryID,
+            // int typeID, String location, boolean insured
 
             // 3. Save the item using DAO
-            itemDao.addItem(newItem);
+            itemManager.addItem(newItem, productType, productCategory, ActiveGroupManager.getInstance().getActiveGroup().getGroupID());
 
             // 4. Show success message
             showAlert("Success", "Item added successfully", Alert.AlertType.INFORMATION);

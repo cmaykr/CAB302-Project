@@ -1,6 +1,14 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.*;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteTypeDAO;
+import com.example.cab302simplestock.model.Category;
+import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.GroupManager;
+import com.example.cab302simplestock.model.InterfaceDAOs.ICategoryDAO;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +19,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
 import com.example.cab302simplestock.SimpleStock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -28,20 +36,25 @@ import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.Item;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 public class SearchController {
-    private IItemDAO itemDao;
-    private IGroupDAO groupDao;
+    //private IItemDAO itemDao;
+    //private IGroupDAO groupDao;
+
+    private ItemManager itemManager;
+    private TypeManager typeManager;
+    private CategoryManager categoryManager;
     private Map<String, Integer> itemDisplayMap; // Map to store display text and item IDs
 
     public SearchController() {
-        itemDao = new SqliteItemDAO();
-        groupDao = new SqliteGroupDAO();
+        //itemDao = new SqliteItemDAO();
+        IGroupDAO groupDao = new SqliteGroupDAO();
         itemDisplayMap = new HashMap<>();
+
+        typeManager = new TypeManager(new SqliteTypeDAO());
+        categoryManager = new CategoryManager(new SqliteCategoryDAO());
+        itemManager = new ItemManager(new SqliteItemDAO(), typeManager, categoryManager);
     }
 
     @FXML
@@ -58,6 +71,8 @@ public class SearchController {
     private Button searchButton;
     @FXML
     private TextField searchBar;
+    @FXML
+    private Button AddItem;
 
 
     @FXML
@@ -108,15 +123,50 @@ public class SearchController {
         itemsListView.getItems().clear();
         itemDisplayMap.clear();  // Clear the map to avoid old data
 
-        List<Item> items = itemDao.getAllItems();  // Get all items from the DAO
+        //List<Item> items = itemManager.getAllItems();  // Get all items from the DAO
+        // Get all items from the DAO
+        List<Item> items = itemManager.getAllItems();
 
-        // Loop through each item, add its name to the ListView and map it to its ID
+        // Get the selected group from GroupManager
+        Group currentGroup = ActiveGroupManager.getInstance().getActiveGroup();
+
+        if (currentGroup == null) {
+            // If no group is selected, show an alert and return early
+            showAlert(Alert.AlertType.WARNING, "No Group Selected", "Please select a group first.");
+            return;
+        }
+
+        // Fetch all categories from the database
+        System.out.println("getting categories"); // there are no categories...
+        List<Category> allCategories = categoryManager.getAllCategories(); // Assuming groupDao is using SqliteCategoryDAO
+
+        // Filter categories based on the current group's ID
+        List<Integer> categoryIds = new ArrayList<>();
+        for (Category category : allCategories) {
+
+            System.out.println(category.getCategoryID());
+            if (category.getGroupID() == currentGroup.getGroupID()) {
+                categoryIds.add(category.getCategoryID());
+            }
+        }
+
+        // Now filter the items based on the category IDs
         for (Item item : items) {
-            String displayText = item.getName() + " - " + item.getCategoryName();  // Example format
-            itemsListView.getItems().add(displayText);
-            itemDisplayMap.put(displayText, item.getItemID());  // Store the item ID in the map
+            if (categoryIds.contains(item.getCategoryID())) {
+                // Only add items if their categoryID matches one in the selected group
+                String displayText = item.getName() + " - " + item.getCategoryID();
+                itemsListView.getItems().add(displayText);
+                itemDisplayMap.put(displayText, item.getItemID());  // Store the item ID in the map
+            }
+        }
+
+        if (itemsListView.getItems().isEmpty()) {
+            // If no items found for the selected group, show an alert
+            showAlert(Alert.AlertType.INFORMATION, "No Items Found", "No items found for the selected group.");
         }
     }
+
+
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -126,33 +176,51 @@ public class SearchController {
     }
     @FXML
     protected void searchButtonClick() {
-        String productName = searchBar.getText(); // Assuming Username is the TextField for email
+        String searchText = searchBar.getText(); // Assuming Username is the TextField for email
 
-        if (productName == null || productName.trim().isEmpty()) {
+        if (searchText == null || searchText.trim().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Input Error", "Search field cannot be empty.");
+        } else {
+            filterItems(searchText.toLowerCase());
         }
     }
     private void filterItems(String searchText) {
         itemsListView.getItems().clear();
         itemDisplayMap.clear();
 
-        List<Item> items = itemDao.getAllItems();
+        List<Item> items = itemManager.getAllItems();
+        Group currentGroup = ActiveGroupManager.getInstance().getActiveGroup();
 
+        if (currentGroup == null) {
+            showAlert(Alert.AlertType.WARNING, "No Group Selected", "Please select a group first.");
+            return;
+        }
+
+        // Get categories matching the current group ID
+        List<Category> allCategories = categoryManager.getAllCategories();
+        List<Integer> categoryIds = new ArrayList<>();
+        for (Category category : allCategories) {
+            if (category.getGroupID() == currentGroup.getGroupID()) {
+                categoryIds.add(category.getCategoryID());
+            }
+        }
+
+        // Filter and display items with a name or ID that contains the search text
         for (Item item : items) {
-            String displayText = item.getName() + " - " + item.getCategoryName(); // Example format
-            // Check if the display text contains the search text
-            if (displayText.toLowerCase().contains(searchText)) {
-                itemsListView.getItems().add(displayText); // Add matching items to the ListView
-                itemDisplayMap.put(displayText, item.getItemID()); // Store the item ID in the map
+            if (categoryIds.contains(item.getCategoryID())) {
+                String displayText = item.getName() + " - " + item.getCategoryID();
+                if (displayText.toLowerCase().contains(searchText)) {  // Case-insensitive match
+                    itemsListView.getItems().add(displayText);
+                    itemDisplayMap.put(displayText, item.getItemID());
+                }
             }
         }
 
         if (itemsListView.getItems().isEmpty()) {
-            // If no items found, show an alert
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "No items found matching your search.", ButtonType.OK);
-            alert.showAndWait();
+            showAlert(Alert.AlertType.INFORMATION, "No Items Found", "No items found matching your search.");
         }
     }
+
 
 
 }

@@ -2,11 +2,10 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.Group;
-import com.example.cab302simplestock.model.GroupManager;
+import com.example.cab302simplestock.model.ActiveGroupManager;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
 import com.example.cab302simplestock.model.User;
-import com.example.cab302simplestock.model.UserManager;
-import javafx.event.ActionEvent;
+import com.example.cab302simplestock.model.ActiveUserManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -31,7 +30,7 @@ public class HomePageController {
     private Button addGroup;
 
     private SqliteGroupDAO groupDAO;
-    private User loggedInUser = UserManager.getInstance().getLoggedInUser();
+    private User loggedInUser = ActiveUserManager.getInstance().getLoggedInUser();
     private String username = loggedInUser.getFirstName();  // Example username, replace with the actual logged-in user data
     public HomePageController() {
         groupDAO = new SqliteGroupDAO();  // Initialize the Group DAO
@@ -39,42 +38,47 @@ public class HomePageController {
 
     @FXML
     public void initialize() {
-        username = UserManager.getInstance().getLoggedInUser().getFirstName() + " " + UserManager.getInstance().getLoggedInUser().getLastName();
+        username = ActiveUserManager.getInstance().getLoggedInUser().getFirstName() + " " + ActiveUserManager.getInstance().getLoggedInUser().getLastName();
         welcomeText.setText("Welcome! " + username);
         loadGroups();
     }
 
     // Load the groups from the database and populate the VBox with buttons
     private void loadGroups() {
+        //TODO: filter groups based on the user who is logged in
+        int currentUserId = ActiveUserManager.getInstance().getLoggedInUser().getID();
         List<Group> groupList = groupDAO.getAllGroups();  // Fetch groups from the database
 
         for (Group group : groupList) {
-            // Create an HBox to hold both the group button and the leave button
-            HBox groupBox = new HBox(10); // 10 px spacing between elements
+            if (group.getOwnerID() == currentUserId) {
+                // Create an HBox to hold both the group button and the leave button
+                HBox groupBox = new HBox(10); // 10 px spacing between elements
 
-            // Create the group button
-            Button groupButton = new Button(group.getGroupName());
-            groupButton.setOnAction(event -> {
-                try {
-                    handleGroupClick(group);  // Pass the selected group name
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            groupButton.setPrefWidth(150.0); // Set width of the group button
-            groupButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;"); // change colour of leave group button
-            // Create the "Leave Group" button
-            Button leaveGroupButton = new Button("Leave Group");
-            leaveGroupButton.setOnAction(event -> {
-                handleLeaveGroupClick(group);  // Handle leaving the group
-            });
-            leaveGroupButton.setPrefWidth(100.0); // Set width of the leave button
-            leaveGroupButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;"); // change colour of leave group button
-            // Add both buttons to the HBox
-            groupBox.getChildren().addAll(groupButton, leaveGroupButton);
+                // Create the group button
+                Button groupButton = new Button(group.getGroupName());
+                groupButton.setOnAction(event -> {
+                    try {
+                        handleGroupClick(group);  // Pass the selected group name
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                groupButton.setPrefWidth(150.0); // Set width of the group button
+                groupButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;"); // change colour of leave group button
+                // Create the "Leave Group" button
+                Button leaveGroupButton = new Button("Leave Group");
+                leaveGroupButton.setOnAction(event -> {
+                    handleLeaveGroupClick(group);  // Handle leaving the group
+                });
+                leaveGroupButton.setPrefWidth(100.0); // Set width of the leave button
+                leaveGroupButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;"); // change colour of leave group button
+                // Add both buttons to the HBox
+                groupBox.getChildren().addAll(groupButton, leaveGroupButton);
 
-            // Add the HBox to the VBox
-            groupButtonBox.getChildren().add(groupBox);
+                // Add the HBox to the VBox
+                groupButtonBox.getChildren().add(groupBox);
+            }
+
         }
     }
 
@@ -87,7 +91,7 @@ public class HomePageController {
         //SearchController controller = fxmlLoader.getController();
         AddItemController controller = fxmlLoader.getController();
         //controller.setGroupName(groupName);  // Set the selected group name replace with group singleton
-        GroupManager.setSelectedGroup(group);
+        ActiveGroupManager.getInstance().setActiveGroup(group);
 
         Stage stage = (Stage) addGroup.getScene().getWindow();
         stage.setScene(scene);
@@ -97,7 +101,7 @@ public class HomePageController {
     private void handleLeaveGroupClick(Group group) {
         // Remove the group from the database
         groupDAO.deleteGroup(group);
-        GroupManager.deselectGroup();
+        ActiveGroupManager.getInstance().deselectGroup();
         // Refresh the group list in the UI
         groupButtonBox.getChildren().clear();
         loadGroups();

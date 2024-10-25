@@ -1,6 +1,7 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.ActiveUserManager;
 import com.example.cab302simplestock.model.InterfaceDAOs.IUserDAO;
 import com.example.cab302simplestock.model.Item;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
@@ -24,6 +25,10 @@ public class AccountsController {
     private Map<String, Integer> userDisplayMap;
     private User currentUser;
 
+    private String currentUserFn;
+    private String currentUserLn;
+    private String currentUserEmail;
+
     public AccountsController() {
         userDAO = new SqliteUserDAO();
         userDisplayMap = new HashMap<>();
@@ -44,10 +49,18 @@ public class AccountsController {
     @FXML
     public void initialize() {
         setupUserSelection();
+        if (currentUser != null) {
+            userFirstNameTextField.setPromptText(currentUserFn);
+            userLastNameTextField.setPromptText(currentUserLn);
+            userEmailTextField.setPromptText(currentUserEmail);
+        }
     }
 
     private User setupUserSelection() {
-        currentUser = UserManager.getInstance().getLoggedInUser();
+        currentUser = ActiveUserManager.getInstance().getLoggedInUser();
+        currentUserFn = ActiveUserManager.getInstance().getLoggedInUser().getFirstName();
+        currentUserLn = ActiveUserManager.getInstance().getLoggedInUser().getLastName();
+        currentUserEmail = ActiveUserManager.getInstance().getLoggedInUser().getEmail();
         return currentUser;
     }
 
@@ -65,6 +78,12 @@ public class AccountsController {
 
             // Update the item in the database
             userDAO.updateUser(currentUser);
+
+            Stage stage = (Stage) updateButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(SimpleStock.class.getResource("home-page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), SimpleStock.WIDTH, SimpleStock.HEIGHT);
+            stage.setScene(scene);
+
 
         }
     }

@@ -2,7 +2,7 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
 import com.example.cab302simplestock.model.User;
-import com.example.cab302simplestock.model.UserManager;
+import com.example.cab302simplestock.model.ActiveUserManager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,7 +73,7 @@ public class LoginController {
         try {
             // Check for admin credentials
             if (email.equals(ADMIN_EMAIL) && pwd.equals(ADMIN_PASSWORD)) {
-                UserManager.getInstance().setLoggedInUser(new User("Admin", "User", ADMIN_EMAIL, ADMIN_PASSWORD, "", ""));
+                ActiveUserManager.getInstance().setLoggedInUser(new User("Admin", "User", ADMIN_EMAIL, ADMIN_PASSWORD, "", ""));
                 showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, Admin!");
                 loadHomePage();
                 return; // Exit after successful admin login
@@ -84,7 +84,7 @@ public class LoginController {
             if (user != null) {
                 // If user exists, check the password
                 if (user.checkPassword(pwd)) {
-                    UserManager.getInstance().setLoggedInUser(user);
+                    ActiveUserManager.getInstance().setLoggedInUser(user);
                     showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + user.getFirstName() + "!");
                     loadHomePage();
                 } else {
@@ -110,7 +110,7 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302simplestock/forgotten-pass.fxml"));
                 Parent root = loader.load();
 
-                com.example.cab302simplestock.controller.ForgottenpassController controller = loader.getController();
+                ForgottenpassController controller = loader.getController();
                 controller.initialize(user);
 
                 Stage stage = (Stage) username.getScene().getWindow();
@@ -140,19 +140,22 @@ public class LoginController {
             if (user != null) {
                 // If the user exists, pass the user object to the controller
                 controller.initialize(user);
+
+                // Set the new scene for the stage
+                Stage stage = (Stage) username.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "No user found with this email.");
             }
 
-            // Set the new scene for the stage
-            Stage stage = (Stage) username.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Failed to load the forgotten password page.");
         }
     }
-
-
 
     @FXML
     private void onCreateAccount() {

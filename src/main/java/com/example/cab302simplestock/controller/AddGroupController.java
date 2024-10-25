@@ -1,17 +1,19 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.Category;
 import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.InterfaceDAOs.ICategoryDAO;
+import com.example.cab302simplestock.model.*;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IViewUserDAO;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
-import com.example.cab302simplestock.model.UserManager;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteViewUserDAO;
-import com.example.cab302simplestock.model.ViewUser;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -29,17 +31,22 @@ public class AddGroupController {
     @FXML
     private TextField groupNameField;
     /**
-     * DAO interface for interacting with group-related database operations.
+     * Group manager for interacting with group-related database operations.
      */
-    private IGroupDAO groupDao;
-    private IViewUserDAO viewUserDAO;
+    private GroupManager groupManager;
+    CategoryManager categoryManager;
     /**
      * Initialises the controller and sets up the group DAO for database access.
      * The DAO implementation used is {@code SqliteGroupDAO}.
      */
     public AddGroupController() {
-        viewUserDAO = new SqliteViewUserDAO();
-        groupDao = new SqliteGroupDAO();
+        //viewUserDAO = new SqliteViewUserDAO();
+        SqliteGroupDAO groupDao = new SqliteGroupDAO();
+        categoryManager = new CategoryManager(new SqliteCategoryDAO());
+        UserManager userManager = new UserManager(new SqliteUserDAO());
+        ViewUserManager viewUserManager = new ViewUserManager(new SqliteViewUserDAO(), userManager);
+
+        groupManager = new GroupManager(groupDao, categoryManager, viewUserManager);
     }
 
     /**
@@ -50,7 +57,7 @@ public class AddGroupController {
     private void initialize() {
         // Initialize logic if needed
     }
-    public int user_id = UserManager.getInstance().getLoggedInUser().getID();
+    public int user_id = ActiveUserManager.getInstance().getLoggedInUser().getID();
     public int group_id;
     /**
      * Handles the action when the "ADD Group" button is clicked.
@@ -70,12 +77,16 @@ public class AddGroupController {
         }
 
         // Assuming the owner ID is the logged-in user (hardcoded for now as 1)
-        int ownerId = 1; // Replace this with dynamic user ID fetching in real implementation
+        // int ownerId = 1; // Replace this with dynamic user ID fetching in real implementation
+        int ownerId = ActiveUserManager.getInstance().getLoggedInUser().getID();
         Group newGroup = new Group(groupName, ownerId);
         // Add the group to the database
-        int group_id = groupDao.addGroup(newGroup);
-        ViewUser viewUserToAdd = new ViewUser(user_id, group_id);
-        viewUserDAO.addViewUser(viewUserToAdd);
+        int group_id = groupManager.addGroup(newGroup);
+        User user = ActiveUserManager.getInstance().getLoggedInUser();
+        groupManager.addUser(user, group_id);
+        Category category = new Category("Owned items", group_id);
+        System.out.println(group_id);
+        categoryManager.addCategory(category);
 
         // Show success message
         showAlert("Success", "Group added successfully!");
