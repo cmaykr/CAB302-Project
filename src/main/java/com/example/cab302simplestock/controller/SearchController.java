@@ -167,10 +167,12 @@ public class SearchController {
     }
     @FXML
     protected void searchButtonClick() {
-        String productName = searchBar.getText(); // Assuming Username is the TextField for email
+        String searchText = searchBar.getText(); // Assuming Username is the TextField for email
 
-        if (productName == null || productName.trim().isEmpty()) {
+        if (searchText == null || searchText.trim().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Input Error", "Search field cannot be empty.");
+        } else {
+            filterItems(searchText.toLowerCase());
         }
     }
     private void filterItems(String searchText) {
@@ -178,22 +180,38 @@ public class SearchController {
         itemDisplayMap.clear();
 
         List<Item> items = itemDao.getAllItems();
+        Group currentGroup = GroupManager.getInstance().getSelectedGroup();
 
+        if (currentGroup == null) {
+            showAlert(Alert.AlertType.WARNING, "No Group Selected", "Please select a group first.");
+            return;
+        }
+
+        // Get categories matching the current group ID
+        List<Category> allCategories = categoryDao.getAllCategories();
+        List<Integer> categoryIds = new ArrayList<>();
+        for (Category category : allCategories) {
+            if (category.getGroupID() == currentGroup.getGroupID()) {
+                categoryIds.add(category.getCategoryID());
+            }
+        }
+
+        // Filter and display items with a name or ID that contains the search text
         for (Item item : items) {
-            String displayText = item.getName() + " - " + item.getCategoryID(); // Example format
-            // Check if the display text contains the search text
-            if (displayText.toLowerCase().contains(searchText)) {
-                itemsListView.getItems().add(displayText); // Add matching items to the ListView
-                itemDisplayMap.put(displayText, item.getItemID()); // Store the item ID in the map
+            if (categoryIds.contains(item.getCategoryID())) {
+                String displayText = item.getName() + " - " + item.getCategoryID();
+                if (displayText.toLowerCase().contains(searchText)) {  // Case-insensitive match
+                    itemsListView.getItems().add(displayText);
+                    itemDisplayMap.put(displayText, item.getItemID());
+                }
             }
         }
 
         if (itemsListView.getItems().isEmpty()) {
-            // If no items found, show an alert
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "No items found matching your search.", ButtonType.OK);
-            alert.showAndWait();
+            showAlert(Alert.AlertType.INFORMATION, "No Items Found", "No items found matching your search.");
         }
     }
+
 
 
 }
