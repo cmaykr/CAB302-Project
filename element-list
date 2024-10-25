@@ -1,0 +1,6 @@
+module:com.example.cab302simplestock
+com.example.cab302simplestock
+com.example.cab302simplestock.controller
+com.example.cab302simplestock.model
+com.example.cab302simplestock.model.InterfaceDAOs
+com.example.cab302simplestock.model.SqliteDAOs
