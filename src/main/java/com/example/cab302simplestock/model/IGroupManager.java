@@ -77,4 +77,8 @@ public interface IGroupManager {
      * @return The found category with an identical name as the parameter one and in the group.
      */
     Category findCategory(String categoryName, int groupID);
+
+    int addCategory(Category category);
+
+    void deleteCategory(int categoryID);
 }

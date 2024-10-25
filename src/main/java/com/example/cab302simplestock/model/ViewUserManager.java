@@ -89,6 +89,14 @@ public class ViewUserManager implements IViewUserManager {
      */
     @Override
     public User findUserInGroup(int userID, int groupID) {
+        for (ViewUser viewUser:viewUserDAO.getAllViewUsers()) {
+            if (viewUser.getUserID() == userID && viewUser.getGroupID() == groupID)
+            {
+                List<Integer> userIDs = new ArrayList<>();
+                userIDs.add(viewUser.getID());
+                return userManager.getUsersByIDs(userIDs).getFirst();
+            }
+        }
         return null;
     }
 
@@ -101,7 +109,7 @@ public class ViewUserManager implements IViewUserManager {
      */
     @Override
     public int addUserToGroup(User user, int groupID) {
-        ViewUser viewUser = new ViewUser(user.getID(), groupID);
+        ViewUser viewUser = new ViewUser(groupID, user.getID());
         return viewUserDAO.addViewUser(viewUser);
     }
 
@@ -123,6 +131,13 @@ public class ViewUserManager implements IViewUserManager {
      */
     @Override
     public ViewUser findViewUser(int userID, int groupID) {
+        List<ViewUser> viewUsers = viewUserDAO.getAllViewUsers();
+        for (ViewUser viewUser:viewUsers) {
+            if (viewUser.getID() == userID && viewUser.getGroupID() == groupID)
+            {
+                return viewUser;
+            }
+        }
         return null;
     }
 }
