@@ -55,7 +55,8 @@ public class SqliteItemDAO implements IItemDAO {
      * @param item The item that should be added to the database.
      */
     @Override
-    public void addItem(Item item) {
+    public int addItem(Item item) {
+        int itemID = -1;
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO item (name, purchaseDate, purchasePrice, quantity, "
                     + "description, categoryID, typeID, location, insured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -70,9 +71,18 @@ public class SqliteItemDAO implements IItemDAO {
             statement.setString(8, item.getLocation());
             statement.setBoolean(9, item.getInsured());
             statement.executeUpdate();
+
+            // Retrieve the last inserted groupID
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                itemID = rs.getInt(1);  // Retrieve the generated groupID
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return itemID;
     }
 
     /**
@@ -139,6 +149,64 @@ public class SqliteItemDAO implements IItemDAO {
                 String location = resultSet.getString("location");
                 boolean insured = resultSet.getBoolean("insured");
                 Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, categoryID, typeID, location, insured);
+                item.setItemID(id);
+                items.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
+
+    @Override
+    public Item findItemByID(int itemId) {
+        try {
+            String query = "SELECT * FROM item WHERE itemID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, itemId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("itemID");
+                String name = resultSet.getString("name");
+                Date purchaseDate = resultSet.getDate("purchaseDate");
+                double purchasePrice = resultSet.getDouble("purchasePrice");
+                double quantity = resultSet.getDouble("quantity");
+                String description = resultSet.getString("description");
+                int categoryID = resultSet.getInt("categoryID");
+                int typeID = resultSet.getInt("typeID");
+                String location = resultSet.getString("location");
+                boolean insured = resultSet.getBoolean("insured");
+                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, categoryID, typeID, location, insured);
+                item.setItemID(id);
+                return item;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Item> getItemByNameInCategory(String itemName, int categoryID) {
+        List<Item> items = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM item WHERE name = ? AND categoryID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, itemName);
+            statement.setInt(2, categoryID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("itemID");
+                String name = resultSet.getString("name");
+                Date purchaseDate = resultSet.getDate("purchaseDate");
+                double purchasePrice = resultSet.getDouble("purchasePrice");
+                double quantity = resultSet.getDouble("quantity");
+                String description = resultSet.getString("description");
+                int catID = resultSet.getInt("categoryID");
+                int typeID = resultSet.getInt("typeID");
+                String location = resultSet.getString("location");
+                boolean insured = resultSet.getBoolean("insured");
+                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, catID, typeID, location, insured);
                 item.setItemID(id);
                 items.add(item);
             }

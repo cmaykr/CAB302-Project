@@ -6,6 +6,7 @@ module com.example.cab302simplestock {
     requires org.xerial.sqlitejdbc;
     requires javafx.graphics;
     requires java.desktop;
+    requires org.apache.commons.compress;
 
 
     opens com.example.cab302simplestock.controller to javafx.fxml;

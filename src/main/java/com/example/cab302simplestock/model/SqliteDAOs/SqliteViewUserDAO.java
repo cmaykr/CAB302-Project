@@ -49,20 +49,31 @@ public class SqliteViewUserDAO implements IViewUserDAO {
 
     /**
      * Adds a viewUser to the Sqlite database. The viewUser ID is set automatically by the database.
+     *
      * @param viewUser The viewUser that should be added to the database.
+     * @return
      */
     @Override
-    public void addViewUser(ViewUser viewUser) {
+    public int addViewUser(ViewUser viewUser) {
+        int viewUserID = -1;
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO viewUser (groupID, userID) VALUES (?, ?)");
             statement.setInt(1, viewUser.getGroupID());
             statement.setInt(2, viewUser.getUserID());
             statement.executeUpdate();
+
+            // Retrieve the last inserted groupID
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                viewUserID = rs.getInt(1);  // Retrieve the generated groupID
+            }
         } catch (Exception e) {
             System.out.println("Add view user failed");
             System.out.println(viewUser.getID());
             e.printStackTrace();
         }
+        return viewUserID;
     }
 
     /**
@@ -114,6 +125,28 @@ public class SqliteViewUserDAO implements IViewUserDAO {
                 int groupID = resultSet.getInt("groupID");
                 int userID = resultSet.getInt("userID");
                 ViewUser viewUser = new ViewUser(groupID, userID);
+                viewUser.setID(id);
+                viewUsers.add(viewUser);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return viewUsers;
+    }
+
+    @Override
+    public List<ViewUser> getViewUsersByGroupID(int groupID) {
+        List<ViewUser> viewUsers = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM viewUser WHERE groupID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, groupID);
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("viewUserID");
+                int viewUserGroupID = resultSet.getInt("groupID");
+                int userID = resultSet.getInt("userID");
+                ViewUser viewUser = new ViewUser(viewUserGroupID, userID);
                 viewUser.setID(id);
                 viewUsers.add(viewUser);
             }

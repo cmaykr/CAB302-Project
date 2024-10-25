@@ -50,15 +50,25 @@ public class SqlitePhotoDAO implements IPhotoDAO {
      * @param photo The photo that should be added to the database.
      */
     @Override
-    public void addPhoto(Photo photo) {
+    public int addPhoto(Photo photo) {
+        int photoID = -1;
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO photo (name, itemID) VALUES (?, ?)");
             statement.setString(1, photo.getImageName());
             statement.setInt(2, photo.getItemID());
             statement.executeUpdate();
+
+            // Retrieve the last inserted groupID
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
+            if (rs.next()) {
+                photoID = rs.getInt(1);  // Retrieve the generated groupID
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return photoID;
     }
 
     /**

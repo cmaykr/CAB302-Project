@@ -1,6 +1,8 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.*;
+import com.example.cab302simplestock.model.SqliteDAOs.*;
 import com.example.cab302simplestock.model.Category;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
@@ -17,7 +19,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import com.example.cab302simplestock.model.Item;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -35,16 +36,20 @@ public class AddItemController {
     /**
      * DAO interface for performing item-related database operation.
      */
-    private IItemDAO itemDao;
+    //private IItemDAO itemDao;
+    private ItemManager itemManager;
+    private TypeManager typeManager;
+    private CategoryManager categoryManager;
 
     /**
      * Constructgor for the AddItemContorller.
      * Initialises the DAO implementation for interacting with the database.
      */
     public AddItemController() {
-        itemDao = new SqliteItemDAO();
+        typeManager = new TypeManager(new SqliteTypeDAO());
+        categoryManager = new CategoryManager(new SqliteCategoryDAO());
+        itemManager = new ItemManager(new SqliteItemDAO(), typeManager, categoryManager);
     }
-    private SqliteCategoryDAO categoryDao; // Category DAO for retrieving categories from DB
 
     // Link to the FXML fields
     @FXML
@@ -78,7 +83,6 @@ public class AddItemController {
     private Button ViewYourList;
     @FXML
     public void initialize() {
-        categoryDao = new SqliteCategoryDAO(); // Initialize the category DAO
         insuredToggleGroup = new ToggleGroup();
         insuredRadioButton.setToggleGroup(insuredToggleGroup);
         notInsuredRadioButton.setToggleGroup(insuredToggleGroup);
@@ -100,8 +104,8 @@ public class AddItemController {
     }
 
     private void loadCategories() {
-        int groupId = GroupManager.getInstance().getSelectedGroup().getGroupID(); // Get the group ID from GroupManager
-        List<Category> allCategories = categoryDao.getAllCategories(); // Get all categories
+        int groupId = ActiveGroupManager.getInstance().getActiveGroup().getGroupID(); // Get the group ID from GroupManager
+        List<Category> allCategories = categoryManager.getAllCategories(); // Get all categories
 
         // Filter categories by group ID and populate the ComboBox with the filtered category names
         for (Category category : allCategories) {
@@ -149,9 +153,11 @@ public class AddItemController {
             // 1. Retrieve data from the form
             String productName = productNameTextField.getText();
             int productTypeID = 1; //productTypeTextField.getText(); // not sure what type id is so just going to set it as 1.
+            String productType = productTypeTextField.getText();
             String productDescription = productDescriptionTextField.getText();
             String productLocation = productLocationTextField.getText();
-            int productCategoryID = GroupManager.getInstance().getSelectedGroup().getGroupID(); // just associating each item with a group essentially.
+            String productCategory = "Owned items"; // Temporary category
+            int productCategoryID = ActiveGroupManager.getInstance().getActiveGroup().getGroupID(); // just associating each item with a group essentially.
             //Integer.parseInt(productTypeTextField.getText()); // category id
             int productQuantity = Integer.parseInt(productQuantityTextField.getText());
             String productPurchaseDate = productPurchaseDateTextField.getText();
@@ -168,7 +174,7 @@ public class AddItemController {
             // int typeID, String location, boolean insured
 
             // 3. Save the item using DAO
-            itemDao.addItem(newItem);
+            itemManager.addItem(newItem, productType, productCategory, ActiveGroupManager.getInstance().getActiveGroup().getGroupID());
 
             // 4. Show success message
             showAlert("Success", "Item added successfully", Alert.AlertType.INFORMATION);

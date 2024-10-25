@@ -1,50 +1,70 @@
 package com.example.cab302simplestock.model;
 
+import com.example.cab302simplestock.model.InterfaceDAOs.IUserDAO;
+import java.util.List;
+
 /**
- * Singleton class used to keep track of the current logged-in user.
+ * Implementation of the userManager interface using a userDAO for the managing of users.
+ * Uses dependency injection to get the user DAO.
  */
-public class UserManager {
-    private static UserManager instance;
-    private User loggedInUser = null;
-
-    private UserManager() { }
+public class UserManager implements IUserManager{
+    IUserDAO userDAO;
 
     /**
-     * Gets the singleton instance of the UserManager, if the instance doesn't exist a new instance is created.
-     * @return The instance of UserManager.
+     * Constructs an instance of the manager, the user DAO is injected with this constructor.
+     * @param userDAO The user DAO to use.
      */
-    public static UserManager getInstance() {
-        if (instance == null)
-            instance = new UserManager();
-
-        return instance;
+    public UserManager(IUserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     /**
-     * Gets the current logged-in user for the application.
-     * @return The logged-in user as User type.
+     * Adds a new user to the database, all values for the User should be set, except for the ID value which is set by the database.
+     * @param user The user to add.
+     * @return The ID of the newly added user.
      */
-    public User getLoggedInUser() {
-        return loggedInUser;
+    @Override
+    public int addUser(User user) {
+       return userDAO.addUser(user);
     }
 
     /**
-     * Sets a new logged-in user as a User type and stores all user information.
-     * @param newUser The new user to be logged-in.
-     * @throws IllegalStateException Throws if the last logged-in user has not logged-out.
+     * Updates an existing user in the database, every value should be set in the User parameter.
+     * The user in the database will have every single value overwritten by this method.
+     * Any empty value set in the parameter will overwrite the old value with an empty value.
+     * @param user The user with its values to update. The ID must be set for the database to find the user.
      */
-    public void setLoggedInUser(User newUser) throws IllegalStateException {
-        if (loggedInUser != null)
-        {
-            throw new IllegalStateException("A user is already logged in!");
-        }
-        loggedInUser = newUser;
+    @Override
+    public void updateUser(User user) {
+        userDAO.updateUser(user);
     }
 
     /**
-     * Logs out the logged-in user.
+     * Deletes a user from the database, only the ID value for the user to delete needs to be set.
+     * If this method is called it should be assumed the user is gone and unrecoverable.
+     * @param user The user to delete. Only the ID needs to be set, as the database uses the ID to find the user.
      */
-    public void logOutUser() {
-        loggedInUser = null;
+    @Override
+    public void deleteUser(User user) {
+        userDAO.deleteUser(user);
+    }
+
+    /**
+     * Gets all users that exist in the database.
+     * @return A list of all users.
+     */
+    @Override
+    public List<User> getAllUsers() {
+        return userDAO.getAllUsers();
+    }
+
+    /**
+     * Gets all users in the database that has an ID that corresponds to one of the IDs in the inputted list.
+     * @param iDs A list of all IDs the caller wants the users for.
+     * @return A list of all found users.
+     */
+    @Override
+    public List<User> getUsersByIDs(List<Integer> iDs) {
+        return userDAO.getUsersByIDs(iDs);
     }
 }

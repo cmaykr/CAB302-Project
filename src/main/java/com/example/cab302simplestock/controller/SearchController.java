@@ -1,6 +1,9 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.*;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteTypeDAO;
 import com.example.cab302simplestock.model.Category;
 import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.GroupManager;
@@ -35,18 +38,23 @@ import com.example.cab302simplestock.model.Item;
 import java.io.IOException;
 import java.util.List;
 
-
 public class SearchController {
-    private IItemDAO itemDao;
-    private IGroupDAO groupDao;
-    private ICategoryDAO categoryDao;
+    //private IItemDAO itemDao;
+    //private IGroupDAO groupDao;
+
+    private ItemManager itemManager;
+    private TypeManager typeManager;
+    private CategoryManager categoryManager;
     private Map<String, Integer> itemDisplayMap; // Map to store display text and item IDs
 
     public SearchController() {
-        itemDao = new SqliteItemDAO();
-        groupDao = new SqliteGroupDAO();
-        categoryDao = new SqliteCategoryDAO();
+        //itemDao = new SqliteItemDAO();
+        IGroupDAO groupDao = new SqliteGroupDAO();
         itemDisplayMap = new HashMap<>();
+
+        typeManager = new TypeManager(new SqliteTypeDAO());
+        categoryManager = new CategoryManager(new SqliteCategoryDAO());
+        itemManager = new ItemManager(new SqliteItemDAO(), typeManager, categoryManager);
     }
 
     @FXML
@@ -115,11 +123,12 @@ public class SearchController {
         itemsListView.getItems().clear();
         itemDisplayMap.clear();  // Clear the map to avoid old data
 
+        //List<Item> items = itemManager.getAllItems();  // Get all items from the DAO
         // Get all items from the DAO
-        List<Item> items = itemDao.getAllItems();
+        List<Item> items = itemManager.getAllItems();
 
         // Get the selected group from GroupManager
-        Group currentGroup = GroupManager.getInstance().getSelectedGroup();
+        Group currentGroup = ActiveGroupManager.getInstance().getActiveGroup();
 
         if (currentGroup == null) {
             // If no group is selected, show an alert and return early
@@ -129,7 +138,7 @@ public class SearchController {
 
         // Fetch all categories from the database
         System.out.println("getting categories"); // there are no categories...
-        List<Category> allCategories = categoryDao.getAllCategories(); // Assuming groupDao is using SqliteCategoryDAO
+        List<Category> allCategories = categoryManager.getAllCategories(); // Assuming groupDao is using SqliteCategoryDAO
 
         // Filter categories based on the current group's ID
         List<Integer> categoryIds = new ArrayList<>();
@@ -179,8 +188,8 @@ public class SearchController {
         itemsListView.getItems().clear();
         itemDisplayMap.clear();
 
-        List<Item> items = itemDao.getAllItems();
-        Group currentGroup = GroupManager.getInstance().getSelectedGroup();
+        List<Item> items = itemManager.getAllItems();
+        Group currentGroup = ActiveGroupManager.getInstance().getActiveGroup();
 
         if (currentGroup == null) {
             showAlert(Alert.AlertType.WARNING, "No Group Selected", "Please select a group first.");
@@ -188,7 +197,7 @@ public class SearchController {
         }
 
         // Get categories matching the current group ID
-        List<Category> allCategories = categoryDao.getAllCategories();
+        List<Category> allCategories = categoryManager.getAllCategories();
         List<Integer> categoryIds = new ArrayList<>();
         for (Category category : allCategories) {
             if (category.getGroupID() == currentGroup.getGroupID()) {

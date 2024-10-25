@@ -4,9 +4,9 @@ package com.example.cab302simplestock.model;
  * Simple model class for representing a Group with a name and the ID of the owner.
  */
 public class Group {
-    int groupID;
-    String groupName;
-    int ownerID;
+    private int groupID;
+    private String groupName;
+    private int ownerID;
 
     /**
      * Constructor for constructing a new group with a group name and owner ID.

@@ -7,38 +7,16 @@ import java.time.format.DateTimeFormatter;
  * Simple model class for representing an Item with name, purchase date, purchase price, quantity, description, which category it's in, which type it's of, location and if it's insured.
  */
 public class Item {
-    int itemID;
-    String itemName;
-    LocalDate purchaseDate;
-    double purchasePrice;
-    double quantity;
-    String description;
-    //String categoryName; // FIXME Deprecated, use categoryID instead
-    //String typeName;  // FIXME Deprecated, use typeID instead
-    int categoryID;
-    int typeID;
-    String location;
-    boolean insured;
-
-    /**
-     * DEPRECATED, use the other Item constructor with categoryID and typeID instead.
-     */
-    /*
-    public Item(String itemName, String purchaseDate, double purchasePrice, double quantity, String description, String categoryName, String typeName, String location, boolean insured) {
-        System.out.println("Usage of deprecated Item constructor.");
-
-        System.out.println(purchaseDate);
-        System.out.println(purchasePrice);
-        this.itemName = itemName;
-        this.purchaseDate = LocalDate.parse(purchaseDate);
-        this.purchasePrice = purchasePrice;
-        this.quantity = quantity;
-        this.description = description;
-        this.categoryName = categoryName;
-        this.typeName = typeName;
-        this.location = location;
-        this.insured = insured;
-    }*/
+    private int itemID;
+    private String itemName;
+    private LocalDate purchaseDate;
+    private double purchasePrice;
+    private double quantity;
+    private String description;
+    private int categoryID;
+    private int typeID;
+    private String location;
+    private boolean insured;
 
     /**
      * Constructor for the Item class. Sets every variable with the value in their respective parameters.
@@ -65,28 +43,6 @@ public class Item {
     }
 
     /**
-     * DEPRECATED, use getTypeID instead.
-     */
-    /*
-    public String getTypeName() {
-        System.out.println("Usage of deprecated function, use getTypeID instead.");
-        return typeName;
-    }
-    */
-
-
-    /**
-     * DEPRECATED, use setTypeID instead.
-     */
-    /*
-    public void setTypeName(String typeName) {
-        System.out.println("Usage of deprecated function, use setTypeID instead.");
-        this.typeName = typeName;
-    }
-
-     */
-
-    /**
      * Gets the ID for the type of the item.
      * @return The ID for the type.
      */
@@ -101,28 +57,6 @@ public class Item {
         }
         typeID = newID;
     }
-
-    /**
-     * DEPRECATED, use getCategoryID instead.
-     */
-    /*
-    public String getCategoryName() {
-        System.out.println("Usage of deprecated function, use getCategoryID instead.");
-        return categoryName;
-    }
-
-     */
-
-    /**
-     * DEPRECATED, use setCategoryID instead.
-     */
-    /*
-    public void setCategoryName(String categoryName) {
-        System.out.println("Usage of deprecated function, use setCategoryID instead.");
-        this.categoryName = categoryName;
-    }
-
-     */
 
     /**
      * Gets the ID of the category the Item is in.
