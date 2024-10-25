@@ -190,7 +190,7 @@ public class SqliteItemDAO implements IItemDAO {
     public List<Item> getItemByNameInCategory(String itemName, int categoryID) {
         List<Item> items = new ArrayList<>();
         try {
-            String query = "SELECT * FROM item WHERE name = ? AND categoryID";
+            String query = "SELECT * FROM item WHERE name = ? AND categoryID = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, itemName);
             statement.setInt(2, categoryID);
@@ -206,7 +206,7 @@ public class SqliteItemDAO implements IItemDAO {
                 int typeID = resultSet.getInt("typeID");
                 String location = resultSet.getString("location");
                 boolean insured = resultSet.getBoolean("insured");
-                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, categoryID, typeID, location, insured);
+                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, catID, typeID, location, insured);
                 item.setItemID(id);
                 items.add(item);
             }
