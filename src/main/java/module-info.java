@@ -15,4 +15,5 @@ module com.example.cab302simplestock {
     exports com.example.cab302simplestock.controller;
     exports com.example.cab302simplestock.model.InterfaceDAOs;
     exports com.example.cab302simplestock.model.SqliteDAOs;
+    exports com.example.cab302simplestock.model.MockDAOs;
 }

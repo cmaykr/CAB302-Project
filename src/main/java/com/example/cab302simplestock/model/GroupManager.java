@@ -80,7 +80,7 @@ public class GroupManager implements IGroupManager {
     public List<User> getUsers(int groupID) {
         if (groupID <= 0)
         {
-            throw new IllegalArgumentException("Group ID must be a positive value, >0.");
+            throw new IllegalArgumentException("Group ID set to invalid value, must be a positive value, >0.");
         }
         return viewUserManager.getUsersInGroup(groupID);
     }
@@ -94,11 +94,16 @@ public class GroupManager implements IGroupManager {
      */
     @Override
     public User findUser(String userEmail, int groupID) {
+        if (groupID <= 0)
+        {
+            throw new IllegalArgumentException("Group ID in findUser invalid value, must be positive, >0.");
+        }
         List<User> users = getUsers(groupID);
+        // Only one category exists in the group.
 
         for (User user: users)
         {
-            if (Objects.equals(user.getEmail(), userEmail))
+            if (Objects.equals(user.getEmail(), userEmail) && viewUserManager.findUserInGroup(user.getID(), groupID) != null)
             {
                 return user;
             }
@@ -115,6 +120,10 @@ public class GroupManager implements IGroupManager {
      */
     @Override
     public int addUser(User user, int groupID) {
+        if (groupID <= 0)
+        {
+            throw new IllegalArgumentException("Group ID parameter in addUser invalid value, must be positive, >0.");
+        }
         return viewUserManager.addUserToGroup(user, groupID);
     }
 
@@ -126,6 +135,14 @@ public class GroupManager implements IGroupManager {
      */
     @Override
     public void deleteUser(int userID, int groupID) {
+        if (userID <= 0)
+        {
+            throw new IllegalArgumentException("User ID parameter in deleteUser has invalid value, must be a positive value, >0.");
+        }
+        if (groupID <= 0)
+        {
+            throw new IllegalArgumentException("Group ID parameter in deleteUser has invalid value, must be a positive value, >0.");
+        }
         ViewUser viewUserToDelete = viewUserManager.findViewUser(userID, groupID);
 
         viewUserManager.deleteViewUser(viewUserToDelete);
@@ -139,6 +156,10 @@ public class GroupManager implements IGroupManager {
      */
     @Override
     public List<Category> getCategories(int groupID) {
+        if (groupID <= 0)
+        {
+            throw new IllegalArgumentException("Group ID in getCategories has invalid value, must be a positive value, >0.");
+        }
         return categoryManager.getCategoriesInGroup(groupID);
     }
 
@@ -151,6 +172,10 @@ public class GroupManager implements IGroupManager {
      */
     @Override
     public Category findCategory(String categoryName, int groupID) {
+        if (groupID <= 0)
+        {
+            throw new IllegalArgumentException("Group ID parameter in findCategory has an invalid value, must be a positive value, >0.");
+        }
         List<Category> categories = categoryManager.getCategoriesInGroup(groupID);
 
         for (Category cat: categories)
@@ -161,5 +186,28 @@ public class GroupManager implements IGroupManager {
             }
         }
         return null;
+    }
+
+    /**
+     * Adds a new category to the database.
+     * @param category The category to add
+     * @return The ID of the newly added category.
+     */
+    @Override
+    public int addCategory(Category category) {
+        return categoryManager.addCategory(category);
+    }
+
+    /**
+     * Deletes a category in the database.
+     * @param categoryID The ID of the category to delete.
+     */
+    @Override
+    public void deleteCategory(int categoryID) {
+        if (categoryID <= 0)
+        {
+            throw new IllegalArgumentException("Category ID in deleteCategory has an invalid value, must be a positive value, >0.");
+        }
+        categoryManager.deleteCategory(categoryID);
     }
 }
