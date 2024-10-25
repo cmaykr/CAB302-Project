@@ -31,6 +31,7 @@ public class AddGroupController {
      * Group manager for interacting with group-related database operations.
      */
     private GroupManager groupManager;
+    CategoryManager categoryManager;
     /**
      * Initialises the controller and sets up the group DAO for database access.
      * The DAO implementation used is {@code SqliteGroupDAO}.
@@ -38,7 +39,7 @@ public class AddGroupController {
     public AddGroupController() {
         //viewUserDAO = new SqliteViewUserDAO();
         SqliteGroupDAO groupDao = new SqliteGroupDAO();
-        CategoryManager categoryManager = new CategoryManager(new SqliteCategoryDAO());
+        categoryManager = new CategoryManager(new SqliteCategoryDAO());
         UserManager userManager = new UserManager(new SqliteUserDAO());
         ViewUserManager viewUserManager = new ViewUserManager(new SqliteViewUserDAO(), userManager);
 
@@ -81,7 +82,7 @@ public class AddGroupController {
         groupManager.addUser(user, group_id);
         Category category = new Category("Owned items", group_id);
         System.out.println(group_id);
-        groupManager.addCategory(category);
+        categoryManager.addCategory(category);
 
         // Show success message
         showAlert("Success", "Group added successfully!");

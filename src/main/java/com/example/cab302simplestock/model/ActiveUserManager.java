@@ -22,7 +22,7 @@ public class ActiveUserManager {
 
     /**
      * Gets the current logged-in user for the application.
-     * @return The logged-in user as User type.
+     * @return The logged-in user as User type. The returned value CAN be null.
      */
     public User getLoggedInUser() {
         return loggedInUser;
@@ -30,6 +30,7 @@ public class ActiveUserManager {
 
     /**
      * Sets a new logged-in user as a User type and stores all user information.
+     * No authentication is made by this method, authentication is assumed and should be done by other methods before this one is called.
      * @param newUser The new user to be logged-in.
      * @throws IllegalStateException Throws if the last logged-in user has not logged-out.
      */
@@ -43,6 +44,7 @@ public class ActiveUserManager {
 
     /**
      * Logs out the logged-in user.
+     * The method does nothing except setting that no user is currently logged in.
      */
     public void logOutUser() {
         loggedInUser = null;

@@ -33,7 +33,18 @@ public interface IItemDAO {
      */
     List<Item> getAllItems();
 
+    /**
+     * Searches for a single item by its ID value.
+     * @param itemId The ID of the item that's wanted.
+     * @return The Item object with the inputted ID.
+     */
     Item findItemByID(int itemId);
 
+    /**
+     * Searches and finds all items with the chosen name in a specific category.
+     * @param itemName The name that every item should have.
+     * @param categoryID The ID of the category to search items in.
+     * @return A list of all items found.
+     */
     List<Item> getItemByNameInCategory(String itemName, int categoryID);
 }

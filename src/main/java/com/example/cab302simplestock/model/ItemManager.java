@@ -61,7 +61,7 @@ public class ItemManager implements IItemManager {
     }
 
     @Override
-    public List<Item> searchItemsByNameInCategory(String itemName, int categoryID) {
+    public List<Item> searchItemsByNameInGroup(String itemName, int categoryID) {
         return itemDAO.getItemByNameInCategory(itemName, categoryID);
     }
 }

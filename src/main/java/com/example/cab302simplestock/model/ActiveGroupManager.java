@@ -21,15 +21,17 @@ public class ActiveGroupManager implements IActiveGroup {
     }
 
     /**
-     * Gets the active group of type Group.
-     * @return The Group object.
+     * Gets the single active group for the whole application.
+     * If no group is selected it will return a null value.
+     * @return The Group object. Can be null
      */
     public Group getActiveGroup() {
         return selectedGroup;
     }
 
     /**
-     * Sets a new active group.
+     * Sets a new single active group for the whole application.
+     * No checks are done if the new active group is valid, this is assumed to be done before this method is called.
      * @param newGroup The new active Group object.
      */
     public void setActiveGroup(Group newGroup) {

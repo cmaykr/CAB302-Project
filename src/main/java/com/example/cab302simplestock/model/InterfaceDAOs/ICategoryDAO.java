@@ -4,7 +4,7 @@ import com.example.cab302simplestock.model.Category;
 import java.util.List;
 
 /**
- * Simple CRUD interface for interacting with Category in a database.
+ * CRUD interface for interacting with Category in a database.
  */
 public interface ICategoryDAO {
     /**
