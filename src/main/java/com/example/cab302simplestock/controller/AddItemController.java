@@ -148,10 +148,11 @@ public class AddItemController {
         try {
             // 1. Retrieve data from the form
             String productName = productNameTextField.getText();
-            String productType = productTypeTextField.getText();
+            int productTypeID = 1; //productTypeTextField.getText(); // not sure what type id is so just going to set it as 1.
             String productDescription = productDescriptionTextField.getText();
             String productLocation = productLocationTextField.getText();
-            String productCategory = "mock category"; // Temporary category
+            int productCategoryID = GroupManager.getInstance().getSelectedGroup().getGroupID(); // just associating each item with a group essentially.
+            //Integer.parseInt(productTypeTextField.getText()); // category id
             int productQuantity = Integer.parseInt(productQuantityTextField.getText());
             String productPurchaseDate = productPurchaseDateTextField.getText();
             boolean isInsured = insuredRadioButton.isSelected();
@@ -159,7 +160,12 @@ public class AddItemController {
 
             // 2. Create a new Item object
             Item newItem = new Item(productName, productPurchaseDate, productPrice, productQuantity,
-                    productDescription, productCategory, productType, productLocation, isInsured);
+                    productDescription, productCategoryID, productTypeID, productLocation, isInsured);
+
+            // String itemName, String purchaseDate,
+            // double purchasePrice, double quantity,
+            // String description, int categoryID,
+            // int typeID, String location, boolean insured
 
             // 3. Save the item using DAO
             itemDao.addItem(newItem);

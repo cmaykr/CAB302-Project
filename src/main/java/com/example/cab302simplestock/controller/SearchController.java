@@ -1,6 +1,11 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.Category;
+import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.GroupManager;
+import com.example.cab302simplestock.model.InterfaceDAOs.ICategoryDAO;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
 import com.example.cab302simplestock.SimpleStock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -28,19 +33,19 @@ import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.Item;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class SearchController {
     private IItemDAO itemDao;
     private IGroupDAO groupDao;
+    private ICategoryDAO categoryDao;
     private Map<String, Integer> itemDisplayMap; // Map to store display text and item IDs
 
     public SearchController() {
         itemDao = new SqliteItemDAO();
         groupDao = new SqliteGroupDAO();
+        categoryDao = new SqliteCategoryDAO();
         itemDisplayMap = new HashMap<>();
     }
 
@@ -110,15 +115,49 @@ public class SearchController {
         itemsListView.getItems().clear();
         itemDisplayMap.clear();  // Clear the map to avoid old data
 
-        List<Item> items = itemDao.getAllItems();  // Get all items from the DAO
+        // Get all items from the DAO
+        List<Item> items = itemDao.getAllItems();
 
-        // Loop through each item, add its name to the ListView and map it to its ID
+        // Get the selected group from GroupManager
+        Group currentGroup = GroupManager.getInstance().getSelectedGroup();
+
+        if (currentGroup == null) {
+            // If no group is selected, show an alert and return early
+            showAlert(Alert.AlertType.WARNING, "No Group Selected", "Please select a group first.");
+            return;
+        }
+
+        // Fetch all categories from the database
+        System.out.println("getting categories"); // there are no categories...
+        List<Category> allCategories = categoryDao.getAllCategories(); // Assuming groupDao is using SqliteCategoryDAO
+
+        // Filter categories based on the current group's ID
+        List<Integer> categoryIds = new ArrayList<>();
+        for (Category category : allCategories) {
+
+            System.out.println(category.getCategoryID());
+            if (category.getGroupID() == currentGroup.getGroupID()) {
+                categoryIds.add(category.getCategoryID());
+            }
+        }
+
+        // Now filter the items based on the category IDs
         for (Item item : items) {
-            String displayText = item.getName() + " - " + item.getCategoryName();  // Example format
-            itemsListView.getItems().add(displayText);
-            itemDisplayMap.put(displayText, item.getItemID());  // Store the item ID in the map
+            if (categoryIds.contains(item.getCategoryID())) {
+                // Only add items if their categoryID matches one in the selected group
+                String displayText = item.getName() + " - " + item.getCategoryID();
+                itemsListView.getItems().add(displayText);
+                itemDisplayMap.put(displayText, item.getItemID());  // Store the item ID in the map
+            }
+        }
+
+        if (itemsListView.getItems().isEmpty()) {
+            // If no items found for the selected group, show an alert
+            showAlert(Alert.AlertType.INFORMATION, "No Items Found", "No items found for the selected group.");
         }
     }
+
+
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -141,7 +180,7 @@ public class SearchController {
         List<Item> items = itemDao.getAllItems();
 
         for (Item item : items) {
-            String displayText = item.getName() + " - " + item.getCategoryName(); // Example format
+            String displayText = item.getName() + " - " + item.getCategoryID(); // Example format
             // Check if the display text contains the search text
             if (displayText.toLowerCase().contains(searchText)) {
                 itemsListView.getItems().add(displayText); // Add matching items to the ListView

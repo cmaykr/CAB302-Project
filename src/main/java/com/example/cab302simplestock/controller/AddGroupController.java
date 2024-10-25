@@ -1,9 +1,12 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.Category;
 import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.InterfaceDAOs.ICategoryDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IViewUserDAO;
+import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
 import com.example.cab302simplestock.model.UserManager;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteViewUserDAO;
@@ -33,6 +36,7 @@ public class AddGroupController {
      */
     private IGroupDAO groupDao;
     private IViewUserDAO viewUserDAO;
+    private ICategoryDAO categoryDAO;
     /**
      * Initialises the controller and sets up the group DAO for database access.
      * The DAO implementation used is {@code SqliteGroupDAO}.
@@ -40,6 +44,7 @@ public class AddGroupController {
     public AddGroupController() {
         viewUserDAO = new SqliteViewUserDAO();
         groupDao = new SqliteGroupDAO();
+        categoryDAO = new SqliteCategoryDAO();
     }
 
     /**
@@ -75,6 +80,8 @@ public class AddGroupController {
         Group newGroup = new Group(groupName, ownerId);
         // Add the group to the database
         int group_id = groupDao.addGroup(newGroup);
+        Category categoryToAdd = new Category(groupName, group_id);
+        categoryDAO.addCategory(categoryToAdd);
         ViewUser viewUserToAdd = new ViewUser(user_id, group_id);
         viewUserDAO.addViewUser(viewUserToAdd);
 

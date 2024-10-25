@@ -108,7 +108,7 @@ public class listViewController {
     private void populateFields(Item item) {
 
         productNameTextField.setText(item.getName());
-        productTypeTextField.setText(item.getTypeName());
+        productTypeTextField.setText(String.valueOf(item.getTypeID()));
         descriptionTextField.setText(item.getDescription());
         locationTextField.setText(item.getLocation());
         quantityTextField.setText(String.valueOf(item.getQuantity()));
@@ -129,7 +129,7 @@ public class listViewController {
         // Create a new item object with the updated values from the fields
         if (currentItem != null) {
             currentItem.setName(productNameTextField.getText());
-            currentItem.setTypeName(productTypeTextField.getText());
+            currentItem.setTypeID(Integer.parseInt(productTypeTextField.getText()));
             currentItem.setDescription(descriptionTextField.getText());
             currentItem.setLocation(locationTextField.getText());
             currentItem.setQuantity(Double.parseDouble(quantityTextField.getText()));
