@@ -14,11 +14,14 @@ public class Category {
      * @param listName
      * @param groupName
      */
+    /*
     public Category(String listName, String groupName) {
         System.out.println("Usage of deprecated Category constructor.");
         this.categoryName = listName;
         this.groupName = groupName;
     }
+
+     */
 
     /**
      * Main constructor for the class.

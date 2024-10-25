@@ -1,8 +1,6 @@
 package com.example.cab302simplestock.model;
 
 import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
-import com.example.cab302simplestock.model.InterfaceDAOs.ITypeDAO;
-import com.example.cab302simplestock.model.InterfaceDAOs.IUserDAO;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ public class ItemManager implements IItemManager {
 
     @Override
     public int addItem(Item item, String typeName, String categoryName, int groupID) {
-        Type type = typeManager.findType(typeName);
+        Type type = typeManager.getType(typeName);
         int typeID = -1;
         if (type == null)
         {

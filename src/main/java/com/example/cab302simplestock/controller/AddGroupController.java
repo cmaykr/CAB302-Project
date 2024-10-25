@@ -1,6 +1,9 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.Category;
+import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.InterfaceDAOs.ICategoryDAO;
 import com.example.cab302simplestock.model.*;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
 import com.example.cab302simplestock.model.InterfaceDAOs.IViewUserDAO;
@@ -74,7 +77,8 @@ public class AddGroupController {
         }
 
         // Assuming the owner ID is the logged-in user (hardcoded for now as 1)
-        int ownerId = 1; // Replace this with dynamic user ID fetching in real implementation
+        // int ownerId = 1; // Replace this with dynamic user ID fetching in real implementation
+        int ownerId = ActiveUserManager.getInstance().getLoggedInUser().getID();
         Group newGroup = new Group(groupName, ownerId);
         // Add the group to the database
         int group_id = groupManager.addGroup(newGroup);

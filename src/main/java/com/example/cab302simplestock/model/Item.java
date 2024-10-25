@@ -13,8 +13,8 @@ public class Item {
     double purchasePrice;
     double quantity;
     String description;
-    String categoryName; // FIXME Deprecated, use categoryID instead
-    String typeName;  // FIXME Deprecated, use typeID instead
+    //String categoryName; // FIXME Deprecated, use categoryID instead
+    //String typeName;  // FIXME Deprecated, use typeID instead
     int categoryID;
     int typeID;
     String location;
@@ -23,6 +23,7 @@ public class Item {
     /**
      * DEPRECATED, use the other Item constructor with categoryID and typeID instead.
      */
+    /*
     public Item(String itemName, String purchaseDate, double purchasePrice, double quantity, String description, String categoryName, String typeName, String location, boolean insured) {
         System.out.println("Usage of deprecated Item constructor.");
 
@@ -37,7 +38,7 @@ public class Item {
         this.typeName = typeName;
         this.location = location;
         this.insured = insured;
-    }
+    }*/
 
     /**
      * Constructor for the Item class. Sets every variable with the value in their respective parameters.
@@ -66,18 +67,24 @@ public class Item {
     /**
      * DEPRECATED, use getTypeID instead.
      */
+    /*
     public String getTypeName() {
         System.out.println("Usage of deprecated function, use getTypeID instead.");
         return typeName;
     }
+    */
+
 
     /**
      * DEPRECATED, use setTypeID instead.
      */
+    /*
     public void setTypeName(String typeName) {
         System.out.println("Usage of deprecated function, use setTypeID instead.");
         this.typeName = typeName;
     }
+
+     */
 
     /**
      * Gets the ID for the type of the item.
@@ -98,18 +105,24 @@ public class Item {
     /**
      * DEPRECATED, use getCategoryID instead.
      */
+    /*
     public String getCategoryName() {
         System.out.println("Usage of deprecated function, use getCategoryID instead.");
         return categoryName;
     }
 
+     */
+
     /**
      * DEPRECATED, use setCategoryID instead.
      */
+    /*
     public void setCategoryName(String categoryName) {
         System.out.println("Usage of deprecated function, use setCategoryID instead.");
         this.categoryName = categoryName;
     }
+
+     */
 
     /**
      * Gets the ID of the category the Item is in.

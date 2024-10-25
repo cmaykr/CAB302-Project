@@ -40,7 +40,7 @@ public interface ITypeManager {
      * @param typeName The name of the type to search for.
      * @return The type if found.
      */
-    Type findType(String typeName);
+    Type getType(String typeName);
 
     /**
      * Searches for and gets a specific type in the database based on the type's ID.

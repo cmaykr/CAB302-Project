@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.geometry.Insets?>
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.cab302simplestock.controller.ForgottenpassController"
-            prefHeight="400.0" prefWidth="600.0" stylesheets="@fogottenpassword.css" style="-fx-background-color: #e6f7ff;">
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="350.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302simplestock.controller.ForgottenpassController">
 
-    <center>
-        <VBox>
-            <HBox alignment="CENTER" spacing="10">
-                <Label fx:id ="Email">Email</Label>
-                <TextField fx:id="Username" promptText="MyEmail@gmail.com" maxWidth="200"/>
-                <Button fx:id="submit" text="Submit" onAction="#handleSubmitAction"/>
-            </HBox>
-        </VBox>
-    </center>
-</BorderPane>
+    <!-- New password fields, initially hidden -->
+    <Label fx:id="newPasswordLabel" text="New Password" visible="false">
+      <font>
+         <Font size="18.0" />
+      </font></Label>
+    <Label fx:id="securityQuestionLabel" text="Security Question" textAlignment="CENTER">
+      <font>
+         <Font size="16.0" />
+      </font></Label>
+    <TextField fx:id="securityAnswer" alignment="CENTER" maxWidth="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200" promptText="Enter your answer">
+      <VBox.margin>
+         <Insets top="10.0" />
+      </VBox.margin></TextField>
+    <Button onAction="#onSubmitAnswer" text="Submit" />
+    <PasswordField fx:id="newPassword" maxWidth="200.0" promptText="Enter new password" visible="false" />
+    <Label fx:id="confirmPasswordLabel" text="Confirm Password" visible="false" />
+    <PasswordField fx:id="confirmPassword" maxWidth="200.0" promptText="Confirm new password" visible="false" />
+    <Button fx:id="confirmButton" onAction="#onResetPassword" text="Confirm" visible="false" />
+</VBox>

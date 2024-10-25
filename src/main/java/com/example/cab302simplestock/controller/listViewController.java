@@ -2,7 +2,6 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.*;
-import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteTypeDAO;
@@ -132,7 +131,8 @@ public class listViewController {
         // Create a new item object with the updated values from the fields
         if (currentItem != null) {
             currentItem.setName(productNameTextField.getText());
-            currentItem.setTypeName(productTypeTextField.getText());
+            Type type = typeManager.getType(productTypeTextField.getText());
+            currentItem.setTypeID(type.getTypeID());
             currentItem.setDescription(descriptionTextField.getText());
             currentItem.setLocation(locationTextField.getText());
             currentItem.setQuantity(Double.parseDouble(quantityTextField.getText()));

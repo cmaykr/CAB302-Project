@@ -3,18 +3,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302simplestock.controller.RegistrationController"  stylesheets="@credential_Page.css" style="-fx-background-color: #e6f7ff;">
+<BorderPane style="-fx-background-color: #e6f7ff;" stylesheets="@credential_Page.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="com.example.cab302simplestock.controller.RegistrationController">
     <center>
-        <VBox alignment="CENTER" spacing="20">
+        <VBox alignment="CENTER" prefHeight="750.0" prefWidth="650.0" spacing="20">
             <Label fx:id="sign_up">Sign up</Label>
-            <TextField fx:id="firstName" promptText="First Name" maxWidth="200"/>
-            <TextField fx:id="lastName" promptText="Last Name" maxWidth="200"/>
-            <TextField fx:id="email" promptText="Email Address" maxWidth="200"/>
-            <PasswordField fx:id="password" promptText="Password" maxWidth="200"/>
-            <PasswordField fx:id="confirmPassword" promptText="Confirm Password" maxWidth="200"/>
-            <TextField fx:id="securityQuestion" promptText="Security Question" maxWidth="200"/>
-            <TextField fx:id="securityAnswer" promptText="Security Answer" maxWidth="200"/>
-            <Button fx:id="signUpButton" text="Sign Up" onAction="#onCreateAccount" prefWidth="200"/>
+            <TextField fx:id="firstName" maxWidth="200" promptText="First Name" />
+            <TextField fx:id="lastName" maxWidth="200" promptText="Last Name" />
+            <TextField fx:id="email" maxWidth="200" promptText="Email Address" />
+            <PasswordField fx:id="password" maxWidth="200" promptText="Password" />
+            <PasswordField fx:id="confirmPassword" maxWidth="200" promptText="Confirm Password" />
+            <TextField fx:id="securityQuestion" maxWidth="200" promptText="Security Question" />
+            <TextField fx:id="securityAnswer" maxWidth="200" promptText="Security Answer" />
+            <Button fx:id="signUpButton" onAction="#onCreateAccount" prefWidth="200" text="Sign Up" />
         </VBox>
     </center>
 </BorderPane>

@@ -63,12 +63,20 @@ public class TypeManager implements ITypeManager {
 
     /**
      * Finds the type in a database that has the exact same name as the parameter one.
+     * If the type doesn't exist it's created.
      * @param typeName The name of the type to search for.
      * @return The type if found, otherwise null.
      */
     @Override
-    public Type findType(String typeName) {
-        return typeDAO.findTypeByName(typeName);
+    public Type getType(String typeName) {
+        Type type = typeDAO.findTypeByName(typeName);
+        if (type == null)
+        {
+            Type newType = new Type(typeName);
+            int ID = typeDAO.addType(newType);
+            return typeDAO.findTypeByID(ID);
+        }
+        return type;
     }
 
     /**
