@@ -1,0 +1,12 @@
+#updateButton{
+-fx-background-color:#007BFF;
+-fx-text-fill:white;
+-fx-text-weight:bold;
+-fx-font-size:14px;
+}
+#BackUpDownload{
+-fx-background-color:#4b90eb;
+-fx-text-fill:white;
+-fx-text-weight:bold;
+-fx-font-size:14px;
+}

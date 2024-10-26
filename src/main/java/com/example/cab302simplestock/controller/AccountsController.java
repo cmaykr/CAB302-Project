@@ -13,7 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,6 +87,17 @@ public class AccountsController {
             stage.setScene(scene);
 
 
+        }
+
+    }
+    @FXML
+    protected void backupDownload(){
+        try {
+            // Replace with your actual download URL for the inventory file
+            URI downloadUri = new URI("http://yourserver.com/export/inventory/csv");
+            Desktop.getDesktop().browse(downloadUri);  // Open the URL in the default browser
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();  // Print error if there's an issue with opening the link
         }
     }
 }
