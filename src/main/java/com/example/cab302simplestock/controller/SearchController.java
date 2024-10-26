@@ -212,11 +212,16 @@ public class SearchController {
             }
         }
 
-        // Filter and display items with a name or ID that contains the search text
+        // Filter and display items with a name, ID, or type name that contains the search text
         for (Item item : items) {
             if (categoryIds.contains(item.getCategoryID())) {
-                String displayText = item.getName() + " - " + item.getCategoryID();
-                if (displayText.toLowerCase().contains(searchText)) {  // Case-insensitive match
+                String typeName = typeManager.getTypeByID(item.getTypeID()).getName(); // Get the type name
+                String displayText = item.getName() + " - " + typeName;
+
+                // Check if the search text matches item name, item ID (as text), or type name
+                if (item.getName().toLowerCase().contains(searchText) ||
+                        String.valueOf(item.getItemID()).contains(searchText) ||
+                        typeName.toLowerCase().contains(searchText)) {  // Case-insensitive match on type name
                     itemsListView.getItems().add(displayText);
                     itemDisplayMap.put(displayText, item.getItemID());
                 }
@@ -227,6 +232,7 @@ public class SearchController {
             showAlert(Alert.AlertType.INFORMATION, "No Items Found", "No items found matching your search.");
         }
     }
+
 
 
 
