@@ -40,7 +40,7 @@ public class AddItemController {
     private ItemManager itemManager;
     private TypeManager typeManager;
     private CategoryManager categoryManager;
-
+    private String imagePath;
     /**
      * Constructgor for the AddItemContorller.
      * Initialises the DAO implementation for interacting with the database.
@@ -166,12 +166,7 @@ public class AddItemController {
 
             // 2. Create a new Item object
             Item newItem = new Item(productName, productPurchaseDate, productPrice, productQuantity,
-                    productDescription, productCategoryID, productTypeID, productLocation, isInsured);
-
-            // String itemName, String purchaseDate,
-            // double purchasePrice, double quantity,
-            // String description, int categoryID,
-            // int typeID, String location, boolean insured
+                    productDescription, productCategoryID, productTypeID, productLocation, isInsured, imagePath);
 
             // 3. Save the item using DAO
             itemManager.addItem(newItem, productType, productCategory, ActiveGroupManager.getInstance().getActiveGroup().getGroupID());
@@ -199,27 +194,21 @@ public class AddItemController {
         alert.showAndWait();
     }
     @FXML
-    private void handleImageUpload(){
+    private void handleImageUpload() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image");
-
-        // Set extension filter to allow only image files
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
-
-        // Show open file dialog
         File file = fileChooser.showOpenDialog(imageUploadPane.getScene().getWindow());
 
-        // If an image is selected, set it in the ImageView
         if (file != null) {
             Image image = new Image(file.toURI().toString());
             plusIcon.setImage(image);
+            imagePath = file.getAbsolutePath(); // Save the file path
         } else {
-            // Show an alert if no file was selected
             showAlert(Alert.AlertType.ERROR, "Image Upload Failed", "No image file selected.");
         }
     }
-
 
 }

@@ -11,17 +11,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javafx.scene.image.ImageView;
 /**
  * Controller class for managing the product details in the list view screen of SimpleStock.
  * It allows users to view, update, or delete existing inventory items.
  */
 public class listViewController {
 
+    @FXML
+    private ImageView productImageView; // ImageView for displaying the product image
 
     @FXML
     private Button confirmButton; // Added confirm button
@@ -111,7 +117,6 @@ public class listViewController {
      * @param item the item whose data to be displayed.
      */
     private void populateFields(Item item) {
-        System.out.println("test:" + item.getTypeID()); // this is breaking because it is attempting to access types which DONT EXIST
         productNameTextField.setText(item.getName());
         productTypeTextField.setText(typeManager.getTypeByID(item.getTypeID()).getName());
         descriptionTextField.setText(item.getDescription());
@@ -121,6 +126,16 @@ public class listViewController {
         insuredTextField.setSelected(item.getInsured());
         priceTextField.setText(String.valueOf(item.getPurchasePrice()));
 
+        // Load and display the image if an image path exists
+        if (item.getImagePath() != null && !item.getImagePath().isEmpty()) {
+            File imageFile = new File(item.getImagePath());
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toString());
+                productImageView.setImage(image);
+            } else {
+                System.out.println("Image file not found at path: " + item.getImagePath());
+            }
+        }
     }
     /**
      * Event handler for the "Confirm" button. Updates the currently viewed item with the data
@@ -150,6 +165,26 @@ public class listViewController {
 
         }
     }
+
+    @FXML
+    private void handleChangeImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Product Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(productImageView.getScene().getWindow());
+        if (selectedFile != null) {
+            String imagePath = selectedFile.toURI().toString();
+            Image image = new Image(imagePath);
+            productImageView.setImage(image);
+
+            // Update the image path in the current item (save to database as needed)
+            currentItem.setImagePath(selectedFile.getAbsolutePath());
+        }
+    }
+
     /**
      * Event handler for the "Delete" button. Deletes the currently viewed item from the database
      * and navigates back to the previous screen.

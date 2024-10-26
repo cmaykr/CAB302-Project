@@ -17,6 +17,7 @@ public class Item {
     private int typeID;
     private String location;
     private boolean insured;
+    private String imagePath;
 
     /**
      * Constructor for the Item class. Sets every variable with the value in their respective parameters.
@@ -30,7 +31,7 @@ public class Item {
      * @param location Where the item is located.
      * @param insured If the item is insured or not.
      */
-    public Item(String itemName, String purchaseDate, double purchasePrice, double quantity, String description, int categoryID, int typeID, String location, boolean insured) {
+    public Item(String itemName, String purchaseDate, double purchasePrice, double quantity, String description, int categoryID, int typeID, String location, boolean insured, String imagePath) {
         this.itemName = itemName;
         this.purchaseDate = LocalDate.parse(purchaseDate);
         this.purchasePrice = purchasePrice;
@@ -40,6 +41,19 @@ public class Item {
         this.typeID = typeID;
         this.location = location;
         this.insured = insured;
+        this.imagePath = imagePath;
+    }
+
+    /**
+     * Getter for image path
+     * @return the string image path
+     */
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     /**

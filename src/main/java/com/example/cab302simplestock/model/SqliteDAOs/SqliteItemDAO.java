@@ -41,6 +41,7 @@ public class SqliteItemDAO implements IItemDAO {
                     + "typeID VARCHAR NOT NULL,"
                     + "location VARCHAR,"
                     + "insured INTEGER NOT NULL,"
+                    + "imagePath VARCHAR,"
                     + "FOREIGN KEY (categoryID) REFERENCES category(categoryID),"
                     + "FOREIGN KEY (typeID) REFERENCES type(typeID)"
                     + ")";
@@ -58,8 +59,10 @@ public class SqliteItemDAO implements IItemDAO {
     public int addItem(Item item) {
         int itemID = -1;
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO item (name, purchaseDate, purchasePrice, quantity, "
-                    + "description, categoryID, typeID, location, insured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO item (name, purchaseDate, purchasePrice, quantity, "
+                            + "description, categoryID, typeID, location, insured, imagePath) " // Added imagePath
+                            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             statement.setString(1, item.getName());
             statement.setDate(2, Date.valueOf(item.getPurchaseDate()));
@@ -70,20 +73,21 @@ public class SqliteItemDAO implements IItemDAO {
             statement.setInt(7, item.getTypeID());
             statement.setString(8, item.getLocation());
             statement.setBoolean(9, item.getInsured());
+            statement.setString(10, item.getImagePath()); // Set imagePath value
             statement.executeUpdate();
 
-            // Retrieve the last inserted groupID
+            // Retrieve the last inserted itemID
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
             if (rs.next()) {
-                itemID = rs.getInt(1);  // Retrieve the generated groupID
+                itemID = rs.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return itemID;
     }
+
 
     /**
      * Updates an item that already exists in the database. The item is chosen by its ID value.
@@ -93,8 +97,11 @@ public class SqliteItemDAO implements IItemDAO {
     @Override
     public void updateItem(Item item) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE item SET name = ?, purchasePrice = ?, purchaseDate = ?, " +
-                    "quantity = ?, description = ?, categoryID = ?, typeID = ?, location = ?, insured = ? WHERE itemID = ?");
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE item SET name = ?, purchasePrice = ?, purchaseDate = ?, "
+                            + "quantity = ?, description = ?, categoryID = ?, typeID = ?, location = ?, "
+                            + "insured = ?, imagePath = ? WHERE itemID = ?");  // Added imagePath
+
             statement.setString(1, item.getName());
             statement.setDouble(2, item.getPurchasePrice());
             statement.setDate(3, Date.valueOf(item.getPurchaseDate()));
@@ -104,12 +111,14 @@ public class SqliteItemDAO implements IItemDAO {
             statement.setInt(7, item.getTypeID());
             statement.setString(8, item.getLocation());
             statement.setBoolean(9, item.getInsured());
-            statement.setInt(10, item.getItemID());
+            statement.setString(10, item.getImagePath()); // Set imagePath value
+            statement.setInt(11, item.getItemID());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Deletes an item in the Sqlite database, looks for the item with the same ID as the parameter one. No other checks other than the ID is made.
@@ -148,7 +157,8 @@ public class SqliteItemDAO implements IItemDAO {
                 int typeID = resultSet.getInt("typeID");
                 String location = resultSet.getString("location");
                 boolean insured = resultSet.getBoolean("insured");
-                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, categoryID, typeID, location, insured);
+                String imagePath = resultSet.getString("imagePath"); // Retrieve imagePath
+                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, categoryID, typeID, location, insured, imagePath); // Pass imagePath to constructor
                 item.setItemID(id);
                 items.add(item);
             }
@@ -157,6 +167,7 @@ public class SqliteItemDAO implements IItemDAO {
         }
         return items;
     }
+
 
     @Override
     public Item findItemByID(int itemId) {
@@ -176,7 +187,8 @@ public class SqliteItemDAO implements IItemDAO {
                 int typeID = resultSet.getInt("typeID");
                 String location = resultSet.getString("location");
                 boolean insured = resultSet.getBoolean("insured");
-                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, categoryID, typeID, location, insured);
+                String imagePath = resultSet.getString("imagePath");
+                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, categoryID, typeID, location, insured, imagePath);
                 item.setItemID(id);
                 return item;
             }
@@ -206,7 +218,8 @@ public class SqliteItemDAO implements IItemDAO {
                 int typeID = resultSet.getInt("typeID");
                 String location = resultSet.getString("location");
                 boolean insured = resultSet.getBoolean("insured");
-                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, catID, typeID, location, insured);
+                String imagePath = resultSet.getString("imagePath");
+                Item item = new Item(name, purchaseDate.toString(), purchasePrice, quantity, description, catID, typeID, location, insured, imagePath);
                 item.setItemID(id);
                 items.add(item);
             }
