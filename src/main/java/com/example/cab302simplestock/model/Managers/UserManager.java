@@ -1,13 +1,16 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.Managers;
 
 import com.example.cab302simplestock.model.InterfaceDAOs.IUserDAO;
+import com.example.cab302simplestock.model.ManagerInterfaces.IUserManager;
+import com.example.cab302simplestock.model.User;
+
 import java.util.List;
 
 /**
  * Implementation of the userManager interface using a userDAO for the managing of users.
  * Uses dependency injection to get the user DAO.
  */
-public class UserManager implements IUserManager{
+public class UserManager implements IUserManager {
     IUserDAO userDAO;
 
     /**

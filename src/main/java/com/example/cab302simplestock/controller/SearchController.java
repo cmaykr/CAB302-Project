@@ -1,15 +1,14 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
-import com.example.cab302simplestock.model.*;
+import com.example.cab302simplestock.model.Managers.ActiveGroupManager;
+import com.example.cab302simplestock.model.Managers.CategoryManager;
+import com.example.cab302simplestock.model.Managers.ItemManager;
+import com.example.cab302simplestock.model.Managers.TypeManager;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteTypeDAO;
 import com.example.cab302simplestock.model.Category;
 import com.example.cab302simplestock.model.Group;
-import com.example.cab302simplestock.model.GroupManager;
-import com.example.cab302simplestock.model.InterfaceDAOs.ICategoryDAO;
-import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,21 +20,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
 
-import com.example.cab302simplestock.SimpleStock;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.event.ActionEvent;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import com.example.cab302simplestock.model.InterfaceDAOs.IItemDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.Item;
 
-import java.io.IOException;
 import java.util.List;
 
 

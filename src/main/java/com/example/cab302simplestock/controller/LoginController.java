@@ -2,7 +2,7 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
 import com.example.cab302simplestock.model.User;
-import com.example.cab302simplestock.model.ActiveUserManager;
+import com.example.cab302simplestock.model.Managers.ActiveUserManager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

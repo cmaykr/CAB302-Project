@@ -1,6 +1,13 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.Managers;
 
+import com.example.cab302simplestock.model.Category;
+import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
+import com.example.cab302simplestock.model.ManagerInterfaces.ICategoryManager;
+import com.example.cab302simplestock.model.ManagerInterfaces.IGroupManager;
+import com.example.cab302simplestock.model.ManagerInterfaces.IViewUserManager;
+import com.example.cab302simplestock.model.User;
+import com.example.cab302simplestock.model.ViewUser;
 
 import java.util.List;
 import java.util.Objects;

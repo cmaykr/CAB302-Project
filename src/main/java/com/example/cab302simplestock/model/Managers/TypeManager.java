@@ -1,6 +1,8 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.Managers;
 
 import com.example.cab302simplestock.model.InterfaceDAOs.ITypeDAO;
+import com.example.cab302simplestock.model.ManagerInterfaces.ITypeManager;
+import com.example.cab302simplestock.model.Type;
 
 import java.util.List;
 

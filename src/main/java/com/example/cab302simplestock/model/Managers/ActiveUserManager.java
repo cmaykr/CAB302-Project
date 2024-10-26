@@ -1,4 +1,6 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.Managers;
+
+import com.example.cab302simplestock.model.User;
 
 /**
  * Singleton class used to keep track of the current logged-in user.

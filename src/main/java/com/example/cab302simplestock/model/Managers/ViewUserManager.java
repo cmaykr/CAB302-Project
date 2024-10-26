@@ -1,6 +1,10 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.Managers;
 
 import com.example.cab302simplestock.model.InterfaceDAOs.IViewUserDAO;
+import com.example.cab302simplestock.model.ManagerInterfaces.IUserManager;
+import com.example.cab302simplestock.model.ManagerInterfaces.IViewUserManager;
+import com.example.cab302simplestock.model.User;
+import com.example.cab302simplestock.model.ViewUser;
 
 import java.util.ArrayList;
 import java.util.List;

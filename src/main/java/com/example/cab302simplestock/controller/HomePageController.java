@@ -2,10 +2,10 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.Group;
-import com.example.cab302simplestock.model.ActiveGroupManager;
+import com.example.cab302simplestock.model.Managers.ActiveGroupManager;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteGroupDAO;
 import com.example.cab302simplestock.model.User;
-import com.example.cab302simplestock.model.ActiveUserManager;
+import com.example.cab302simplestock.model.Managers.ActiveUserManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

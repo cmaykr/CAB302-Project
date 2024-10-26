@@ -1,4 +1,7 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.Managers;
+
+import com.example.cab302simplestock.model.Group;
+import com.example.cab302simplestock.model.ManagerInterfaces.IActiveGroup;
 
 /**
  * Singleton class for tracking the current active group.

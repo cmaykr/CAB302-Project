@@ -2,6 +2,9 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
 import com.example.cab302simplestock.model.*;
+import com.example.cab302simplestock.model.Managers.CategoryManager;
+import com.example.cab302simplestock.model.Managers.ItemManager;
+import com.example.cab302simplestock.model.Managers.TypeManager;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteCategoryDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteItemDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteTypeDAO;

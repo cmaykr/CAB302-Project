@@ -1,6 +1,6 @@
 import com.example.cab302simplestock.model.*;
-import com.example.cab302simplestock.model.MockDAOs.MockCategoryDAO;
-import com.example.cab302simplestock.model.MockDAOs.MockTypeDAO;
+import com.example.cab302simplestock.model.Managers.UserManager;
+import com.example.cab302simplestock.model.Managers.ViewUserManager;
 import com.example.cab302simplestock.model.MockDAOs.MockUserDAO;
 import com.example.cab302simplestock.model.MockDAOs.MockViewUserDAO;
 import org.junit.jupiter.api.*;

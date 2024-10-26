@@ -1,4 +1,6 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.ManagerInterfaces;
+
+import com.example.cab302simplestock.model.Category;
 
 import java.util.List;
 

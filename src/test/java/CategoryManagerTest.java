@@ -1,4 +1,5 @@
 import com.example.cab302simplestock.model.*;
+import com.example.cab302simplestock.model.Managers.CategoryManager;
 import com.example.cab302simplestock.model.MockDAOs.MockCategoryDAO;
 import org.junit.jupiter.api.*;
 

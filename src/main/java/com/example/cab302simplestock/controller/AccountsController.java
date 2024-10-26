@@ -1,23 +1,19 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
-import com.example.cab302simplestock.model.ActiveUserManager;
+import com.example.cab302simplestock.model.Managers.ActiveUserManager;
 import com.example.cab302simplestock.model.InterfaceDAOs.IUserDAO;
-import com.example.cab302simplestock.model.Item;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
 import com.example.cab302simplestock.model.User;
-import com.example.cab302simplestock.model.UserManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class AccountsController {

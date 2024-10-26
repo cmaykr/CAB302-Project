@@ -1,4 +1,7 @@
-package com.example.cab302simplestock.model;
+package com.example.cab302simplestock.model.ManagerInterfaces;
+
+import com.example.cab302simplestock.model.User;
+import com.example.cab302simplestock.model.ViewUser;
 
 import java.util.List;
 

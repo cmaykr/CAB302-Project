@@ -1,4 +1,8 @@
 import com.example.cab302simplestock.model.*;
+import com.example.cab302simplestock.model.Managers.CategoryManager;
+import com.example.cab302simplestock.model.Managers.GroupManager;
+import com.example.cab302simplestock.model.Managers.UserManager;
+import com.example.cab302simplestock.model.Managers.ViewUserManager;
 import com.example.cab302simplestock.model.MockDAOs.MockCategoryDAO;
 import com.example.cab302simplestock.model.MockDAOs.MockGroupDAO;
 import com.example.cab302simplestock.model.MockDAOs.MockUserDAO;
