@@ -19,7 +19,7 @@ public class ItemTest {
         String location = "Garage";
         boolean insured = true;
 
-        item = new Item(itemName, purchaseDate, purchasePrice, value, description, categoryID, typeID, location, insured);
+        item = new Item(itemName, purchaseDate, purchasePrice, value, description, categoryID, typeID, location, insured, "");
     }
 
     @Test
