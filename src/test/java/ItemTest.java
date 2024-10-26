@@ -19,7 +19,7 @@ public class ItemTest {
         String location = "Garage";
         boolean insured = true;
 
-        item = new Item(itemName, purchaseDate, purchasePrice, value, description, categoryID, typeID, location, insured, "");
+        item = new Item(itemName, purchaseDate, purchasePrice, value, description, categoryID, typeID, location, insured, "testImage.png");
     }
 
     @Test
@@ -144,6 +144,13 @@ public class ItemTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> item.setItemID(0));
 
         assertEquals("Item ID cannot be negative, must be positive, >0.", exception.getMessage());
+    }
+
+    @Test
+    void testSetImagePath() {
+        item.setImagePath("NewImage.png");
+
+        assertEquals(item.getImagePath(), "NewImage.png");
     }
 
 

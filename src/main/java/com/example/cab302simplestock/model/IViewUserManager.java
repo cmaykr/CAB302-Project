@@ -62,13 +62,6 @@ public interface IViewUserManager {
     int addUserToGroup(User user, int groupID);
 
     /**
-     * Deletes a viewUser from the database, akin to removing access to a group for a user.
-     * @param userID The ID of the user the viewUser references.
-     * @param groupID The ID of the group the viewUser references.
-     */
-    void deleteUserFromGroup(int userID, int groupID);
-
-    /**
      * Finds and gets a viewUser based on the user and group it references.
      * @param userID The ID of the user it references.
      * @param groupID The ID of the group it references.

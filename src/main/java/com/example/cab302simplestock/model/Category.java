@@ -62,15 +62,6 @@ public class Category {
     }
 
     /**
-     * DEPRECATED; use getGroupID instead.
-     * @return
-     */
-    public String getGroupName() {
-        System.out.println("Usage of deprecated method, use getGroupID instead.");
-        return groupName;
-    }
-
-    /**
      * Sets a new group the category is owned by.
      * @param newID The new group ID.
      * @throws IllegalArgumentException If the new ID parameter is invalid.

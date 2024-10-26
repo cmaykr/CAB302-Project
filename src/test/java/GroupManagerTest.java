@@ -313,4 +313,35 @@ public class GroupManagerTest {
 
         assertEquals("Category ID in deleteCategory has an invalid value, must be a positive value, >0.", exception.getMessage());
     }
+
+    @Test
+    void testUpdateGroupDoesNotThrowException() {
+        Group group = new Group("Test", 2);
+
+        int id = groupManager.addGroup(group);
+
+        group.setGroupID(id);
+        group.setGroupName("Test2");
+
+        assertDoesNotThrow(() -> groupManager.updateGroup(group));
+    }
+
+    @Test
+    void testDeleteGroupShouldNotThrowException() {
+        Group group = new Group("Test", 2);
+        int id = groupManager.addGroup(group);
+        group.setGroupID(id);
+
+        assertDoesNotThrow(() -> groupManager.deleteGroup(group));
+    }
+
+    @Test
+    void testGetAllGroups() {
+        Group group = new Group("Test", 2);
+        groupManager.addGroup(group);
+        List<Group> groupList = groupManager.getAllGroups();
+
+        assertEquals(groupList.size(), 1);
+        assertEquals(groupList.getFirst().getGroupName(), "Test");
+    }
 }

@@ -39,6 +39,15 @@ public class CategoryManager implements ICategoryManager {
      */
     @Override
     public Category findCategoryInGroup(int categoryID, int groupID) {
+        List<Category> categoriesInGroup = categoryDAO.getCategoriesByGroupID(groupID);
+
+        for (Category cat: categoriesInGroup) {
+            if (cat.getCategoryID() == categoryID)
+            {
+                return cat;
+            }
+        }
+
         return null;
     }
 

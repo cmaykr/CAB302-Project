@@ -1,5 +1,6 @@
 package com.example.cab302simplestock.model.MockDAOs;
 
+import com.example.cab302simplestock.model.Category;
 import com.example.cab302simplestock.model.Group;
 import com.example.cab302simplestock.model.InterfaceDAOs.IGroupDAO;
 
@@ -56,7 +57,12 @@ public class MockGroupDAO implements IGroupDAO {
 
         if (groupID != -1)
         {
-            groups.set(groupID, group);
+            for (int i=0; i<groups.size();i++) {
+                if (groups.get(i).getGroupID() == groupID)
+                {
+                    groups.set(i, group);
+                }
+            }
         }
     }
 
@@ -78,7 +84,13 @@ public class MockGroupDAO implements IGroupDAO {
 
         if (groupID != -1)
         {
-            groups.remove(groupID);
+            for (Group gr:groups) {
+                if (gr.getGroupID() == groupID)
+                {
+                    groups.remove(gr);
+                    break;
+                }
+            }
         }
     }
 

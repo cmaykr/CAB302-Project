@@ -35,10 +35,6 @@ public class TypeManager implements ITypeManager {
      */
     @Override
     public void updateType(Type type) {
-        if (type.getTypeID() <= 0)
-        {
-            throw new IllegalArgumentException("The type ID must be set for the database to find the correct type.");
-        }
         typeDAO.updateType(type);
     }
 
