@@ -1,6 +1,7 @@
 package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.SimpleStock;
+import com.example.cab302simplestock.model.ActiveUserManager;
 import com.example.cab302simplestock.model.InterfaceDAOs.IUserDAO;
 import com.example.cab302simplestock.model.Item;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
@@ -56,10 +57,10 @@ public class AccountsController {
     }
 
     private User setupUserSelection() {
-        currentUser = UserManager.getInstance().getLoggedInUser();
-        currentUserFn = UserManager.getInstance().getLoggedInUser().getFirstName();
-        currentUserLn = UserManager.getInstance().getLoggedInUser().getLastName();
-        currentUserEmail = UserManager.getInstance().getLoggedInUser().getEmail();
+        currentUser = ActiveUserManager.getInstance().getLoggedInUser();
+        currentUserFn = ActiveUserManager.getInstance().getLoggedInUser().getFirstName();
+        currentUserLn = ActiveUserManager.getInstance().getLoggedInUser().getLastName();
+        currentUserEmail = ActiveUserManager.getInstance().getLoggedInUser().getEmail();
         return currentUser;
     }
 

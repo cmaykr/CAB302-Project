@@ -12,13 +12,13 @@ import java.util.UUID;
  * A simple model class for representing a User with a first name, last name, email, hashed password, security question and a security answer.
  */
 public class User {
-    int userID;
-    String firstName;
-    String lastName;
-    String email;
-    String password;
-    String securityQuestion;
-    String securityAnswer;
+    private int userID;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String securityQuestion;
+    private String securityAnswer;
 
     /**
      * DEPRECATED, use other User constructor.

@@ -4,8 +4,8 @@ package com.example.cab302simplestock.model;
  * Simple model class for representing a type with its name.
  */
 public class Type {
-    int typeID;
-    String name;
+    private int typeID;
+    private String name;
 
     /**
      * Constructor that sets a type with its name.

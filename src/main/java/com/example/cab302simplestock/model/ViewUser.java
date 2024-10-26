@@ -4,9 +4,9 @@ package com.example.cab302simplestock.model;
  * Simple model class for representing a viewUser with the group ID its in and the user ID it represents in the group.
  */
 public class ViewUser {
-    int viewUserID;
-    int groupID;
-    int userID;
+    private int viewUserID;
+    private int groupID;
+    private int userID;
 
     /**
      * Constructs a ViewUser with a group ID and user ID.

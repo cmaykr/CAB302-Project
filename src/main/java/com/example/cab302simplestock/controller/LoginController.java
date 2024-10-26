@@ -2,7 +2,7 @@ package com.example.cab302simplestock.controller;
 
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
 import com.example.cab302simplestock.model.User;
-import com.example.cab302simplestock.model.UserManager;
+import com.example.cab302simplestock.model.ActiveUserManager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,7 +73,7 @@ public class LoginController {
         try {
             // Check for admin credentials
             if (email.equals(ADMIN_EMAIL) && pwd.equals(ADMIN_PASSWORD)) {
-                UserManager.getInstance().setLoggedInUser(new User("Admin", "User", ADMIN_EMAIL, ADMIN_PASSWORD, "", ""));
+                ActiveUserManager.getInstance().setLoggedInUser(new User("Admin", "User", ADMIN_EMAIL, ADMIN_PASSWORD, "", ""));
                 showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, Admin!");
                 loadHomePage();
                 return; // Exit after successful admin login
@@ -84,7 +84,7 @@ public class LoginController {
             if (user != null) {
                 // If user exists, check the password
                 if (user.checkPassword(pwd)) {
-                    UserManager.getInstance().setLoggedInUser(user);
+                    ActiveUserManager.getInstance().setLoggedInUser(user);
                     showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + user.getFirstName() + "!");
                     loadHomePage();
                 } else {
