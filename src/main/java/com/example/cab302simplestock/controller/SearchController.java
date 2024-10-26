@@ -217,10 +217,6 @@ public class SearchController {
                 }
             }
         }
-
-        if (itemsListView.getItems().isEmpty()) {
-            showAlert(Alert.AlertType.INFORMATION, "No Items Found", "No items found matching your search.");
-        }
     }
 
 
