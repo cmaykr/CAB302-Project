@@ -30,6 +30,9 @@ public class listViewController {
     private Button deleteButton; // Added delete button
 
     @FXML
+    private Button cancelButton; // Added cancel button
+
+    @FXML
     private TextField productNameTextField;
 
     @FXML
@@ -159,5 +162,10 @@ public class listViewController {
             itemManager.deleteItem(currentItem); // Delete the item from the database
             goBack(); // Go back to the previous screen after deletion
         }
+    }
+
+    @FXML
+    protected void cancel() throws IOException {
+        goBack();
     }
 }

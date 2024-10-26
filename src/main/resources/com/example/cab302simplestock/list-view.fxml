@@ -56,7 +56,7 @@
             <HBox spacing="10.0" alignment="CENTER">
                 <Button fx:id="confirmButton" text="Confirm" onAction="#updateItem" />
                 <Button fx:id="deleteButton" text="Delete" onAction="#deleteItem" />
-                <Button fx:id="cancelButton" text="Cancel" />
+                <Button fx:id="cancelButton" text="Cancel" onAction="#cancel"/>
             </HBox>
         </VBox>
     </HBox>
