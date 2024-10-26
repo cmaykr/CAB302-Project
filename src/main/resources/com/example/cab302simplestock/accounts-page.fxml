@@ -33,7 +33,8 @@
 
             <Label text="Update your details?" GridPane.columnIndex="0" GridPane.rowIndex="4" />
             <Button fx:id="updateButton" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="300" text="Confirm" onAction="#updateUser"/>
-
+            <Label fx:id="downloadBackUp" text="Back up data (Click to download)"/>
+            <Button fx:id="BackUpDownload" text="BackUp!" onAction="#backupDownload"/>
         </GridPane>
 
     </children>

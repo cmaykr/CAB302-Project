@@ -5,6 +5,7 @@ import com.example.cab302simplestock.model.Managers.ActiveUserManager;
 import com.example.cab302simplestock.model.InterfaceDAOs.IUserDAO;
 import com.example.cab302simplestock.model.SqliteDAOs.SqliteUserDAO;
 import com.example.cab302simplestock.model.User;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,6 +33,8 @@ public class AccountsController {
 
     @FXML
     private Button updateButton;
+    @FXML
+    private Button BackUpDownload;
 
     @FXML
     private TextField userFirstNameTextField;
